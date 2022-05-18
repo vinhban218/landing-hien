@@ -2,7 +2,7 @@ import gsap, { Linear, Power2 } from "gsap";
 
 function init() {
   const container = document.querySelector("#butterfly-container");
-  const count = 60;
+  const count = 80;
   let w, h;
 
   function random(min, max) {
