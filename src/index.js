@@ -9,7 +9,7 @@ import {
   ThreeDOFControls,
 } from "three-story-controls";
 import * as dat from "dat.gui";
-import "./butterfly.js";
+import initButterfly from "./butterfly";
 const body = document.querySelector("body");
 const kyrosElem = document.querySelector("#kyros");
 const nurtureElem = document.querySelector("#nurture");
@@ -30,6 +30,7 @@ const models = {
   key: null,
   cubes: [],
   logo: null,
+  circle: [],
 };
 const vietNameRad = 3.1;
 let globleRotateStart = 0;
@@ -84,6 +85,7 @@ const updateAllMaterials = () => {
     }
   });
 };
+
 const loadingManager = new THREE.LoadingManager(
   // Loaded
   () => {
@@ -105,6 +107,10 @@ const loadingManager = new THREE.LoadingManager(
     }, 3000); */
 
     sceneReady = true;
+    setInterval(() => {
+      models.circle[0].rotation.z += 0.001;
+    }, 10);
+    initButterfly();
     const keyHole = loadingScreen.querySelector(".key-hole");
     const textEnter = keyHole.querySelector(".text-enter");
     textEnter.style.opacity = 1;
@@ -225,7 +231,7 @@ gltfLoader.load("/models/vong-tron-cham-do.gltf", (gltf) => {
   models.redCircle.rotation.set(0, 0.01, 0);
   models.redCircle.material.transparent = true;
   scene.add(gltf.scene);
-  redCirclePos.add(models.redCircle.position, "x").min(-10).max(10).step(0.01);
+  /* redCirclePos.add(models.redCircle.position, "x").min(-10).max(10).step(0.01);
   redCirclePos.add(models.redCircle.position, "y").min(-10).max(10).step(0.01);
   redCirclePos.add(models.redCircle.position, "z").min(-10).max(10).step(0.01);
   redCircleScale.add(models.redCircle.scale, "x").min(0.1).max(10).step(0.01);
@@ -233,9 +239,31 @@ gltfLoader.load("/models/vong-tron-cham-do.gltf", (gltf) => {
   redCircleScale.add(models.redCircle.scale, "z").min(0.1).max(10).step(0.01);
   redCircleRotate.add(models.redCircle.rotation, "x").min(-5).max(5).step(0.01);
   redCircleRotate.add(models.redCircle.rotation, "y").min(-5).max(5).step(0.01);
-  redCircleRotate.add(models.redCircle.rotation, "z").min(-5).max(5).step(0.01);
+  redCircleRotate.add(models.redCircle.rotation, "z").min(-5).max(5).step(0.01); */
   updateAllMaterials();
 });
+// vong tron
+gltfLoader.load("/models/vong-tron.gltf", (gltf) => {
+  for (let i = 0; i < 2; i++) {
+    gltf.scene.children[0].position.set(0, 0, 0);
+    gltf.scene.children[0].material.transparent = true;
+    gltf.scene.children[0].scale.set(0, 0, 0);
+    models.circle.push(gltf.scene.children[0]);
+  }
+  redCirclePos.add(models.circle[0].position, "x").min(-10).max(10).step(0.01);
+  redCirclePos.add(models.circle[0].position, "y").min(-10).max(10).step(0.01);
+  redCirclePos.add(models.circle[0].position, "z").min(-10).max(10).step(0.01);
+  redCircleScale.add(models.circle[0].scale, "x").min(0.1).max(10).step(0.01);
+  redCircleScale.add(models.circle[0].scale, "y").min(0.1).max(10).step(0.01);
+  redCircleScale.add(models.circle[0].scale, "z").min(0.1).max(10).step(0.01);
+  redCircleRotate.add(models.circle[0].rotation, "x").min(-5).max(5).step(0.01);
+  redCircleRotate.add(models.circle[0].rotation, "y").min(-5).max(5).step(0.01);
+  redCircleRotate.add(models.circle[0].rotation, "z").min(-5).max(5).step(0.01);
+
+  scene.add(gltf.scene);
+  updateAllMaterials();
+});
+
 //logo
 gltfLoader.load("/models/logo-fix.gltf", (gltf) => {
   scene.add(gltf.scene);
@@ -586,9 +614,30 @@ window.addEventListener(
 );
 
 //line animation
+let startLoop = 0.45;
+let endloop = 0;
+
 const line = document.querySelector(".line-progress");
 function lineAnimation(progress) {
   line.style.width = `${progress * 60}px`;
+  let i = 0;
+  if (progress >= 0.45) {
+    if (progress >= startLoop + 0.12) {
+      startLoop = progress;
+    }
+
+    if (progress >= startLoop + 0.1) {
+      endloop = 0.02;
+    }
+
+    if (endloop >= 0) {
+      endloop -= progress - startLoop;
+      return;
+    }
+    const pc = (progress - startLoop) * 10;
+    models.circle[i].scale.set(1 + pc * 0.7, 1 + pc * 0.7, 1 + pc * 0.7);
+    models.circle[i].material.opacity = 1 * pc;
+  }
 }
 // animation section 1
 function rotateGlobeAni(progress) {
@@ -719,13 +768,14 @@ function nextScene2(progress) {
       1.2 - 3 * progress
     );
   }
-
+  models.redCircle.material.opacity = 0.2 * (1 - 3 * progress);
+  models.logo.position.y = 0.04 - 0.04 * progress;
   models.logo.position.z = 7.75 + 0.3 * progress;
-  models.logo.scale.set(
+  /*  models.logo.scale.set(
     0.001 - 0.001 * progress,
     0.001 - 0.001 * progress,
     0.001 - 0.001 * progress
-  );
+  ); */
 
   fadeLeft(kyrosTextLeftChilds, progress);
   fadeLeft(kyrosTextRightChilds, progress);

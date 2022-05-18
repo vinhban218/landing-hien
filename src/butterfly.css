@@ -3,9 +3,9 @@
 	position: absolute;
 	/* left: 300px;
 	top: 200px; */
-	width: 6px;
-	height: 6px;
-	background-color: #ffffff;
+	width: 5px;
+	height: 5px;
+	background-color: #dddddd;
 	border-radius: 50%;
 	box-shadow: 0 0 10px rgb(239, 241, 236),
 	            0 0 15px rgb(168, 170, 167),
