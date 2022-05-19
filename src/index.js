@@ -1,4 +1,4 @@
-import "./index.css";
+import "./assets/index.css";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import {
@@ -9,7 +9,7 @@ import {
   ThreeDOFControls,
 } from "three-story-controls";
 import * as dat from "dat.gui";
-import initButterfly from "./butterfly";
+import initButterfly from "./js/butterfly";
 const body = document.querySelector("body");
 const kyrosElem = document.querySelector("#kyros");
 const nurtureElem = document.querySelector("#nurture");
@@ -18,7 +18,6 @@ const loadingScreen = document.querySelector("#loading");
 
 loadingScreen.style.display = "flex";
 let isLoadedModel = false;
-let firstGlobleInterval;
 nurtureElem.style.opacity = 0;
 incubateElem.style.opacity = 0;
 
@@ -36,6 +35,7 @@ const vietNameRad = 3.1;
 let globleRotateStart = 0;
 let globleRoateEnd = 6.82;
 let sceneReady = false;
+const PI = Math.PI;
 /* --------------------------------------------- */
 // Debug
 //hinh cau
@@ -107,18 +107,21 @@ const loadingManager = new THREE.LoadingManager(
     }, 3000); */
 
     sceneReady = true;
-    setInterval(() => {
-      models.circle[0].rotation.z += 0.001;
-    }, 10);
-    initButterfly();
+    //initButterfly();
     const keyHole = loadingScreen.querySelector(".key-hole");
-    const textEnter = keyHole.querySelector(".text-enter");
-    textEnter.style.opacity = 1;
+
+    //create text enter
+    const textEnter = document.createElement("div");
+    textEnter.innerHTML = "ENTER";
+    textEnter.classList.add("text-enter");
+    keyHole.appendChild(textEnter);
+
     loadingScreen.style.cursor = "pointer";
     loadingScreen.addEventListener("click", () => {
       loadingScreen.style.transform = "scale(40)";
       loadingScreen.style.filter = "blur(20px)";
       keyHole.style.filter = "blur(20px)";
+      textEnter.style.display = "none";
       setTimeout(() => {
         loadingScreen.style.opacity = 0;
         keyHole.style.opacity = 0;
@@ -126,28 +129,7 @@ const loadingManager = new THREE.LoadingManager(
           let scaleVal = 0;
           let redCircleZPos = 0;
           loadingScreen.style.display = "none";
-          let initInterval = setInterval(() => {
-            scaleVal += 0.001;
-            redCircleZPos += 3.38 / 500;
-            models.globle.scale.set(
-              0.7 + scaleVal,
-              0.7 + scaleVal,
-              0.7 + scaleVal
-            );
-            models.redCircle.position.z = 0.82 + redCircleZPos;
-            /* models.redCircle.scale.set(
-              0.5 + scaleVal,
-              0.5 + scaleVal,
-              0.5 + scaleVal
-            ); */
-            if (scaleVal >= 0.5) {
-              clearInterval(initInterval);
-              isLoadedModel = true;
-              firstGlobleInterval = setInterval(() => {
-                models.globle.rotation.y += 0.001;
-              }, 5);
-            }
-          }, 5);
+          intro();
         }, 600);
       }, 2000);
     });
@@ -204,11 +186,10 @@ updateAllMaterials();
  * Models
  */
 //trai dat trang
-gltfLoader.load("/models/trai-dat-fix.gltf", (gltf) => {
-  gltf.scene.children[0].scale.set(0.7, 0.7, 0.7);
-  gltf.scene.children[0].position.set(0, 0.1, 5.1);
-  gltf.scene.children[0].rotation.set(0.29, 0, 0.01);
-  //gltf.scene.children[0].material.transparent = true;
+gltfLoader.load("/models/globle.gltf", (gltf) => {
+  gltf.scene.children[0].scale.set(1, 1, 1);
+  gltf.scene.children[0].position.set(0, 0.1, 5.8);
+  gltf.scene.children[0].rotation.set(0.33, 0, 0.02);
   models.globle = gltf.scene.children[0];
 
   scene.add(gltf.scene);
@@ -218,20 +199,20 @@ gltfLoader.load("/models/trai-dat-fix.gltf", (gltf) => {
   globeRotate.add(models.globle.rotation, "y").min(-10).max(10).step(0.01);
   globeRotate.add(models.globle.rotation, "x").min(-10).max(10).step(0.01);
   globeRotate.add(models.globle.rotation, "z").min(-10).max(10).step(0.01);
-  globleScale.add(models.globle.scale, "x").min(0.1).max(2).step(0.1);
-  globleScale.add(models.globle.scale, "y").min(0.1).max(2).step(0.1);
-  globleScale.add(models.globle.scale, "z").min(0.1).max(2).step(0.1);
+  globleScale.add(models.globle.scale, "x").min(0.1).max(3).step(0.01);
+  globleScale.add(models.globle.scale, "y").min(0.1).max(3).step(0.01);
+  globleScale.add(models.globle.scale, "z").min(0.1).max(3).step(0.01);
   updateAllMaterials();
 });
 // vong tron cham do
-gltfLoader.load("/models/vong-tron-cham-do.gltf", (gltf) => {
+gltfLoader.load("/models/circle.gltf", (gltf) => {
   models.redCircle = gltf.scene.children[0];
   models.redCircle.scale.set(1, 1, 1);
-  models.redCircle.position.set(5.2, -5.42, 0.82);
+  models.redCircle.position.set(0.02, 0.22, 4.4);
   models.redCircle.rotation.set(0, 0.01, 0);
   models.redCircle.material.transparent = true;
   scene.add(gltf.scene);
-  /* redCirclePos.add(models.redCircle.position, "x").min(-10).max(10).step(0.01);
+  redCirclePos.add(models.redCircle.position, "x").min(-10).max(10).step(0.01);
   redCirclePos.add(models.redCircle.position, "y").min(-10).max(10).step(0.01);
   redCirclePos.add(models.redCircle.position, "z").min(-10).max(10).step(0.01);
   redCircleScale.add(models.redCircle.scale, "x").min(0.1).max(10).step(0.01);
@@ -239,11 +220,11 @@ gltfLoader.load("/models/vong-tron-cham-do.gltf", (gltf) => {
   redCircleScale.add(models.redCircle.scale, "z").min(0.1).max(10).step(0.01);
   redCircleRotate.add(models.redCircle.rotation, "x").min(-5).max(5).step(0.01);
   redCircleRotate.add(models.redCircle.rotation, "y").min(-5).max(5).step(0.01);
-  redCircleRotate.add(models.redCircle.rotation, "z").min(-5).max(5).step(0.01); */
+  redCircleRotate.add(models.redCircle.rotation, "z").min(-5).max(5).step(0.01);
   updateAllMaterials();
 });
 // vong tron
-gltfLoader.load("/models/vong-tron.gltf", (gltf) => {
+gltfLoader.load("/models/circle.gltf", (gltf) => {
   for (let i = 0; i < 2; i++) {
     gltf.scene.children[0].position.set(0, 0, 0);
     gltf.scene.children[0].material.transparent = true;
@@ -265,10 +246,10 @@ gltfLoader.load("/models/vong-tron.gltf", (gltf) => {
 });
 
 //logo
-gltfLoader.load("/models/logo-fix.gltf", (gltf) => {
+gltfLoader.load("/models/logo.gltf", (gltf) => {
   scene.add(gltf.scene);
   models.logo = gltf.scene.children[0];
-  models.logo.position.set(0, 0.04, 7);
+  models.logo.position.set(0, 0, 4);
   models.logo.scale.set(0, 0, 0);
   models.logo.rotation.set(0.29, 0.53, 0);
 
@@ -311,7 +292,7 @@ const initCubesRotate = [
 
 const initCubesTime = [0.05, 0.2, 0.4, 0, 0.1, 0.45, 0.05];
 for (let i = 0; i < 7; i++) {
-  gltfLoader.load("/models/cube-fix.gltf", (gltf) => {
+  gltfLoader.load("/models/cube.gltf", (gltf) => {
     scene.add(gltf.scene);
     gltf.scene.children[0].position.set(
       initCubesPos[i].x,
@@ -328,7 +309,7 @@ for (let i = 0; i < 7; i++) {
     if ([1, 2, 5].includes(i)) {
       //gltf.scene.children[0].material.opacity = 0.6;
     }
-    const cubeFolder = gui.addFolder(`Cube${i}`);
+    /*  const cubeFolder = gui.addFolder(`Cube${i}`);
     const cubePos = cubeFolder.addFolder("Cube Pos");
     const cubeRotate = cubeFolder.addFolder("Cube Rotate");
     const cubeScale = cubeFolder.addFolder("Cube Scale");
@@ -365,13 +346,13 @@ for (let i = 0; i < 7; i++) {
       .min(-10)
       .max(10)
       .step(0.01);
-
+ */
     models.cubes.push(gltf.scene.children[0]);
     updateAllMaterials();
   });
 }
 // key
-gltfLoader.load("/models/chia-khoa-fix.gltf", (gltf) => {
+gltfLoader.load("/models/key.gltf", (gltf) => {
   /* const box = new THREE.Box3().setFromObject(gltf.scene);
   const c = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3()); */
@@ -383,7 +364,7 @@ gltfLoader.load("/models/chia-khoa-fix.gltf", (gltf) => {
   models.key.rotation.set(0.48, -0.78, 2.7);
   models.key.scale.set(0, 0, 0);
   models.key.material.transparent = true;
-
+  /* 
   keyPos.add(models.key.position, "x").min(-100).max(100).step(0.1);
   keyPos.add(models.key.position, "y").min(-100).max(100).step(0.1);
   keyPos.add(models.key.position, "z").min(-100).max(100).step(0.1);
@@ -392,7 +373,7 @@ gltfLoader.load("/models/chia-khoa-fix.gltf", (gltf) => {
   keyRotate.add(models.key.rotation, "z").min(-10).max(10).step(0.01);
   keyScale.add(models.key.scale, "x").min(0.1).max(2).step(0.1);
   keyScale.add(models.key.scale, "y").min(0.1).max(2).step(0.1);
-  keyScale.add(models.key.scale, "z").min(0.1).max(2).step(0.1);
+  keyScale.add(models.key.scale, "z").min(0.1).max(2).step(0.1); */
 
   updateAllMaterials();
 });
@@ -407,12 +388,12 @@ gltfLoader.load("/models/chia-khoa-fix.gltf", (gltf) => {
 // directionalLight.position.set(0.25, 3, -2.25)
 // scene.add(directionalLight)
 
-const light = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
+/* const light = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
 scene.add(light);
 
 const dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
 dirLight.position.set(0, 0, -100);
-scene.add(dirLight);
+scene.add(dirLight); */
 
 /**
  * Sizes
@@ -466,13 +447,13 @@ const controls = new ScrollControls(rig, {
       callback: lineAnimation,
     },
     {
-      start: "0%",
-      end: "14%",
+      start: "1%",
+      end: "10%",
       callback: rotateGlobeAni,
     },
     {
-      start: "14%",
-      end: "25%",
+      start: "10%",
+      end: "20%",
       callback: logoAnimation,
     },
     {
@@ -517,6 +498,24 @@ const controls = new ScrollControls(rig, {
     },
   ],
 });
+
+/* intro function  */
+
+function intro() {
+  let introInterval;
+  const a = (4 * PI) / 300;
+  const b = PI / 3000;
+  introInterval = setInterval(() => {
+    models.globle.rotation.y += a;
+    models.redCircle.rotation.z += b;
+  }, 10);
+  setTimeout(() => {
+    clearInterval(introInterval);
+    isLoadedModel = true;
+  }, 3010);
+}
+
+/*  */
 const controls3dof = new ThreeDOFControls(rig, {
   panFactor: Math.PI / 100,
   tiltFactor: Math.PI / 100,
@@ -544,17 +543,6 @@ autoPlayBtn.onclick = function (e) {
 body.addEventListener(
   "wheel",
   (e) => {
-    if (firstGlobleInterval) {
-      clearInterval(firstGlobleInterval);
-      firstGlobleInterval = null;
-      globleRotateStart = models.globle.rotation.y;
-      globleRoateEnd =
-        (1 + Math.round((globleRotateStart - vietNameRad) / (2 * Math.PI))) *
-          2 *
-          Math.PI +
-        vietNameRad;
-    }
-
     if (!isLoadedModel) {
       e.preventDefault();
       return;
@@ -641,28 +629,24 @@ function lineAnimation(progress) {
 }
 // animation section 1
 function rotateGlobeAni(progress) {
-  if (!models.globle || !models.redCircle) {
-    return;
+  if (!models.globle || !models.redCircle) return;
+  models.globle.scale.set(
+    1 + 1.21 * progress * progress,
+    1 + 1.21 * progress * progress,
+    1 + 1.21 * progress * progress
+  );
+  models.globle.material.transparent = true;
+  models.redCircle.scale.set(1 + 2 * progress, 1 + 2 * progress, 1);
+  models.redCircle.material.opacity = 1 - progress;
+  if (progress >= 1) {
+    models.globle.scale.set(0, 0, 0);
+    models.redCircle.scale.set(0, 0, 0);
   }
-  models.globle.rotation.y =
-    globleRotateStart + progress * (globleRoateEnd - globleRotateStart);
-  // models.globle.material.opacity = 1 - 0.6 * progress;
-  models.globle.position.z = 5.1 + 0.35 * progress;
-
-  models.redCircle.position.z = 4.2 + (5.2 - 4.2) * progress;
-  models.redCircle.material.opacity = 1 - 0.3 * progress;
 }
 
 function logoAnimation(progress) {
-  if (!models.logo && !models.redCircle && !models.globle) return;
-  models.logo.position.z = 7 + 0.75 * progress;
-  models.logo.scale.set(0.001 * progress, 0.001 * progress, 0.001 * progress);
-
-  if (models.redCircle.position.z >= 5.2 && models.globle.position.z >= 5.449) {
-    models.globle.position.z = 5.45 + 0.25 * progress;
-    models.redCircle.position.z = 5.2 + 0.55 * progress;
-  }
-  models.redCircle.material.opacity = 0.7 - 0.5 * progress;
+  if (!models.logo) return;
+  models.logo.scale.set(0.01 * progress, 0.01 * progress, 0.01 * progress);
 }
 
 const kyrosText = "KYROS".split("").reverse();
@@ -689,12 +673,6 @@ const kyrosTextRightChilds = kyrosTextRight.querySelectorAll("span");
 
 function kyrosAnimation(progress) {
   if (!kyrosElem) return;
-  /*   if (progress <= 0.01) {
-    kyrosElem.style.opacity = 0;
-    return;
-  }
-  kyrosElem.style.opacity = 0.5 + progress * 0.5;
-  kyrosElem.style.filter = `blur(${80 * progress}px)`; */
   renderLeft(kyrosTextLeftChilds, progress);
   renderLeft(kyrosTextRightChilds, progress);
 }
@@ -750,33 +728,9 @@ function fadeLeft(nodeLists, progress) {
   `;
 }
 
-function nextScene1(progress) {
-  /*  models.redCircle.position.z = 2.3 + 0.7 * progress;
-  models.globle.position.z = 0.7 + 0.4 * progress; */
-}
-
 function nextScene2(progress) {
-  if (!models.logo || !models.globle) return;
-
-  //models.globle.opacity = 0;
-  if (progress >= 0.4) {
-    models.globle.scale.set(0, 0, 0);
-  } else {
-    models.globle.scale.set(
-      1.2 - 3 * progress,
-      1.2 - 3 * progress,
-      1.2 - 3 * progress
-    );
-  }
-  models.redCircle.material.opacity = 0.2 * (1 - 3 * progress);
-  models.logo.position.y = 0.04 - 0.04 * progress;
-  models.logo.position.z = 7.75 + 0.3 * progress;
-  /*  models.logo.scale.set(
-    0.001 - 0.001 * progress,
-    0.001 - 0.001 * progress,
-    0.001 - 0.001 * progress
-  ); */
-
+  if (!models.logo) return;
+  models.logo.position.z = 4 + 4 * progress;
   fadeLeft(kyrosTextLeftChilds, progress);
   fadeLeft(kyrosTextRightChilds, progress);
 }
