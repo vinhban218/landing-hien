@@ -2,8 +2,14 @@ import gsap, { Linear, Power2 } from "gsap";
 
 function init() {
   const container = document.querySelector("#butterfly-container");
-  const count = 80;
+  const count = 60;
   let w, h;
+  w = window.innerWidth;
+  h = window.innerHeight;
+  const minWidthInit = w / 2 - 300;
+  const maxWidthInit = w / 2 + 300;
+  const minHeightInit = h / 2 - 300;
+  const maxHeightInit = h / 2 + 300;
 
   function random(min, max) {
     return gsap.utils.random(min, max);
@@ -11,13 +17,11 @@ function init() {
 
   function createUnit() {
     var unit = document.createElement("div");
-    w = window.innerWidth;
-    h = window.innerHeight;
     unit.classList.add("unit");
     container.appendChild(unit);
     gsap.set(unit, {
-      x: random(0, w),
-      y: random(0, h),
+      x: random(minWidthInit, maxWidthInit),
+      y: random(minHeightInit, maxHeightInit),
       scale: random(0.5, 1.0),
       opacity: 0,
     });

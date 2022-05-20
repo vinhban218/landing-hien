@@ -125,12 +125,11 @@ const loadingManager = new THREE.LoadingManager(
       setTimeout(() => {
         loadingScreen.style.opacity = 0;
         keyHole.style.opacity = 0;
+        //initButterfly();
         setTimeout(() => {
-          let scaleVal = 0;
-          let redCircleZPos = 0;
           loadingScreen.style.display = "none";
           intro();
-        }, 600);
+        }, 1000);
       }, 2000);
     });
   }
@@ -186,12 +185,11 @@ updateAllMaterials();
  * Models
  */
 //trai dat trang
-gltfLoader.load("/models/globle.gltf", (gltf) => {
+gltfLoader.load("/models/globle-fix.gltf", (gltf) => {
   gltf.scene.children[0].scale.set(1, 1, 1);
   gltf.scene.children[0].position.set(0, 0.1, 5.8);
   gltf.scene.children[0].rotation.set(0.33, 0, 0.02);
   models.globle = gltf.scene.children[0];
-
   scene.add(gltf.scene);
   globePos.add(models.globle.position, "x").min(-100).max(100).step(0.1);
   globePos.add(models.globle.position, "y").min(-100).max(100).step(0.1);
@@ -249,9 +247,9 @@ gltfLoader.load("/models/circle.gltf", (gltf) => {
 gltfLoader.load("/models/logo.gltf", (gltf) => {
   scene.add(gltf.scene);
   models.logo = gltf.scene.children[0];
-  models.logo.position.set(0, 0, 4);
+  models.logo.position.set(0.3, 0.6, 4);
   models.logo.scale.set(0, 0, 0);
-  models.logo.rotation.set(0.29, 0.53, 0);
+  models.logo.rotation.set(0.21, 0.6, -0.05);
 
   logoPos.add(models.logo.position, "x").min(-100).max(100).step(0.1);
   logoPos.add(models.logo.position, "y").min(-100).max(100).step(0.1);
@@ -388,10 +386,10 @@ gltfLoader.load("/models/key.gltf", (gltf) => {
 // directionalLight.position.set(0.25, 3, -2.25)
 // scene.add(directionalLight)
 
-/* const light = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
+const light = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
 scene.add(light);
 
-const dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
+/* const dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
 dirLight.position.set(0, 0, -100);
 scene.add(dirLight); */
 
@@ -457,32 +455,32 @@ const controls = new ScrollControls(rig, {
       callback: logoAnimation,
     },
     {
-      start: "25%",
-      end: "35%",
+      start: "15%",
+      end: "20%",
       callback: kyrosAnimation,
     },
     {
-      start: "40%",
+      start: "23%",
+      end: "28%",
+      callback: nextScene1,
+    },
+    {
+      start: "28%",
       end: "45%",
-      callback: nextScene2,
+      callback: cubesAnimation,
     },
     {
       start: "45%",
       end: "55%",
-      callback: cubesAnimation,
-    },
-    {
-      start: "55%",
-      end: "60%",
       callback: nurtureAnimation,
     },
     {
-      start: "65%",
-      end: "70%",
-      callback: nextScene3,
+      start: "60%",
+      end: "65%",
+      callback: nextScene2,
     },
     {
-      start: "70%",
+      start: "65%",
       end: "85%",
       callback: keyAnimation,
     },
@@ -492,9 +490,9 @@ const controls = new ScrollControls(rig, {
       callback: incubateAnimation,
     },
     {
-      start: "90%",
-      end: "95%",
-      callback: nextSCene4,
+      start: "85%",
+      end: "90%",
+      callback: nextScene3,
     },
   ],
 });
@@ -503,16 +501,16 @@ const controls = new ScrollControls(rig, {
 
 function intro() {
   let introInterval;
-  const a = (4 * PI) / 300;
-  const b = PI / 3000;
+  const a = (2 * PI) / 400;
+  const b = PI / 4000;
   introInterval = setInterval(() => {
     models.globle.rotation.y += a;
-    models.redCircle.rotation.z += b;
+    models.redCircle.rotation.z -= b;
   }, 10);
   setTimeout(() => {
     clearInterval(introInterval);
     isLoadedModel = true;
-  }, 3010);
+  }, 4000);
 }
 
 /*  */
@@ -552,8 +550,8 @@ body.addEventListener(
 
     let delta = 0;
     if (e.wheelDelta)
-      delta = e.wheelDelta / 60; //controls the scroll wheel range/speed
-    else if (e.detail) delta = -e.detail / 60;
+      delta = e.wheelDelta / 100; //controls the scroll wheel range/speed
+    else if (e.detail) delta = -e.detail / 100;
 
     handle(delta);
     if (e.preventDefault) e.preventDefault();
@@ -565,7 +563,7 @@ let end = null;
 let interval = null;
 
 function handle(delta) {
-  let animationInterval = 15; //controls the scroll animation after scroll is done
+  let animationInterval = 20; //controls the scroll animation after scroll is done
   let scrollSpeed = 20; //controls the scroll animation after scroll is done
 
   if (end == null) {
@@ -602,14 +600,14 @@ window.addEventListener(
 );
 
 //line animation
-let startLoop = 0.45;
+let startLoop = 0.1;
 let endloop = 0;
 
 const line = document.querySelector(".line-progress");
 function lineAnimation(progress) {
   line.style.width = `${progress * 60}px`;
   let i = 0;
-  if (progress >= 0.45) {
+  if (progress >= 0.1) {
     if (progress >= startLoop + 0.12) {
       startLoop = progress;
     }
@@ -631,12 +629,11 @@ function lineAnimation(progress) {
 function rotateGlobeAni(progress) {
   if (!models.globle || !models.redCircle) return;
   models.globle.scale.set(
-    1 + 1.21 * progress * progress,
-    1 + 1.21 * progress * progress,
-    1 + 1.21 * progress * progress
+    1 + 1.04 * progress * progress,
+    1 + 1.04 * progress * progress,
+    1 + 1.04 * progress * progress
   );
-  models.globle.material.transparent = true;
-  models.redCircle.scale.set(1 + 2 * progress, 1 + 2 * progress, 1);
+  models.redCircle.scale.set(1 + 2.5 * progress, 1 + 2.5 * progress, 1);
   models.redCircle.material.opacity = 1 - progress;
   if (progress >= 1) {
     models.globle.scale.set(0, 0, 0);
@@ -646,7 +643,7 @@ function rotateGlobeAni(progress) {
 
 function logoAnimation(progress) {
   if (!models.logo) return;
-  models.logo.scale.set(0.01 * progress, 0.01 * progress, 0.01 * progress);
+  models.logo.scale.set(0.018 * progress, 0.018 * progress, 0.018 * progress);
 }
 
 const kyrosText = "KYROS".split("").reverse();
@@ -671,8 +668,13 @@ ventureText.forEach((t) => {
 const kyrosTextLeftChilds = kyrosTextLeft.querySelectorAll("span");
 const kyrosTextRightChilds = kyrosTextRight.querySelectorAll("span");
 
+let isKyrosAnimation = true;
+
 function kyrosAnimation(progress) {
-  if (!kyrosElem) return;
+  if (progress >= 1) {
+    isKyrosAnimation = false;
+  } else isKyrosAnimation = true;
+  if (!isKyrosAnimation) return;
   renderLeft(kyrosTextLeftChilds, progress);
   renderLeft(kyrosTextRightChilds, progress);
 }
@@ -682,24 +684,27 @@ function renderLeft(nodeLists, progress) {
   const per = 1 / nodeLists.length;
   const pc = ((progress - per * i) / per).toFixed(3);
   if (i === nodeLists.length) return;
-  if (pc <= 0.1) {
+
+  if (pc <= 0.8 && pc > 0.2) {
     nodeLists[i].style.cssText = `
-    opacity : 0;
-    filter: blur(60px);
-  `;
-    return;
-  } else if (pc >= 0.9) {
-    nodeLists[i].style.cssText = `
-    opacity : 1;
-    filter: blur(0px);
+    opacity : ${pc};
+    filter: blur(${16 * (1 - pc)}px);
   `;
     return;
   }
 
-  nodeLists[i].style.cssText = `
-    opacity : ${pc};
-    filter: blur(${60 * (1 - pc)}px);
+  if (pc <= 0.2) {
+    nodeLists[i].style.cssText = `
+    opacity : 0;
+    filter: blur(16px);
   `;
+    return;
+  } else {
+    nodeLists[i].style.cssText = `
+    opacity : 1;
+    filter: blur(0px);
+  `;
+  }
 }
 
 function fadeLeft(nodeLists, progress) {
@@ -708,29 +713,32 @@ function fadeLeft(nodeLists, progress) {
   const pc = ((progress - per * i) / per).toFixed(3);
   if (i === nodeLists.length) return;
 
-  if (pc <= 0.1) {
+  if (pc > 0.2 && pc < 0.8) {
+    nodeLists[nodeLists.length - 1 - i].style.cssText = `
+    opacity : ${1 - pc};
+    filter: blur(${16 * pc}px);
+  `;
+    return;
+  }
+
+  if (pc <= 0.2) {
     nodeLists[nodeLists.length - 1 - i].style.cssText = `
     opacity : 1;
     filter: blur(0px);
   `;
     return;
-  } else if (pc >= 0.9) {
+  } else {
     nodeLists[nodeLists.length - 1 - i].style.cssText = `
     opacity : 0;
-    filter: blur(60px);
+    filter: blur(16px);
   `;
-    return;
   }
-
-  nodeLists[nodeLists.length - 1 - i].style.cssText = `
-    opacity : ${1 - pc};
-    filter: blur(${60 * pc}px);
-  `;
 }
 
-function nextScene2(progress) {
+function nextScene1(progress) {
   if (!models.logo) return;
-  models.logo.position.z = 4 + 4 * progress;
+  models.logo.position.z = 4 + 4.4 * progress * progress;
+  if (isKyrosAnimation) return;
   fadeLeft(kyrosTextLeftChilds, progress);
   fadeLeft(kyrosTextRightChilds, progress);
 }
@@ -751,21 +759,20 @@ function cubesAnimation(progress) {
 }
 
 function nurtureAnimation(progress) {
-  if (!nurtureElem || progress === 0) return;
   nurtureElem.style.cssText = `
     opacity: ${progress};
-    filter: blur(${24 * (1 - progress)}px);
+    filter: blur(${24 * (1 - progress * progress)}px);
   `;
 }
 
 // animation next scene 2
 
-function nextScene3(progress) {
+function nextScene2(progress) {
   if (!nurtureElem && !models.cubes.length) return;
 
   nurtureElem.style.cssText = `
     opacity: ${1 - progress};
-    filter: blur(${24 * progress}px);
+    filter: blur(${24 * progress * progress}px);
   `;
 
   models.cubes.forEach((cube, index) => {
@@ -842,27 +849,26 @@ function keyAnimation(progress) {
 }
 
 function incubateAnimation(progress) {
-  if (!incubateElem) return;
   incubateElem.style.opacity = progress;
   incubateElem.style.cssText = `
     opacity: ${progress};
-    filter: blur(${24 * (1 - progress)}px)
+    filter: blur(${16 * (1 - progress * progress)}px)
   `;
 }
 
-function nextSCene4(progress) {
+function nextScene3(progress) {
   incubateElem.style.cssText = `
   opacity: ${1 - progress};
-  filter: blur(${24 * progress}px)
+  filter: blur(${16 * progress * progress}px)
 `;
   models.key.material.opacity = 1 - progress;
 }
 
 // const cameraHelper = new CameraHelper(rig, controls, renderer.domElement)
 
-const grid = new THREE.GridHelper(100, 50);
+/* const grid = new THREE.GridHelper(100, 50);
 grid.position.set(0, -5, 0);
-// scene.add(grid)
+scene.add(grid); */
 
 /**
  * Animate
