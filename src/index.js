@@ -9,17 +9,13 @@ import {
   ThreeDOFControls,
 } from "three-story-controls";
 import * as dat from "dat.gui";
-import initButterfly from "./js/butterfly";
+import initButterfly from "./js/greensock";
 const body = document.querySelector("body");
 const kyrosElem = document.querySelector("#kyros");
-const nurtureElem = document.querySelector("#nurture");
 const incubateElem = document.querySelector("#incubate");
 const loadingScreen = document.querySelector("#loading");
-
 loadingScreen.style.display = "flex";
 let isLoadedModel = false;
-nurtureElem.style.opacity = 0;
-incubateElem.style.opacity = 0;
 
 window.scrollTo({ top: 0, behavior: "smooth" });
 const models = {
@@ -39,7 +35,7 @@ const PI = Math.PI;
 /* --------------------------------------------- */
 // Debug
 //hinh cau
-const gui = new dat.GUI();
+/* const gui = new dat.GUI();
 const globeFolder = gui.addFolder("Globe");
 const globePos = globeFolder.addFolder("Globe POS");
 const globeRotate = globeFolder.addFolder("Globe Rotate");
@@ -62,7 +58,7 @@ const logoRotate = logoFolder.addFolder("Logo Rotate");
 const keyFolder = gui.addFolder("Key");
 const keyPos = keyFolder.addFolder("Key POS");
 const keyRotate = keyFolder.addFolder("Key Rotate");
-const keyScale = keyFolder.addFolder("Key Scale");
+const keyScale = keyFolder.addFolder("Key Scale"); */
 /* ----------------------------------------------- */
 // Scene
 const scene = new THREE.Scene();
@@ -107,30 +103,34 @@ const loadingManager = new THREE.LoadingManager(
     }, 3000); */
 
     sceneReady = true;
-    //initButterfly();
     const keyHole = loadingScreen.querySelector(".key-hole");
-
+    initButterfly();
     //create text enter
-    const textEnter = document.createElement("div");
-    textEnter.innerHTML = "ENTER";
-    textEnter.classList.add("text-enter");
-    keyHole.appendChild(textEnter);
-
-    loadingScreen.style.cursor = "pointer";
-    loadingScreen.addEventListener("click", () => {
-      loadingScreen.style.transform = "scale(40)";
-      loadingScreen.style.filter = "blur(20px)";
-      keyHole.style.filter = "blur(20px)";
-      textEnter.style.display = "none";
-      setTimeout(() => {
+    const textLoading = document.querySelector(".text-loading");
+    setTimeout(() => {
+      const textEnter = document.createElement("div");
+      textEnter.innerHTML = "ENTER";
+      textEnter.classList.add("text-enter");
+      keyHole.appendChild(textEnter);
+      textLoading.style.display = "none";
+      keyHole.classList.add("done");
+      loadingScreen.style.cursor = "pointer";
+      loadingScreen.addEventListener("click", () => {
+        keyHole.classList.remove("done");
+        keyHole.style.transform = "scale(32)";
         loadingScreen.style.opacity = 0;
-        keyHole.style.opacity = 0;
-        //initButterfly();
+        loadingScreen.style.filter = "blur(20px)";
+        keyHole.style.filter = "blur(20px)";
+        textEnter.style.display = "none";
         setTimeout(() => {
-          loadingScreen.style.display = "none";
-          intro();
-        }, 1000);
-      }, 2000);
+          keyHole.style.opacity = 0;
+          //initButterfly();
+          setTimeout(() => {
+            //loadingScreen.style.display = "none";
+            intro();
+          }, 2100);
+        }, 2000);
+      });
     });
   }
   // Progress
@@ -185,13 +185,15 @@ updateAllMaterials();
  * Models
  */
 //trai dat trang
-gltfLoader.load("/models/globle-fix.gltf", (gltf) => {
+gltfLoader.load("/models/globle.gltf", (gltf) => {
   gltf.scene.children[0].scale.set(1, 1, 1);
   gltf.scene.children[0].position.set(0, 0.1, 5.8);
   gltf.scene.children[0].rotation.set(0.33, 0, 0.02);
+  //gltf.scene.children[0].material.transparent = true;
+
   models.globle = gltf.scene.children[0];
   scene.add(gltf.scene);
-  globePos.add(models.globle.position, "x").min(-100).max(100).step(0.1);
+  /*  globePos.add(models.globle.position, "x").min(-100).max(100).step(0.1);
   globePos.add(models.globle.position, "y").min(-100).max(100).step(0.1);
   globePos.add(models.globle.position, "z").min(-100).max(100).step(0.1);
   globeRotate.add(models.globle.rotation, "y").min(-10).max(10).step(0.01);
@@ -199,7 +201,7 @@ gltfLoader.load("/models/globle-fix.gltf", (gltf) => {
   globeRotate.add(models.globle.rotation, "z").min(-10).max(10).step(0.01);
   globleScale.add(models.globle.scale, "x").min(0.1).max(3).step(0.01);
   globleScale.add(models.globle.scale, "y").min(0.1).max(3).step(0.01);
-  globleScale.add(models.globle.scale, "z").min(0.1).max(3).step(0.01);
+  globleScale.add(models.globle.scale, "z").min(0.1).max(3).step(0.01); */
   updateAllMaterials();
 });
 // vong tron cham do
@@ -210,7 +212,7 @@ gltfLoader.load("/models/circle.gltf", (gltf) => {
   models.redCircle.rotation.set(0, 0.01, 0);
   models.redCircle.material.transparent = true;
   scene.add(gltf.scene);
-  redCirclePos.add(models.redCircle.position, "x").min(-10).max(10).step(0.01);
+  /*  redCirclePos.add(models.redCircle.position, "x").min(-10).max(10).step(0.01);
   redCirclePos.add(models.redCircle.position, "y").min(-10).max(10).step(0.01);
   redCirclePos.add(models.redCircle.position, "z").min(-10).max(10).step(0.01);
   redCircleScale.add(models.redCircle.scale, "x").min(0.1).max(10).step(0.01);
@@ -218,30 +220,20 @@ gltfLoader.load("/models/circle.gltf", (gltf) => {
   redCircleScale.add(models.redCircle.scale, "z").min(0.1).max(10).step(0.01);
   redCircleRotate.add(models.redCircle.rotation, "x").min(-5).max(5).step(0.01);
   redCircleRotate.add(models.redCircle.rotation, "y").min(-5).max(5).step(0.01);
-  redCircleRotate.add(models.redCircle.rotation, "z").min(-5).max(5).step(0.01);
+  redCircleRotate.add(models.redCircle.rotation, "z").min(-5).max(5).step(0.01); */
   updateAllMaterials();
 });
 // vong tron
-gltfLoader.load("/models/circle.gltf", (gltf) => {
-  for (let i = 0; i < 2; i++) {
-    gltf.scene.children[0].position.set(0, 0, 0);
+for (let i = 0; i < 8; i++) {
+  gltfLoader.load("/models/circle.gltf", (gltf) => {
+    scene.add(gltf.scene);
+    gltf.scene.children[0].position.set(0, 0, -20);
     gltf.scene.children[0].material.transparent = true;
     gltf.scene.children[0].scale.set(0, 0, 0);
     models.circle.push(gltf.scene.children[0]);
-  }
-  redCirclePos.add(models.circle[0].position, "x").min(-10).max(10).step(0.01);
-  redCirclePos.add(models.circle[0].position, "y").min(-10).max(10).step(0.01);
-  redCirclePos.add(models.circle[0].position, "z").min(-10).max(10).step(0.01);
-  redCircleScale.add(models.circle[0].scale, "x").min(0.1).max(10).step(0.01);
-  redCircleScale.add(models.circle[0].scale, "y").min(0.1).max(10).step(0.01);
-  redCircleScale.add(models.circle[0].scale, "z").min(0.1).max(10).step(0.01);
-  redCircleRotate.add(models.circle[0].rotation, "x").min(-5).max(5).step(0.01);
-  redCircleRotate.add(models.circle[0].rotation, "y").min(-5).max(5).step(0.01);
-  redCircleRotate.add(models.circle[0].rotation, "z").min(-5).max(5).step(0.01);
-
-  scene.add(gltf.scene);
-  updateAllMaterials();
-});
+    updateAllMaterials();
+  });
+}
 
 //logo
 gltfLoader.load("/models/logo.gltf", (gltf) => {
@@ -251,7 +243,7 @@ gltfLoader.load("/models/logo.gltf", (gltf) => {
   models.logo.scale.set(0, 0, 0);
   models.logo.rotation.set(0.21, 0.6, -0.05);
 
-  logoPos.add(models.logo.position, "x").min(-100).max(100).step(0.1);
+  /*   logoPos.add(models.logo.position, "x").min(-100).max(100).step(0.1);
   logoPos.add(models.logo.position, "y").min(-100).max(100).step(0.1);
   logoPos.add(models.logo.position, "z").min(-100).max(100).step(0.1);
   logoScale.add(models.logo.scale, "x").min(0).max(2).step(0.001);
@@ -259,36 +251,36 @@ gltfLoader.load("/models/logo.gltf", (gltf) => {
   logoScale.add(models.logo.scale, "z").min(0).max(2).step(0.001);
   logoRotate.add(models.logo.rotation, "x").min(-10).max(10).step(0.01);
   logoRotate.add(models.logo.rotation, "y").min(-10).max(10).step(0.01);
-  logoRotate.add(models.logo.rotation, "z").min(-10).max(10).step(0.01);
+  logoRotate.add(models.logo.rotation, "z").min(-10).max(10).step(0.01); */
   updateAllMaterials();
 });
 
 // cubes
 const initCubesPos = [
-  { x: -6, y: 4.9, z: -8.3 },
-  { x: -0.5, y: 6.2, z: -15.5 },
-  { x: 11.3, y: 12.9, z: -26.8 },
-  { x: 6.4, y: 3.4, z: -7.2 },
-  { x: -7, y: -3.3, z: -9.2 },
+  { x: -5.3, y: 3.7, z: -0.6 },
+  { x: -1.2, y: 5.6, z: -6.2 },
+  { x: 6.4, y: 9.1, z: -15.7 },
+  { x: 5.9, y: 3.4, z: -0.1 },
+  { x: -6.5, y: -3.6, z: -2.5 },
   { x: -4.8, y: -8.6, z: -24.9 },
-  { x: 5.4, y: -4.1, z: -7.8 },
+  { x: 4.9, y: -3, z: 0.1 },
 ];
-
-initCubesPos.map((item) => {
-  item.z += 2.4;
-});
 
 const initCubesRotate = [
   { x: -0.9, y: 0.58, z: -0.3 },
   { x: -0.02, y: 0.1, z: 1.18 },
-  { x: -0.18, y: 0.67, z: -2.14 },
-  { x: -0.5, y: 0.23, z: 0.39 },
+  { x: -1.89, y: 0.67, z: -2.14 },
+  { x: -1.08, y: -0.98, z: -0.85 },
   { x: 0.49, y: -0.38, z: -1.75 },
-  { x: -0.25, y: 0.09, z: 0.07 },
-  { x: -0.03, y: 0.74, z: -0.11 },
+  { x: -1.18, y: 1.03, z: 0.07 },
+  { x: -1.34, y: 0.21, z: 0.27 },
 ];
 
-const initCubesTime = [0.05, 0.2, 0.4, 0, 0.1, 0.45, 0.05];
+initCubesPos.forEach((item) => {
+  item.z -= 6.4;
+});
+
+const initCubesTime = [0.2, 0.5, 0.8, 0.4, 0.3, 0.9, 0];
 for (let i = 0; i < 7; i++) {
   gltfLoader.load("/models/cube.gltf", (gltf) => {
     scene.add(gltf.scene);
@@ -303,11 +295,7 @@ for (let i = 0; i < 7; i++) {
       initCubesRotate[i].z
     );
     gltf.scene.children[0].scale.set(0, 0, 0);
-    //gltf.scene.children[0].material.transparent = true;
-    if ([1, 2, 5].includes(i)) {
-      //gltf.scene.children[0].material.opacity = 0.6;
-    }
-    /*  const cubeFolder = gui.addFolder(`Cube${i}`);
+    /* const cubeFolder = gui.addFolder(`Cube${i}`);
     const cubePos = cubeFolder.addFolder("Cube Pos");
     const cubeRotate = cubeFolder.addFolder("Cube Rotate");
     const cubeScale = cubeFolder.addFolder("Cube Scale");
@@ -351,19 +339,14 @@ for (let i = 0; i < 7; i++) {
 }
 // key
 gltfLoader.load("/models/key.gltf", (gltf) => {
-  /* const box = new THREE.Box3().setFromObject(gltf.scene);
-  const c = box.getCenter(new THREE.Vector3());
-  const size = box.getSize(new THREE.Vector3()); */
   scene.add(gltf.scene);
   models.key = gltf.scene.children[0];
-  //gltf.scene.position.set( -c.x, size.y / 2 - c.y, -c.z )
-  //models.key.position.set(-c.x, size.y / 2 - c.y, -c.z);
   models.key.position.set(-10, 5, 0);
   models.key.rotation.set(0.48, -0.78, 2.7);
   models.key.scale.set(0, 0, 0);
   models.key.material.transparent = true;
-  /* 
-  keyPos.add(models.key.position, "x").min(-100).max(100).step(0.1);
+
+  /* keyPos.add(models.key.position, "x").min(-100).max(100).step(0.1);
   keyPos.add(models.key.position, "y").min(-100).max(100).step(0.1);
   keyPos.add(models.key.position, "z").min(-100).max(100).step(0.1);
   keyRotate.add(models.key.rotation, "x").min(-10).max(10).step(0.01);
@@ -432,6 +415,96 @@ scene.add(camera);
 // Controls
 const rig = new CameraRig(camera, scene);
 
+let circleIntervals = [];
+function circleAnimation(progress, models, index) {
+  if (!circleIntervals[index]) {
+    const interval = setInterval(() => {
+      models.rotation.z -= 0.001;
+    }, 10);
+    circleIntervals.push(interval);
+  }
+
+  models.scale.set(
+    5 + 21 * Math.pow(progress, 2),
+    5 + 21 * Math.pow(progress, 2),
+    1
+  );
+
+  if (progress < 0.5) {
+    models.material.opacity = 4 * progress * progress;
+  } else {
+    models.material.opacity = Math.pow(2 * progress - 2, 2);
+  }
+}
+
+function circleAnimation1(progress) {
+  circleAnimation(progress, models.circle[0], 1);
+}
+function circleAnimation2(progress) {
+  circleAnimation(progress, models.circle[1], 2);
+}
+function circleAnimation3(progress) {
+  circleAnimation(progress, models.circle[2], 3);
+}
+function circleAnimation4(progress) {
+  circleAnimation(progress, models.circle[3], 4);
+}
+function circleAnimation5(progress) {
+  circleAnimation(progress, models.circle[4], 5);
+}
+function circleAnimation6(progress) {
+  circleAnimation(progress, models.circle[5], 6);
+}
+function circleAnimation7(progress) {
+  circleAnimation(progress, models.circle[6], 7);
+}
+function circleAnimation8(progress) {
+  circleAnimation(progress, models.circle[7], 8);
+}
+
+const circleFuncs = [
+  {
+    start: "10%",
+    end: "25%",
+    callback: circleAnimation1,
+  },
+  {
+    start: "22%",
+    end: "37%",
+    callback: circleAnimation2,
+  },
+  {
+    start: "32%",
+    end: "47%",
+    callback: circleAnimation3,
+  },
+  {
+    start: "42%",
+    end: "57%",
+    callback: circleAnimation4,
+  },
+  {
+    start: "52%",
+    end: "67%",
+    callback: circleAnimation5,
+  },
+  {
+    start: "62%",
+    end: "77%",
+    callback: circleAnimation6,
+  },
+  {
+    start: "72%",
+    end: "87%",
+    callback: circleAnimation7,
+  },
+  {
+    start: "82%",
+    end: "97%",
+    callback: circleAnimation8,
+  },
+];
+
 const controls = new ScrollControls(rig, {
   buffer: 0,
   scrollElement,
@@ -439,13 +512,9 @@ const controls = new ScrollControls(rig, {
   startOffset: "0",
   endOffset: "-100vh",
   scrollActions: [
+    ...circleFuncs,
     {
       start: "0%",
-      end: "100%",
-      callback: lineAnimation,
-    },
-    {
-      start: "1%",
       end: "10%",
       callback: rotateGlobeAni,
     },
@@ -454,11 +523,11 @@ const controls = new ScrollControls(rig, {
       end: "20%",
       callback: logoAnimation,
     },
-    {
+    /*     {
       start: "15%",
       end: "20%",
       callback: kyrosAnimation,
-    },
+    }, */
     {
       start: "23%",
       end: "28%",
@@ -470,28 +539,18 @@ const controls = new ScrollControls(rig, {
       callback: cubesAnimation,
     },
     {
-      start: "45%",
-      end: "55%",
-      callback: nurtureAnimation,
-    },
-    {
-      start: "60%",
-      end: "65%",
+      start: "55%",
+      end: "60%",
       callback: nextScene2,
     },
     {
-      start: "65%",
-      end: "85%",
+      start: "60%",
+      end: "75%",
       callback: keyAnimation,
     },
     {
       start: "80%",
       end: "85%",
-      callback: incubateAnimation,
-    },
-    {
-      start: "85%",
-      end: "90%",
       callback: nextScene3,
     },
   ],
@@ -502,15 +561,16 @@ const controls = new ScrollControls(rig, {
 function intro() {
   let introInterval;
   const a = (2 * PI) / 400;
-  const b = PI / 4000;
+  setInterval(() => {
+    models.redCircle.rotation.z -= 0.001;
+  }, 10);
   introInterval = setInterval(() => {
     models.globle.rotation.y += a;
-    models.redCircle.rotation.z -= b;
   }, 10);
   setTimeout(() => {
     clearInterval(introInterval);
     isLoadedModel = true;
-  }, 4000);
+  }, 4010);
 }
 
 /*  */
@@ -550,7 +610,7 @@ body.addEventListener(
 
     let delta = 0;
     if (e.wheelDelta)
-      delta = e.wheelDelta / 100; //controls the scroll wheel range/speed
+      delta = e.wheelDelta / 60; //controls the scroll wheel range/speed
     else if (e.detail) delta = -e.detail / 100;
 
     handle(delta);
@@ -598,33 +658,6 @@ window.addEventListener(
   },
   { passive: false }
 );
-
-//line animation
-let startLoop = 0.1;
-let endloop = 0;
-
-const line = document.querySelector(".line-progress");
-function lineAnimation(progress) {
-  line.style.width = `${progress * 60}px`;
-  let i = 0;
-  if (progress >= 0.1) {
-    if (progress >= startLoop + 0.12) {
-      startLoop = progress;
-    }
-
-    if (progress >= startLoop + 0.1) {
-      endloop = 0.02;
-    }
-
-    if (endloop >= 0) {
-      endloop -= progress - startLoop;
-      return;
-    }
-    const pc = (progress - startLoop) * 10;
-    models.circle[i].scale.set(1 + pc * 0.7, 1 + pc * 0.7, 1 + pc * 0.7);
-    models.circle[i].material.opacity = 1 * pc;
-  }
-}
 // animation section 1
 function rotateGlobeAni(progress) {
   if (!models.globle || !models.redCircle) return;
@@ -645,7 +678,7 @@ function logoAnimation(progress) {
   if (!models.logo) return;
   models.logo.scale.set(0.018 * progress, 0.018 * progress, 0.018 * progress);
 }
-
+/* 
 const kyrosText = "KYROS".split("").reverse();
 const ventureText = "VENTURES".split("");
 
@@ -667,80 +700,11 @@ ventureText.forEach((t) => {
 
 const kyrosTextLeftChilds = kyrosTextLeft.querySelectorAll("span");
 const kyrosTextRightChilds = kyrosTextRight.querySelectorAll("span");
-
-let isKyrosAnimation = true;
-
-function kyrosAnimation(progress) {
-  if (progress >= 1) {
-    isKyrosAnimation = false;
-  } else isKyrosAnimation = true;
-  if (!isKyrosAnimation) return;
-  renderLeft(kyrosTextLeftChilds, progress);
-  renderLeft(kyrosTextRightChilds, progress);
-}
-
-function renderLeft(nodeLists, progress) {
-  const i = Math.floor(progress * nodeLists.length);
-  const per = 1 / nodeLists.length;
-  const pc = ((progress - per * i) / per).toFixed(3);
-  if (i === nodeLists.length) return;
-
-  if (pc <= 0.8 && pc > 0.2) {
-    nodeLists[i].style.cssText = `
-    opacity : ${pc};
-    filter: blur(${16 * (1 - pc)}px);
-  `;
-    return;
-  }
-
-  if (pc <= 0.2) {
-    nodeLists[i].style.cssText = `
-    opacity : 0;
-    filter: blur(16px);
-  `;
-    return;
-  } else {
-    nodeLists[i].style.cssText = `
-    opacity : 1;
-    filter: blur(0px);
-  `;
-  }
-}
-
-function fadeLeft(nodeLists, progress) {
-  const i = Math.floor(progress * nodeLists.length);
-  const per = 1 / nodeLists.length;
-  const pc = ((progress - per * i) / per).toFixed(3);
-  if (i === nodeLists.length) return;
-
-  if (pc > 0.2 && pc < 0.8) {
-    nodeLists[nodeLists.length - 1 - i].style.cssText = `
-    opacity : ${1 - pc};
-    filter: blur(${16 * pc}px);
-  `;
-    return;
-  }
-
-  if (pc <= 0.2) {
-    nodeLists[nodeLists.length - 1 - i].style.cssText = `
-    opacity : 1;
-    filter: blur(0px);
-  `;
-    return;
-  } else {
-    nodeLists[nodeLists.length - 1 - i].style.cssText = `
-    opacity : 0;
-    filter: blur(16px);
-  `;
-  }
-}
+ */
 
 function nextScene1(progress) {
   if (!models.logo) return;
   models.logo.position.z = 4 + 4.4 * progress * progress;
-  if (isKyrosAnimation) return;
-  fadeLeft(kyrosTextLeftChilds, progress);
-  fadeLeft(kyrosTextRightChilds, progress);
 }
 // animation section 2
 function cubesAnimation(progress) {
@@ -753,45 +717,23 @@ function cubesAnimation(progress) {
         (1 / (1 - initCubesTime[index])) * (progress - initCubesTime[index]),
         (1 / (1 - initCubesTime[index])) * (progress - initCubesTime[index])
       );
-      cube.position.z = initCubesPos[index].z + 4 * progress;
+      cube.position.z = initCubesPos[index].z + 6.4 * progress;
     }
   });
-}
-
-function nurtureAnimation(progress) {
-  nurtureElem.style.cssText = `
-    opacity: ${progress};
-    filter: blur(${24 * (1 - progress * progress)}px);
-  `;
 }
 
 // animation next scene 2
 
 function nextScene2(progress) {
-  if (!nurtureElem && !models.cubes.length) return;
-
-  nurtureElem.style.cssText = `
-    opacity: ${1 - progress};
-    filter: blur(${24 * progress * progress}px);
-  `;
+  if (!models.cubes.length) return;
 
   models.cubes.forEach((cube, index) => {
-    cube.position.z = initCubesPos[index].z + 4 + 24 * progress;
+    cube.position.z = initCubesPos[index].z + 6.4 + 24 * progress;
   });
-
-  if (progress === 1) {
-    models.cubes.forEach((cube) => {
-      cube.scale.set(0, 0, 0);
-    });
-  }
 }
 
 //animation scene 3
 let keyInterval;
-let ampX = 0;
-let ampY = 0;
-let rotateBounceX = 0.01;
-let rotateBounceY = 0.01;
 
 function keyAnimation(progress) {
   if (!models.key) return;
@@ -804,64 +746,26 @@ function keyAnimation(progress) {
   if (progress < 0.7) {
     models.key.position.x = -2.3 - 2 * progress;
   } else if (progress >= 0.75) {
-    models.key.position.x = -3.7 + 8 * (progress - 0.75);
+    models.key.position.x = -3.7 + 12 * (progress - 0.75);
   }
-  models.key.position.y = 2.2 - 1.9 * progress;
+  models.key.position.y = 2.2 - 2.1 * progress;
   models.key.position.z = 5.6 * Math.pow(progress, 3);
+  console.log(keyInterval);
   if (progress < 1) {
-    models.key.rotation.set(
-      3.48 - 3 * progress,
-      -3.28 + 2.5 * progress,
-      1 + progress * 1.7
-    );
+    if (keyInterval) clearInterval(keyInterval);
+
+    models.key.rotation.x = 3.25 - 2 * progress;
+    models.key.rotation.y = -1.2 + 2 * progress;
   }
 
-  if (progress < 1 && keyInterval) {
-    clearInterval(keyInterval);
-    keyInterval = undefined;
-  }
-
-  if (progress === 1) {
-    if (keyInterval) {
-      return;
-    }
+  if (progress >= 1 && !keyInterval) {
     keyInterval = setInterval(() => {
-      models.key.rotation.x = 0.48 + ampX;
-
-      models.key.rotation.y = -0.78 + ampY;
-
-      ampX += rotateBounceX;
-      ampY += rotateBounceY;
-
-      if (ampX >= 0.02) {
-        rotateBounceX = -0.001;
-      } else if (ampX <= -0.02) {
-        rotateBounceX = 0.001;
-      }
-
-      if (ampY >= 0.02) {
-        rotateBounceY = -0.001;
-      } else if (ampY <= -0.02) {
-        rotateBounceY = 0.001;
-      }
-    }, 50);
+      models.key.rotation.z += 0.001;
+    }, 10);
   }
 }
-
-function incubateAnimation(progress) {
-  incubateElem.style.opacity = progress;
-  incubateElem.style.cssText = `
-    opacity: ${progress};
-    filter: blur(${16 * (1 - progress * progress)}px)
-  `;
-}
-
 function nextScene3(progress) {
-  incubateElem.style.cssText = `
-  opacity: ${1 - progress};
-  filter: blur(${16 * progress * progress}px)
-`;
-  models.key.material.opacity = 1 - progress;
+  if (models.key.material) models.key.material.opacity = 1 - progress;
 }
 
 // const cameraHelper = new CameraHelper(rig, controls, renderer.domElement)

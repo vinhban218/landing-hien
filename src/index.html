@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Kyros Venture</title>
     <link rel="icon" type="image/x-icon" href="./img/favicon.png" />
   </head>
@@ -9,16 +9,16 @@
   <body>
     <div class="scene">
       <div class="canvas-parent"></div>
-      <div class="scroller">
-        <div id="kyros" class="text-[100px] font-extrabold">
-          <div class="text__left absolute -top-20 right-0 text-white"></div>
-          <div
-            class="text__right -bottom-20 left-0 text-stroke text-[transparent]"
-          ></div>
-        </div>
-      </div>
+      <div class="scroller"></div>
       <div id="nurture"><img src="./img/text-2.png" alt="nurture" /></div>
       <div id="incubate"><img src="./img//text-3.png" alt="incubate" /></div>
+    </div>
+
+    <div id="kyros" class="text-[100px] font-extrabold">
+      <div class="text__left absolute -top-20 right-0 text-white">kyros</div>
+      <div class="text__right -bottom-20 left-0 text-stroke text-[transparent]">
+        ventures
+      </div>
     </div>
     <div id="auto-play-btn">
       <img src="./img/mouse.png" alt="mouse" />
@@ -43,7 +43,25 @@
 
     <div id="loading">
       <img src="./img/loading-bg.png" alt="loading" />
-      <div class="key-hole"></div>
+      <div class="key-hole">
+        <svg height="112" width="64" class="triangle">
+          <polygon
+            points="32,0 64,112 0,112"
+            style="fill: white; stroke: white; stroke-width: 1"
+          />
+        </svg>
+        <svg height="64" width="64" class="circle">
+          <circle
+            cx="32"
+            cy="32"
+            r="32"
+            stroke="black"
+            stroke-width="0"
+            fill="white"
+          />
+        </svg>
+        <div class="text-loading !opacity-100">Loading ...</div>
+      </div>
     </div>
 
     <div

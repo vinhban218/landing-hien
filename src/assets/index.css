@@ -86,7 +86,6 @@ canvas {
     left: 50%;
     transform: translate(0, -50%);
     width: 30%;
-    opacity: 0;
 }
 
 
@@ -264,7 +263,7 @@ canvas {
     justify-content: center;
     align-items: center;
 
-    transition: transform 4s ease-in-out, opacity 1s ease-in, filter 4s ease-in-out;
+   /*  transition: transform 2s ease-in-out, opacity 2s ease-in, filter 2s ease-in-out; */
 }
 
 #loading img {
@@ -276,48 +275,58 @@ canvas {
     top: 45%;
     left: 50%;
     transform: translate(-50%, 50%);
-    transition: opacity 1s ease-in, filter 3s ease-in-out;
+    /* transition: opacity 2s ease-in, filter 2s ease-in-out; */
 }
 
-.key-hole::after, .key-hole::before {
-    content: "";
+.key-hole.done {
+    animation: light 2s ease-in-out infinite alternate;
+}
+
+@keyframes light {
+    from {
+        filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff) drop-shadow(0 0 30px rgb(247, 105, 128));
+    }
+    to {
+        filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #f73a54);
+    }
+  }
+
+.key-hole .circle, .key-hole .triangle {
     position: absolute;
-    
-    left:50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
 }
 
-.key-hole::before {
-    width: 64px;
-    height: 64px;
-    border-radius: 9999999px;    
-    background: white;
-    top:50%;
-}
-
-.key-hole::after {
-    border: 32px solid transparent;
-    border-bottom-width: 112px;
-    border-bottom-color: white;
-    top: calc(50% + 10px);
-}
-
-.text-enter {
+.text-enter, .text-loading {
     font-size: 16px;
     color: white;
 
     position: absolute;
-    bottom: -130px;
+    bottom: -150px;
     left: 50%; 
     transform: translateX(-50%);
     letter-spacing: 3px;
 
-    opacity: 0;
-    transition: opacity 0.2 linear;
+    display: none;
 }
 
+.text-loading {
+    width: 200px;
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+    text-align: center;
+    animation: fadeInOut 1s ease-in-out alternate infinite;
+}
+
+
+@keyframes fadeInOut {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
 .key-hole:hover .text-enter {
-    opacity: 1;
+    display: block;
 }
 
 .text-stroke {
