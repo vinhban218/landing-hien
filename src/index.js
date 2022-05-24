@@ -19,7 +19,11 @@ let isLoadedModel = false;
 
 window.scrollTo({ top: 0, behavior: "smooth" });
 const models = {
-  globle: null,
+  globle: {
+    dot: null,
+    VN: null,
+    world: null,
+  },
   redCircle: null,
   hand: null,
   key: null,
@@ -73,7 +77,7 @@ const updateAllMaterials = () => {
       child instanceof THREE.Mesh &&
       child.material instanceof THREE.MeshStandardMaterial
     ) {
-      child.material.envMap = environmentMap;
+      //child.material.envMap = environmentMap;
       child.material.envMapIntensity = debugObject.envMapIntensity;
       child.material.needsUpdate = true;
       child.castShadow = true;
@@ -107,31 +111,34 @@ const loadingManager = new THREE.LoadingManager(
     initButterfly();
     //create text enter
     const textLoading = document.querySelector(".text-loading");
+    //ddoi model 3s
     setTimeout(() => {
-      const textEnter = document.createElement("div");
-      textEnter.innerHTML = "ENTER";
-      textEnter.classList.add("text-enter");
-      keyHole.appendChild(textEnter);
-      textLoading.style.display = "none";
-      keyHole.classList.add("done");
-      loadingScreen.style.cursor = "pointer";
-      loadingScreen.addEventListener("click", () => {
-        keyHole.classList.remove("done");
-        keyHole.style.transform = "scale(32)";
-        loadingScreen.style.opacity = 0;
-        loadingScreen.style.filter = "blur(20px)";
-        keyHole.style.filter = "blur(20px)";
-        textEnter.style.display = "none";
-        setTimeout(() => {
-          keyHole.style.opacity = 0;
-          //initButterfly();
+      setTimeout(() => {
+        const textEnter = document.createElement("div");
+        textEnter.innerHTML = "ENTER";
+        textEnter.classList.add("text-enter");
+        keyHole.appendChild(textEnter);
+        textLoading.style.display = "none";
+        keyHole.classList.add("done");
+        loadingScreen.style.cursor = "pointer";
+        loadingScreen.addEventListener("click", () => {
+          keyHole.classList.remove("done");
+          keyHole.style.transform = "scale(32)";
+          loadingScreen.style.opacity = 0;
+          loadingScreen.style.filter = "blur(20px)";
+          keyHole.style.filter = "blur(20px)";
+          textEnter.style.display = "none";
           setTimeout(() => {
-            //loadingScreen.style.display = "none";
-            intro();
-          }, 2100);
-        }, 2000);
+            keyHole.style.opacity = 0;
+            //initButterfly();
+            setTimeout(() => {
+              //loadingScreen.style.display = "none";
+              intro();
+            }, 2100);
+          }, 2000);
+        });
       });
-    });
+    }, 3000);
   }
   // Progress
   // (itemUrl, itemsLoaded, itemsTotal) => {
@@ -147,7 +154,7 @@ const cubeTextureLoader = new THREE.CubeTextureLoader(loadingManager);
 /**
  * Environment map
  */
-const environmentMap = cubeTextureLoader.load([
+/* const environmentMap = cubeTextureLoader.load([
   "/img/loading-bg.png",
   "/img/loading-bg.png",
   "/img/loading-bg.png",
@@ -161,13 +168,15 @@ environmentMap.encoding = THREE.sRGBEncoding;
 scene.background = environmentMap;
 scene.environment = environmentMap;
 debugObject.envMapIntensity = 2.5;
-
+ */
 const canvasParent = document.querySelector(".canvas-parent");
 const scrollElement = document.querySelector(".scroller");
 
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
+  alpha: true,
 });
+renderer.setClearColor(0x000000, 0);
 renderer.physicallyCorrectLights = true;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ReinhardToneMapping;
@@ -185,13 +194,53 @@ updateAllMaterials();
  * Models
  */
 //trai dat trang
-gltfLoader.load("/models/globle.gltf", (gltf) => {
+gltfLoader.load("/models/globle/dot.gltf", (gltf) => {
   gltf.scene.children[0].scale.set(1, 1, 1);
   gltf.scene.children[0].position.set(0, 0.1, 5.8);
   gltf.scene.children[0].rotation.set(0.33, 0, 0.02);
-  //gltf.scene.children[0].material.transparent = true;
+  gltf.scene.children[0].material.transparent = true;
 
-  models.globle = gltf.scene.children[0];
+  models.globle.dot = gltf.scene.children[0];
+  scene.add(gltf.scene);
+  /*  globePos.add(models.globle.position, "x").min(-100).max(100).step(0.1);
+  globePos.add(models.globle.position, "y").min(-100).max(100).step(0.1);
+  globePos.add(models.globle.position, "z").min(-100).max(100).step(0.1);
+  globeRotate.add(models.globle.rotation, "y").min(-10).max(10).step(0.01);
+  globeRotate.add(models.globle.rotation, "x").min(-10).max(10).step(0.01);
+  globeRotate.add(models.globle.rotation, "z").min(-10).max(10).step(0.01);
+  globleScale.add(models.globle.scale, "x").min(0.1).max(3).step(0.01);
+  globleScale.add(models.globle.scale, "y").min(0.1).max(3).step(0.01);
+  globleScale.add(models.globle.scale, "z").min(0.1).max(3).step(0.01); */
+  updateAllMaterials();
+});
+
+gltfLoader.load("/models/globle/world.gltf", (gltf) => {
+  gltf.scene.children[0].scale.set(1, 1, 1);
+  gltf.scene.children[0].position.set(0, 0.1, 5.8);
+  gltf.scene.children[0].rotation.set(0.33, 0, 0.02);
+  gltf.scene.children[0].material.transparent = true;
+
+  models.globle.world = gltf.scene.children[0];
+  scene.add(gltf.scene);
+  /*  globePos.add(models.globle.position, "x").min(-100).max(100).step(0.1);
+  globePos.add(models.globle.position, "y").min(-100).max(100).step(0.1);
+  globePos.add(models.globle.position, "z").min(-100).max(100).step(0.1);
+  globeRotate.add(models.globle.rotation, "y").min(-10).max(10).step(0.01);
+  globeRotate.add(models.globle.rotation, "x").min(-10).max(10).step(0.01);
+  globeRotate.add(models.globle.rotation, "z").min(-10).max(10).step(0.01);
+  globleScale.add(models.globle.scale, "x").min(0.1).max(3).step(0.01);
+  globleScale.add(models.globle.scale, "y").min(0.1).max(3).step(0.01);
+  globleScale.add(models.globle.scale, "z").min(0.1).max(3).step(0.01); */
+  updateAllMaterials();
+});
+
+gltfLoader.load("/models/globle/VN.gltf", (gltf) => {
+  gltf.scene.children[0].scale.set(1, 1, 1);
+  gltf.scene.children[0].position.set(0, 0.1, 5.8);
+  gltf.scene.children[0].rotation.set(0.33, 0, 0.02);
+  gltf.scene.children[0].material.transparent = true;
+
+  models.globle.VN = gltf.scene.children[0];
   scene.add(gltf.scene);
   /*  globePos.add(models.globle.position, "x").min(-100).max(100).step(0.1);
   globePos.add(models.globle.position, "y").min(-100).max(100).step(0.1);
@@ -565,7 +614,9 @@ function intro() {
     models.redCircle.rotation.z -= 0.001;
   }, 10);
   introInterval = setInterval(() => {
-    models.globle.rotation.y += a;
+    models.globle.dot.rotation.y += a;
+    models.globle.world.rotation.y += a;
+    models.globle.VN.rotation.y += a;
   }, 10);
   setTimeout(() => {
     clearInterval(introInterval);
@@ -661,7 +712,17 @@ window.addEventListener(
 // animation section 1
 function rotateGlobeAni(progress) {
   if (!models.globle || !models.redCircle) return;
-  models.globle.scale.set(
+  models.globle.dot.scale.set(
+    1 + 1.04 * progress * progress,
+    1 + 1.04 * progress * progress,
+    1 + 1.04 * progress * progress
+  );
+  models.globle.VN.scale.set(
+    1 + 1.04 * progress * progress,
+    1 + 1.04 * progress * progress,
+    1 + 1.04 * progress * progress
+  );
+  models.globle.world.scale.set(
     1 + 1.04 * progress * progress,
     1 + 1.04 * progress * progress,
     1 + 1.04 * progress * progress
@@ -669,7 +730,10 @@ function rotateGlobeAni(progress) {
   models.redCircle.scale.set(1 + 2.5 * progress, 1 + 2.5 * progress, 1);
   models.redCircle.material.opacity = 1 - progress;
   if (progress >= 1) {
-    models.globle.scale.set(0, 0, 0);
+    models.globle.dot.scale.set(0, 0, 0);
+    models.globle.VN.scale.set(0, 0, 0);
+    models.globle.world.scale.set(0, 0, 0);
+
     models.redCircle.scale.set(0, 0, 0);
   }
 }
@@ -743,16 +807,24 @@ function keyAnimation(progress) {
     Math.pow(progress, 4),
     Math.pow(progress, 4)
   );
-  if (progress < 0.7) {
+  /*  if (progress < 0.7) {
     models.key.position.x = -2.3 - 2 * progress;
   } else if (progress >= 0.75) {
     models.key.position.x = -3.7 + 12 * (progress - 0.75);
   }
   models.key.position.y = 2.2 - 2.1 * progress;
-  models.key.position.z = 5.6 * Math.pow(progress, 3);
-  console.log(keyInterval);
+  models.key.position.z = 5.6 * Math.pow(progress, 3); */
+
+  models.key.position.set(
+    (4 * progress - 2) ** 2 - 3.7,
+    2.2 - 2.1 * progress,
+    5.6 * progress ** 3
+  );
   if (progress < 1) {
-    if (keyInterval) clearInterval(keyInterval);
+    if (keyInterval) {
+      clearInterval(keyInterval);
+      keyInterval = null;
+    }
 
     models.key.rotation.x = 3.25 - 2 * progress;
     models.key.rotation.y = -1.2 + 2 * progress;

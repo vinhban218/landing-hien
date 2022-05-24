@@ -108,7 +108,6 @@ function init() {
     container.appendChild(unit);
     const xLocale = random(minWidthInit, maxWidthInit);
     const yLocale = random(minHeightInit, maxHeightInit);
-    console.log(xLocale, w / 2);
     const scale = random(4, 7);
     gsap.set(unit, {
       x: xLocale,
