@@ -10,15 +10,19 @@
     <div class="scene">
       <div class="canvas-parent"></div>
       <div class="scroller"></div>
-      <div id="nurture"><img src="./img/text-2.png" alt="nurture" /></div>
-      <div id="incubate"><img src="./img//text-3.png" alt="incubate" /></div>
     </div>
 
-    <div id="kyros" class="text-[100px] font-extrabold">
-      <div class="text__left absolute -top-20 right-0 text-white">kyros</div>
+    <div id="kyros" class="text-[100px] font-extrabold z-10">
+      <div class="text__left absolute -top-20 right-0 text-white">KYROS</div>
       <div class="text__right -bottom-20 left-0 text-stroke text-[transparent]">
-        ventures
+        VENTURES
       </div>
+    </div>
+    <div id="nurture" class="z-10">
+      <img src="./img/text-2.png" alt="nurture" />
+    </div>
+    <div id="incubate" class="z-10">
+      <img src="./img//text-3.png" alt="incubate" />
     </div>
     <div id="auto-play-btn">
       <img src="./img/mouse.png" alt="mouse" />
@@ -41,9 +45,8 @@
       <img src="./img/kyros-logo.png" alt="kyros" />
     </div>
 
-    <div id="loading">
-      <img src="./img/loading-bg.png" alt="loading" />
-      <div class="key-hole">
+    <div id="loading" class="flex flex-col items-center">
+      <div class="key-hole top-[-100px]">
         <svg height="112" width="64" class="triangle">
           <polygon
             points="32,0 64,112 0,112"
@@ -60,13 +63,16 @@
             fill="white"
           />
         </svg>
-        <div class="text-loading !opacity-100">Loading ...</div>
+        <div class="text-enter">ENTER</div>
+      </div>
+      <div class="bar top-8">
+        <div class="bar-inner"></div>
       </div>
     </div>
 
     <div
       id="butterfly-container"
-      class="fixed top-0 left-0 w-[100vw] h-[100vh]"
+      class="fixed top-0 left-0 z-[-2] w-[100vw] h-[100vh]"
     ></div>
 
     <div class="nav-btn"></div>

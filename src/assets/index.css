@@ -70,7 +70,6 @@ canvas {
     transform: translate(-50%, 0);
     bottom: 100px;
     width: 1px;
-    /* transform: scale(0, 0); */
 }
 
 #nurture {
@@ -78,6 +77,8 @@ canvas {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    opacity: 0;
+    filter: blur(40px);
 }
 
 #incubate {
@@ -86,10 +87,12 @@ canvas {
     left: 50%;
     transform: translate(0, -50%);
     width: 30%;
+    opacity: 0;
+    filter: blur(40px);
 }
 
 
-#kyros img, #nurture img, #incubate img {
+ #nurture img, #incubate img {
     max-width: 100%;
 }
 
@@ -229,9 +232,7 @@ canvas {
     font-weight: 400;
     letter-spacing: 2px;
     text-transform: uppercase;
-
     margin-left: -20px;
-
     position: relative;
 }
 
@@ -251,18 +252,15 @@ canvas {
     height: 100vh;
     
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
     z-index: 2000;
+
+    transform: translate(-50%,-50%);
 
     color: white;
     font-size: 30px;
     font-weight: 600;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
    /*  transition: transform 2s ease-in-out, opacity 2s ease-in, filter 2s ease-in-out; */
 }
 
@@ -272,31 +270,70 @@ canvas {
 
 .key-hole {
     position: absolute;
+    cursor: pointer;
     top: 45%;
     left: 50%;
-    transform: translate(-50%, 50%);
+    
     /* transition: opacity 2s ease-in, filter 2s ease-in-out; */
+    transform: translate(-50%, 50%);
+    transition: opacity 1s linear, filter 0.5s ease-in-out, transform 3s ease-in-out;
 }
 
-.key-hole.done {
-    animation: light 2s ease-in-out infinite alternate;
-}
+.bar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 80px);
+    width: 200px;
+    height: 32px;
+    
 
-@keyframes light {
-    from {
-        filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff) drop-shadow(0 0 30px rgb(247, 105, 128));
-    }
-    to {
-        filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #f73a54);
-    }
+    border: 2px solid white;
+    border-radius: 16px;
+    overflow: hidden;
+    background: transparent;
+    z-index: 20;
   }
+  
+  .bar-inner {
+    position: absolute;
+    background: white;
+    top: 0;
+    left: 0;
+  
+    height: 100%;
+    background: white;
+    transition: width 4s linear;
+    width: 0;
+    overflow: hidden;
+    z-index: 8;
+  }
+  
+  /* .bar-inner::after {
+    content: "";
+    animation: slidein 2s ease-in infinite;
+     z-index: 10;
+    
+    background: gray;
+    
+    position: absolute;
+    top: -20px;
+  
+    width: 10px;
+    height: 80px;
+    transform: rotate(40deg);
+  }
+ */
+.key-hole.done:hover {
+    filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff) drop-shadow(0 0 30px rgb(247, 105, 128));
+}
 
 .key-hole .circle, .key-hole .triangle {
     position: absolute;
     transform: translateX(-50%);
 }
 
-.text-enter, .text-loading {
+.text-enter {
     font-size: 16px;
     color: white;
 
@@ -306,27 +343,11 @@ canvas {
     transform: translateX(-50%);
     letter-spacing: 3px;
 
-    display: none;
+    opacity: 0;
 }
 
-.text-loading {
-    width: 200px;
-    letter-spacing: 0.1px;
-    text-transform: uppercase;
-    text-align: center;
-    animation: fadeInOut 1s ease-in-out alternate infinite;
-}
-
-
-@keyframes fadeInOut {
-    from {
-        opacity: 0;
-    } to {
-        opacity: 1;
-    }
-}
-.key-hole:hover .text-enter {
-    display: block;
+.key-hole.done:hover .text-enter {
+    opacity: 1;
 }
 
 .text-stroke {

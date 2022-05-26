@@ -17,6 +17,12 @@ const loadingScreen = document.querySelector("#loading");
 loadingScreen.style.display = "flex";
 let isLoadedModel = false;
 
+kyrosElem.style.opacity = 0;
+const barInner = document.querySelector(".bar-inner");
+setTimeout(() => {
+  barInner.style.width = "60%";
+}, 2000);
+
 window.scrollTo({ top: 0, behavior: "smooth" });
 const models = {
   globle: {
@@ -39,7 +45,7 @@ const PI = Math.PI;
 /* --------------------------------------------- */
 // Debug
 //hinh cau
-/* const gui = new dat.GUI();
+const gui = new dat.GUI();
 const globeFolder = gui.addFolder("Globe");
 const globePos = globeFolder.addFolder("Globe POS");
 const globeRotate = globeFolder.addFolder("Globe Rotate");
@@ -62,8 +68,8 @@ const logoRotate = logoFolder.addFolder("Logo Rotate");
 const keyFolder = gui.addFolder("Key");
 const keyPos = keyFolder.addFolder("Key POS");
 const keyRotate = keyFolder.addFolder("Key Rotate");
-const keyScale = keyFolder.addFolder("Key Scale"); */
-/* ----------------------------------------------- */
+const keyScale = keyFolder.addFolder("Key Scale");
+
 // Scene
 const scene = new THREE.Scene();
 
@@ -105,40 +111,44 @@ const loadingManager = new THREE.LoadingManager(
     /*    window.setTimeout(() => {
      
     }, 3000); */
-
+    let isRunIntro = false;
     sceneReady = true;
     const keyHole = loadingScreen.querySelector(".key-hole");
     initButterfly();
     //create text enter
     const textLoading = document.querySelector(".text-loading");
     //ddoi model 3s
+    barInner.style.cssText = `
+      transition: width 1.2s linear;
+    `;
+    barInner.style.width = "100%";
     setTimeout(() => {
       setTimeout(() => {
-        const textEnter = document.createElement("div");
-        textEnter.innerHTML = "ENTER";
-        textEnter.classList.add("text-enter");
-        keyHole.appendChild(textEnter);
-        textLoading.style.display = "none";
-        keyHole.classList.add("done");
-        loadingScreen.style.cursor = "pointer";
-        loadingScreen.addEventListener("click", () => {
-          keyHole.classList.remove("done");
-          keyHole.style.transform = "scale(32)";
-          loadingScreen.style.opacity = 0;
-          loadingScreen.style.filter = "blur(20px)";
-          keyHole.style.filter = "blur(20px)";
-          textEnter.style.display = "none";
+        const bar = document.querySelector(".bar");
+        bar.style.opacity = 0;
+        keyHole.addEventListener("click", () => {
+          if (isRunIntro) return;
+          isRunIntro = true;
+          keyHole.style.cssText = `
+          transition: opacity 1s linear, filter 2.5s ease-in-out, transform 2.5s ease-in-out;
+          filter: blur(16px);
+          transform: scale(20);
+          `;
+          document.querySelector(".text-enter").style.display = "none";
           setTimeout(() => {
-            keyHole.style.opacity = 0;
-            //initButterfly();
             setTimeout(() => {
-              //loadingScreen.style.display = "none";
+              keyHole.style.opacity = 0;
+              kyrosElem.style.opacity = 1;
+              setTimeout(() => {
+                loadingScreen.style.display = "none";
+              }, 500);
               intro();
-            }, 2100);
-          }, 2000);
+            }, 1000);
+          }, 1500);
         });
       });
-    }, 3000);
+      keyHole.classList.add("done");
+    }, 1200);
   }
   // Progress
   // (itemUrl, itemsLoaded, itemsTotal) => {
@@ -196,7 +206,7 @@ updateAllMaterials();
 //trai dat trang
 gltfLoader.load("/models/globle/dot.gltf", (gltf) => {
   gltf.scene.children[0].scale.set(1, 1, 1);
-  gltf.scene.children[0].position.set(0, 0.1, 5.8);
+  gltf.scene.children[0].position.set(0, 0.1, 5.9);
   gltf.scene.children[0].rotation.set(0.33, 0, 0.02);
   gltf.scene.children[0].material.transparent = true;
 
@@ -216,7 +226,7 @@ gltfLoader.load("/models/globle/dot.gltf", (gltf) => {
 
 gltfLoader.load("/models/globle/world.gltf", (gltf) => {
   gltf.scene.children[0].scale.set(1, 1, 1);
-  gltf.scene.children[0].position.set(0, 0.1, 5.8);
+  gltf.scene.children[0].position.set(0, 0.1, 5.9);
   gltf.scene.children[0].rotation.set(0.33, 0, 0.02);
   gltf.scene.children[0].material.transparent = true;
 
@@ -236,30 +246,33 @@ gltfLoader.load("/models/globle/world.gltf", (gltf) => {
 
 gltfLoader.load("/models/globle/VN.gltf", (gltf) => {
   gltf.scene.children[0].scale.set(1, 1, 1);
-  gltf.scene.children[0].position.set(0, 0.1, 5.8);
+  gltf.scene.children[0].position.set(0, 0.1, 5.9);
   gltf.scene.children[0].rotation.set(0.33, 0, 0.02);
   gltf.scene.children[0].material.transparent = true;
-
   models.globle.VN = gltf.scene.children[0];
+  models.globle.VN.material.opacity = -3;
+  const color = new THREE.Color("rgb(255, 0, 0)");
+  models.globle.VN.material.color = color;
   scene.add(gltf.scene);
-  /*  globePos.add(models.globle.position, "x").min(-100).max(100).step(0.1);
-  globePos.add(models.globle.position, "y").min(-100).max(100).step(0.1);
-  globePos.add(models.globle.position, "z").min(-100).max(100).step(0.1);
-  globeRotate.add(models.globle.rotation, "y").min(-10).max(10).step(0.01);
-  globeRotate.add(models.globle.rotation, "x").min(-10).max(10).step(0.01);
-  globeRotate.add(models.globle.rotation, "z").min(-10).max(10).step(0.01);
-  globleScale.add(models.globle.scale, "x").min(0.1).max(3).step(0.01);
-  globleScale.add(models.globle.scale, "y").min(0.1).max(3).step(0.01);
-  globleScale.add(models.globle.scale, "z").min(0.1).max(3).step(0.01); */
+  globePos.add(models.globle.VN.position, "x").min(-100).max(100).step(0.1);
+  globePos.add(models.globle.VN.position, "y").min(-100).max(100).step(0.1);
+  globePos.add(models.globle.VN.position, "z").min(-100).max(100).step(0.1);
+  globeRotate.add(models.globle.VN.rotation, "y").min(-10).max(10).step(0.01);
+  globeRotate.add(models.globle.VN.rotation, "x").min(-10).max(10).step(0.01);
+  globeRotate.add(models.globle.VN.rotation, "z").min(-10).max(10).step(0.01);
+  globleScale.add(models.globle.VN.scale, "x").min(0.1).max(3).step(0.01);
+  globleScale.add(models.globle.VN.scale, "y").min(0.1).max(3).step(0.01);
+  globleScale.add(models.globle.VN.scale, "z").min(0.1).max(3).step(0.01);
   updateAllMaterials();
 });
 // vong tron cham do
 gltfLoader.load("/models/circle.gltf", (gltf) => {
   models.redCircle = gltf.scene.children[0];
-  models.redCircle.scale.set(1, 1, 1);
+  models.redCircle.scale.set(2, 2, 2);
   models.redCircle.position.set(0.02, 0.22, 4.4);
   models.redCircle.rotation.set(0, 0.01, 0);
   models.redCircle.material.transparent = true;
+  models.redCircle.material.opacity = 0.4;
   scene.add(gltf.scene);
   /*  redCirclePos.add(models.redCircle.position, "x").min(-10).max(10).step(0.01);
   redCirclePos.add(models.redCircle.position, "y").min(-10).max(10).step(0.01);
@@ -292,7 +305,7 @@ gltfLoader.load("/models/logo.gltf", (gltf) => {
   models.logo.scale.set(0, 0, 0);
   models.logo.rotation.set(0.21, 0.6, -0.05);
 
-  /*   logoPos.add(models.logo.position, "x").min(-100).max(100).step(0.1);
+  logoPos.add(models.logo.position, "x").min(-100).max(100).step(0.1);
   logoPos.add(models.logo.position, "y").min(-100).max(100).step(0.1);
   logoPos.add(models.logo.position, "z").min(-100).max(100).step(0.1);
   logoScale.add(models.logo.scale, "x").min(0).max(2).step(0.001);
@@ -300,7 +313,7 @@ gltfLoader.load("/models/logo.gltf", (gltf) => {
   logoScale.add(models.logo.scale, "z").min(0).max(2).step(0.001);
   logoRotate.add(models.logo.rotation, "x").min(-10).max(10).step(0.01);
   logoRotate.add(models.logo.rotation, "y").min(-10).max(10).step(0.01);
-  logoRotate.add(models.logo.rotation, "z").min(-10).max(10).step(0.01); */
+  logoRotate.add(models.logo.rotation, "z").min(-10).max(10).step(0.01);
   updateAllMaterials();
 });
 
@@ -344,6 +357,7 @@ for (let i = 0; i < 7; i++) {
       initCubesRotate[i].z
     );
     gltf.scene.children[0].scale.set(0, 0, 0);
+
     /* const cubeFolder = gui.addFolder(`Cube${i}`);
     const cubePos = cubeFolder.addFolder("Cube Pos");
     const cubeRotate = cubeFolder.addFolder("Cube Rotate");
@@ -568,7 +582,7 @@ const controls = new ScrollControls(rig, {
       callback: rotateGlobeAni,
     },
     {
-      start: "10%",
+      start: "12%",
       end: "20%",
       callback: logoAnimation,
     },
@@ -606,10 +620,11 @@ const controls = new ScrollControls(rig, {
 });
 
 /* intro function  */
-
 function intro() {
   let introInterval;
   const a = (2 * PI) / 400;
+  let b = 0;
+  let c = 0;
   setInterval(() => {
     models.redCircle.rotation.z -= 0.001;
   }, 10);
@@ -617,11 +632,16 @@ function intro() {
     models.globle.dot.rotation.y += a;
     models.globle.world.rotation.y += a;
     models.globle.VN.rotation.y += a;
+    models.globle.VN.material.opacity += 1 / 100;
+    b += 1 / 400;
+    c += 0.6 / 400;
+    models.redCircle.scale.set(2 - b, 2 - b, 2 - b);
+    models.redCircle.material.opacity = 0.4 + c;
+    if (b >= 1) {
+      clearInterval(introInterval);
+      isLoadedModel = true;
+    }
   }, 10);
-  setTimeout(() => {
-    clearInterval(introInterval);
-    isLoadedModel = true;
-  }, 4010);
 }
 
 /*  */
@@ -741,6 +761,8 @@ function rotateGlobeAni(progress) {
 function logoAnimation(progress) {
   if (!models.logo) return;
   models.logo.scale.set(0.018 * progress, 0.018 * progress, 0.018 * progress);
+  models.logo.rotation.y = -4 + 4.6 * progress;
+  models.logo.rotation.z = -1.55 + 1.5 * progress;
 }
 /* 
 const kyrosText = "KYROS".split("").reverse();
@@ -771,8 +793,21 @@ function nextScene1(progress) {
   models.logo.position.z = 4 + 4.4 * progress * progress;
 }
 // animation section 2
+let isSetCubeInterval = false;
+
 function cubesAnimation(progress) {
   if (!models.cubes.length) return;
+  if (!isSetCubeInterval) {
+    for (let i = 0; i < 7; i++) {
+      const a = (Math.random() * (0.0008 - 0.0005) + 0.0005).toFixed(5);
+      setInterval(() => {
+        models.cubes[i].rotation.x += parseFloat(a);
+        models.cubes[i].rotation.y += parseFloat(a);
+        models.cubes[i].rotation.z += parseFloat(a);
+      }, 10);
+    }
+    isSetCubeInterval = true;
+  }
 
   models.cubes.forEach((cube, index) => {
     if (progress >= initCubesTime[index]) {
@@ -803,9 +838,9 @@ function keyAnimation(progress) {
   if (!models.key) return;
 
   models.key.scale.set(
-    Math.pow(progress, 4),
-    Math.pow(progress, 4),
-    Math.pow(progress, 4)
+    Math.pow(progress, 2),
+    Math.pow(progress, 2),
+    Math.pow(progress, 2)
   );
   /*  if (progress < 0.7) {
     models.key.position.x = -2.3 - 2 * progress;
@@ -816,7 +851,7 @@ function keyAnimation(progress) {
   models.key.position.z = 5.6 * Math.pow(progress, 3); */
 
   models.key.position.set(
-    (4 * progress - 2) ** 2 - 3.7,
+    (4 * progress - 2) ** 2 - 4.7,
     2.2 - 2.1 * progress,
     5.6 * progress ** 3
   );
