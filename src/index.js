@@ -52,7 +52,7 @@ loadingInterval = setInterval(() => {
 // Debug
 //hinh cau
 const gui = new dat.GUI();
-const globeFolder = gui.addFolder("Globe");
+/* const globeFolder = gui.addFolder("Globe");
 const globePos = globeFolder.addFolder("Globe POS");
 const globeRotate = globeFolder.addFolder("Globe Rotate");
 const globleScale = globeFolder.addFolder("Globe Scale");
@@ -74,7 +74,7 @@ const logoRotate = logoFolder.addFolder("Logo Rotate");
 const keyFolder = gui.addFolder("Key");
 const keyPos = keyFolder.addFolder("Key POS");
 const keyRotate = keyFolder.addFolder("Key Rotate");
-const keyScale = keyFolder.addFolder("Key Scale");
+const keyScale = keyFolder.addFolder("Key Scale"); */
 
 // Scene
 const scene = new THREE.Scene();
@@ -151,7 +151,7 @@ const loadingManager = new THREE.LoadingManager(
 
               setTimeout(() => {
                 intro();
-              }, 1000);
+              }, 800);
             }, 1000);
           });
         });
@@ -221,7 +221,7 @@ gltfLoader.load("/models/globle/dot.gltf", (gltf) => {
 
   models.globle.dot = gltf.scene.children[0];
   scene.add(gltf.scene);
-  globePos.add(models.globle.dot.position, "x").min(-100).max(100).step(0.1);
+  /*   globePos.add(models.globle.dot.position, "x").min(-100).max(100).step(0.1);
   globePos.add(models.globle.dot.position, "y").min(-100).max(100).step(0.1);
   globePos.add(models.globle.dot.position, "z").min(-100).max(100).step(0.1);
   globeRotate.add(models.globle.dot.rotation, "y").min(-10).max(10).step(0.01);
@@ -229,7 +229,7 @@ gltfLoader.load("/models/globle/dot.gltf", (gltf) => {
   globeRotate.add(models.globle.dot.rotation, "z").min(-10).max(10).step(0.01);
   globleScale.add(models.globle.dot.scale, "x").min(0.1).max(3).step(0.01);
   globleScale.add(models.globle.dot.scale, "y").min(0.1).max(3).step(0.01);
-  globleScale.add(models.globle.dot.scale, "z").min(0.1).max(3).step(0.01);
+  globleScale.add(models.globle.dot.scale, "z").min(0.1).max(3).step(0.01); */
   updateAllMaterials();
 });
 
@@ -241,7 +241,7 @@ gltfLoader.load("/models/globle/world.gltf", (gltf) => {
 
   models.globle.world = gltf.scene.children[0];
   scene.add(gltf.scene);
-  globePos.add(models.globle.world.position, "x").min(-100).max(100).step(0.1);
+  /*   globePos.add(models.globle.world.position, "x").min(-100).max(100).step(0.1);
   globePos.add(models.globle.world.position, "y").min(-100).max(100).step(0.1);
   globePos.add(models.globle.world.position, "z").min(-100).max(100).step(0.1);
   globeRotate
@@ -261,7 +261,7 @@ gltfLoader.load("/models/globle/world.gltf", (gltf) => {
     .step(0.01);
   globleScale.add(models.globle.world.scale, "x").min(0.1).max(3).step(0.01);
   globleScale.add(models.globle.world.scale, "y").min(0.1).max(3).step(0.01);
-  globleScale.add(models.globle.world.scale, "z").min(0.1).max(3).step(0.01);
+  globleScale.add(models.globle.world.scale, "z").min(0.1).max(3).step(0.01); */
   updateAllMaterials();
 });
 
@@ -274,7 +274,7 @@ gltfLoader.load("/models/globle/VN.gltf", (gltf) => {
   models.globle.VN.material.opacity = -3;
   models.globle.VN.material.color = redColor;
   scene.add(gltf.scene);
-  globePos.add(models.globle.VN.position, "x").min(-100).max(100).step(0.1);
+  /*   globePos.add(models.globle.VN.position, "x").min(-100).max(100).step(0.1);
   globePos.add(models.globle.VN.position, "y").min(-100).max(100).step(0.1);
   globePos.add(models.globle.VN.position, "z").min(-100).max(100).step(0.1);
   globeRotate.add(models.globle.VN.rotation, "y").min(-10).max(10).step(0.01);
@@ -282,7 +282,7 @@ gltfLoader.load("/models/globle/VN.gltf", (gltf) => {
   globeRotate.add(models.globle.VN.rotation, "z").min(-10).max(10).step(0.01);
   globleScale.add(models.globle.VN.scale, "x").min(0.1).max(3).step(0.01);
   globleScale.add(models.globle.VN.scale, "y").min(0.1).max(3).step(0.01);
-  globleScale.add(models.globle.VN.scale, "z").min(0.1).max(3).step(0.01);
+  globleScale.add(models.globle.VN.scale, "z").min(0.1).max(3).step(0.01); */
   updateAllMaterials();
 });
 // vong tron cham do
@@ -622,22 +622,22 @@ const controls = new ScrollControls(rig, {
     },
     {
       start: "30%",
-      end: "45%",
+      end: "40%",
       callback: cubesAnimation,
     },
     {
-      start: "50%",
-      end: "55%",
+      start: "45%",
+      end: "50%",
       callback: nextScene2,
     },
     {
-      start: "55%",
-      end: "70%",
+      start: "50%",
+      end: "65%",
       callback: keyAnimation,
     },
     {
-      start: "75%",
-      end: "80%",
+      start: "70%",
+      end: "75%",
       callback: nextScene3,
     },
   ],

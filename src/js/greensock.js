@@ -147,8 +147,8 @@ function init() {
   const kyrosLeft = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "17%",
-      end: "20%",
+      start: "15%",
+      end: "18%",
       scrub: 1,
     },
   });
@@ -156,8 +156,8 @@ function init() {
   const kyrosRight = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "17%",
-      end: "20%",
+      start: "15%",
+      end: "18%",
       scrub: 1,
     },
   });
@@ -193,8 +193,8 @@ function init() {
   const nextScene1Left = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "25%",
-      end: "28%",
+      start: "23%",
+      end: "27%",
       scrub: 1,
     },
   });
@@ -202,8 +202,8 @@ function init() {
   const nextScene1Right = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "25%",
-      end: "28%",
+      start: "23%",
+      end: "27%",
       scrub: 1,
     },
   });
@@ -238,8 +238,8 @@ function init() {
   const nurture = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "35%",
-      end: "45%",
+      start: "30%",
+      end: "40%",
       scrub: 1,
     },
   });
@@ -271,8 +271,8 @@ function init() {
   const incubate = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "60%",
-      end: "65%",
+      start: "50%",
+      end: "60%",
       scrub: 1,
     },
   });
@@ -284,8 +284,8 @@ function init() {
   const nextScene3 = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "70%",
-      end: "75%",
+      start: "65%",
+      end: "70%",
       scrub: 1,
     },
   });
