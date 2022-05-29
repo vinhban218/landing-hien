@@ -112,8 +112,8 @@ function init() {
     gsap.set(unit, {
       x: xLocale,
       y: yLocale,
-      scale: random(0.7, 1.0),
-      opacity: 1,
+      scale: random(0.5, 2.5),
+      opacity: random(0.5, 1),
     });
     gsap.to(unit, {
       x: "+=" + (xLocale - w / 2) * scale,
@@ -238,8 +238,8 @@ function init() {
   const nurture = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "45%",
-      end: "50%",
+      start: "35%",
+      end: "45%",
       scrub: 1,
     },
   });
@@ -257,8 +257,8 @@ function init() {
   const nextScene2 = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "55%",
-      end: "60%",
+      start: "50%",
+      end: "55%",
       scrub: 1,
     },
   });
@@ -271,8 +271,8 @@ function init() {
   const incubate = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "65%",
-      end: "70%",
+      start: "60%",
+      end: "65%",
       scrub: 1,
     },
   });
@@ -284,8 +284,8 @@ function init() {
   const nextScene3 = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "75%",
-      end: "80%",
+      start: "70%",
+      end: "75%",
       scrub: 1,
     },
   });
