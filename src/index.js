@@ -20,11 +20,12 @@ loadingScreen.style.display = "flex";
 let isLoadedModel = false;
 window.scrollTo({ top: 0, behavior: "smooth" });
 const models = {
-  globle: {
+  /*  globle: {
     dot: null,
     VN: null,
     world: null,
-  },
+  }, */
+  globle: null,
   redCircle: null,
   hand: null,
   key: null,
@@ -51,8 +52,8 @@ loadingInterval = setInterval(() => {
 /* --------------------------------------------- */
 // Debug
 //hinh cau
-const gui = new dat.GUI();
-/* const globeFolder = gui.addFolder("Globe");
+/* const gui = new dat.GUI();
+const globeFolder = gui.addFolder("Globe");
 const globePos = globeFolder.addFolder("Globe POS");
 const globeRotate = globeFolder.addFolder("Globe Rotate");
 const globleScale = globeFolder.addFolder("Globe Scale");
@@ -213,7 +214,7 @@ updateAllMaterials();
  * Models
  */
 //trai dat trang
-gltfLoader.load("/models/globle/dot.gltf", (gltf) => {
+/* gltfLoader.load("/models/globle/dot.gltf", (gltf) => {
   gltf.scene.children[0].scale.set(1, 1, 1);
   gltf.scene.children[0].position.set(0, 0.1, 5.9);
   gltf.scene.children[0].rotation.set(0.33, 0, 0.02);
@@ -221,7 +222,7 @@ gltfLoader.load("/models/globle/dot.gltf", (gltf) => {
 
   models.globle.dot = gltf.scene.children[0];
   scene.add(gltf.scene);
-  /*   globePos.add(models.globle.dot.position, "x").min(-100).max(100).step(0.1);
+    globePos.add(models.globle.dot.position, "x").min(-100).max(100).step(0.1);
   globePos.add(models.globle.dot.position, "y").min(-100).max(100).step(0.1);
   globePos.add(models.globle.dot.position, "z").min(-100).max(100).step(0.1);
   globeRotate.add(models.globle.dot.rotation, "y").min(-10).max(10).step(0.01);
@@ -229,7 +230,7 @@ gltfLoader.load("/models/globle/dot.gltf", (gltf) => {
   globeRotate.add(models.globle.dot.rotation, "z").min(-10).max(10).step(0.01);
   globleScale.add(models.globle.dot.scale, "x").min(0.1).max(3).step(0.01);
   globleScale.add(models.globle.dot.scale, "y").min(0.1).max(3).step(0.01);
-  globleScale.add(models.globle.dot.scale, "z").min(0.1).max(3).step(0.01); */
+  globleScale.add(models.globle.dot.scale, "z").min(0.1).max(3).step(0.01);
   updateAllMaterials();
 });
 
@@ -241,7 +242,7 @@ gltfLoader.load("/models/globle/world.gltf", (gltf) => {
 
   models.globle.world = gltf.scene.children[0];
   scene.add(gltf.scene);
-  /*   globePos.add(models.globle.world.position, "x").min(-100).max(100).step(0.1);
+    globePos.add(models.globle.world.position, "x").min(-100).max(100).step(0.1);
   globePos.add(models.globle.world.position, "y").min(-100).max(100).step(0.1);
   globePos.add(models.globle.world.position, "z").min(-100).max(100).step(0.1);
   globeRotate
@@ -261,7 +262,7 @@ gltfLoader.load("/models/globle/world.gltf", (gltf) => {
     .step(0.01);
   globleScale.add(models.globle.world.scale, "x").min(0.1).max(3).step(0.01);
   globleScale.add(models.globle.world.scale, "y").min(0.1).max(3).step(0.01);
-  globleScale.add(models.globle.world.scale, "z").min(0.1).max(3).step(0.01); */
+  globleScale.add(models.globle.world.scale, "z").min(0.1).max(3).step(0.01);
   updateAllMaterials();
 });
 
@@ -274,7 +275,7 @@ gltfLoader.load("/models/globle/VN.gltf", (gltf) => {
   models.globle.VN.material.opacity = -3;
   models.globle.VN.material.color = redColor;
   scene.add(gltf.scene);
-  /*   globePos.add(models.globle.VN.position, "x").min(-100).max(100).step(0.1);
+    globePos.add(models.globle.VN.position, "x").min(-100).max(100).step(0.1);
   globePos.add(models.globle.VN.position, "y").min(-100).max(100).step(0.1);
   globePos.add(models.globle.VN.position, "z").min(-100).max(100).step(0.1);
   globeRotate.add(models.globle.VN.rotation, "y").min(-10).max(10).step(0.01);
@@ -282,19 +283,36 @@ gltfLoader.load("/models/globle/VN.gltf", (gltf) => {
   globeRotate.add(models.globle.VN.rotation, "z").min(-10).max(10).step(0.01);
   globleScale.add(models.globle.VN.scale, "x").min(0.1).max(3).step(0.01);
   globleScale.add(models.globle.VN.scale, "y").min(0.1).max(3).step(0.01);
-  globleScale.add(models.globle.VN.scale, "z").min(0.1).max(3).step(0.01); */
+  globleScale.add(models.globle.VN.scale, "z").min(0.1).max(3).step(0.01);
+  updateAllMaterials();
+}); */
+
+gltfLoader.load("/models/globle.gltf", (gltf) => {
+  models.globle = gltf.scene.children[0];
+
+  models.globle.position.set(0, 0.06, 5.9);
+  models.globle.rotation.set(0.33, 0, 0.02);
+  models.globle.scale.set(1, 1, 1);
+
+  models.globle.children.forEach((item) => {
+    item.material.transparent = true;
+  });
+
+  models.globle.children[0].material.opacity = 0;
+  models.globle.children[1].material.opacity = -3;
+  scene.add(gltf.scene);
   updateAllMaterials();
 });
 // vong tron cham do
 gltfLoader.load("/models/circle.gltf", (gltf) => {
   models.redCircle = gltf.scene.children[0];
   models.redCircle.scale.set(2, 2, 2);
-  models.redCircle.position.set(0.02, 0.22, 4.4);
+  models.redCircle.position.set(0, 0.11, 4.4);
   models.redCircle.rotation.set(0, 0.01, 0);
   models.redCircle.material.transparent = true;
   models.redCircle.material.opacity = 0.4;
   scene.add(gltf.scene);
-  /*  redCirclePos.add(models.redCircle.position, "x").min(-10).max(10).step(0.01);
+  /*   redCirclePos.add(models.redCircle.position, "x").min(-10).max(10).step(0.01);
   redCirclePos.add(models.redCircle.position, "y").min(-10).max(10).step(0.01);
   redCirclePos.add(models.redCircle.position, "z").min(-10).max(10).step(0.01);
   redCircleScale.add(models.redCircle.scale, "x").min(0.1).max(10).step(0.01);
@@ -312,7 +330,6 @@ for (let i = 0; i < 8; i++) {
     gltf.scene.children[0].position.set(0, 0, -20);
     gltf.scene.children[0].material.transparent = true;
     gltf.scene.children[0].scale.set(0, 0, 0);
-    console.log(gltf.scene.children[0]);
     models.circle.push(gltf.scene.children[0]);
     updateAllMaterials();
   });
@@ -364,7 +381,8 @@ initCubesPos.forEach((item) => {
   item.z -= 6.4;
 });
 
-const initCubesTime = [0.2, 0.5, 0.8, 0.4, 0.3, 0.9, 0];
+const initCubesTimeStart = [0.2, 0.5, 0.8, 0.4, 0.3, 0.9, 0];
+const initCubesTimeEnd = [0.5, 0.7, 1, 0.7, 0.6, 1, 0.3];
 for (let i = 0; i < 7; i++) {
   gltfLoader.load("/models/cube.gltf", (gltf) => {
     scene.add(gltf.scene);
@@ -611,33 +629,33 @@ const controls = new ScrollControls(rig, {
       callback: rotateGlobeAni,
     },
     {
-      start: "12%",
+      start: "10%",
       end: "20%",
       callback: logoAnimation,
     },
     {
-      start: "25%",
+      start: "27%",
       end: "30%",
       callback: nextScene1,
     },
     {
       start: "30%",
-      end: "40%",
+      end: "45%",
       callback: cubesAnimation,
     },
     {
-      start: "45%",
-      end: "50%",
+      start: "50%",
+      end: "55%",
       callback: nextScene2,
     },
     {
-      start: "50%",
-      end: "65%",
+      start: "55%",
+      end: "70%",
       callback: keyAnimation,
     },
     {
-      start: "70%",
-      end: "75%",
+      start: "75%",
+      end: "80%",
       callback: nextScene3,
     },
   ],
@@ -653,10 +671,8 @@ function intro() {
     models.redCircle.rotation.z -= 0.001;
   }, 10);
   introInterval = setInterval(() => {
-    models.globle.dot.rotation.y += a;
-    models.globle.world.rotation.y += a;
-    models.globle.VN.rotation.y += a;
-    models.globle.VN.material.opacity += 1 / 100;
+    models.globle.rotation.y += a;
+    models.globle.children[1].material.opacity += 1 / 100;
     b += 1 / 400;
     c += 0.6 / 400;
     models.redCircle.scale.set(2 - b, 2 - b, 2 - b);
@@ -756,32 +772,19 @@ window.addEventListener(
 // animation section 1
 function rotateGlobeAni(progress) {
   if (!models.globle || !models.redCircle) return;
-  models.globle.dot.scale.set(
-    1 + 1.04 * progress * progress,
-    1 + 1.04 * progress * progress,
-    1 + 1.04 * progress * progress
-  );
-  models.globle.VN.scale.set(
-    1 + 1.04 * progress * progress,
-    1 + 1.04 * progress * progress,
-    1 + 1.04 * progress * progress
-  );
-  models.globle.world.scale.set(
-    1 + 1.04 * progress * progress,
-    1 + 1.04 * progress * progress,
-    1 + 1.04 * progress * progress
+  models.globle.scale.set(
+    1 + 1.2 * progress ** 2,
+    1 + 1.2 * progress ** 2,
+    1 + 1.2 * progress ** 2
   );
 
-  models.globle.dot.material.opacity = 1 - 1.5 * progress ** 2;
-  models.globle.world.material.opacity = 1 - 1.5 * progress ** 2;
+  //models.globle.children[0].material.opacity = 1 - 1.5 * progress;
+  models.globle.children[2].material.opacity = 1 - 1.5 * progress;
 
   models.redCircle.scale.set(1 + 2.5 * progress, 1 + 2.5 * progress, 1);
   models.redCircle.material.opacity = 1 - progress;
   if (progress >= 1) {
-    models.globle.dot.scale.set(0, 0, 0);
-    models.globle.VN.scale.set(0, 0, 0);
-    models.globle.world.scale.set(0, 0, 0);
-
+    models.globle.scale.set(0, 0, 0);
     models.redCircle.scale.set(0, 0, 0);
   }
 }
@@ -856,13 +859,14 @@ function cubesAnimation(progress) {
   }
 
   models.cubes.forEach((cube, index) => {
-    if (progress >= initCubesTime[index]) {
-      cube.scale.set(
-        (1 / (1 - initCubesTime[index])) * (progress - initCubesTime[index]),
-        (1 / (1 - initCubesTime[index])) * (progress - initCubesTime[index]),
-        (1 / (1 - initCubesTime[index])) * (progress - initCubesTime[index])
-      );
-      cube.position.z = initCubesPos[index].z + 6.4 * progress;
+    if (
+      progress >= initCubesTimeStart[index] &&
+      progress <= initCubesTimeEnd[index]
+    ) {
+      const pc = 1 / (initCubesTimeEnd[index] - initCubesTimeStart[index]);
+      const prog = progress - initCubesTimeStart[index];
+      cube.scale.set(pc * prog, pc * prog, pc * prog);
+      cube.position.z = initCubesPos[index].z + 6.4 * pc * prog;
     }
   });
 }
