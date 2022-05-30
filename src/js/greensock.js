@@ -257,8 +257,8 @@ function init() {
   const nextScene2 = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "50%",
-      end: "55%",
+      start: "45%",
+      end: "50%",
       scrub: 1,
     },
   });
