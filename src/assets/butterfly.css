@@ -7,11 +7,7 @@
 	height: 5px;
 	background-color: #262626;
 	border-radius: 50%;
-	box-shadow: 0 0 10px #4b4b4b,
-	            0 0 15px #414141,
-	            0 0 20px #5f5f5f,
-}
-
-#butterfly-container {
-	background: url("../../static/img/noise.webm");
+	filter: blur(1.5px);
+	box-shadow: 0 0 10px #636262,
+	            0 0 15px #747474,
 }

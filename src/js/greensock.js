@@ -108,19 +108,24 @@ function init() {
     container.appendChild(unit);
     const xLocale = random(minWidthInit, maxWidthInit);
     const yLocale = random(minHeightInit, maxHeightInit);
-    const scale = random(4, 7);
+    const scale = random(4, 8);
+    const size = random(5, 16);
     gsap.set(unit, {
       x: xLocale,
       y: yLocale,
-      scale: random(0.5, 2.5),
-      opacity: random(0.5, 1),
+      width: size,
+      height: size,
+      opacity: random(0.7, 1),
     });
     gsap.to(unit, {
       x: "+=" + (xLocale - w / 2) * scale,
       y: "+=" + (yLocale - h / 2) * scale,
-      scale: 1.5,
-      duration: random(14, 19),
-      ease: Linear.easeNone,
+      scale: 0.3,
+      translateX: random(-10, 10),
+      translateY: random(-10, 10),
+      opacity: random(0.3, 0, 5),
+      duration: random(9, 15),
+      ease: Linear.easeOut,
       onComplete: function () {
         unit.parentNode.removeChild(unit);
         createUnit();

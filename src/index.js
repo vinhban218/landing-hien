@@ -41,12 +41,14 @@ const PI = Math.PI;
 
 const barInner = document.querySelector(".bar-inner");
 let loadingInterval;
-let barInnerWidth = 0;
+let barInnerWidth = 30;
+
+barInner.style.width = `30%`;
 
 loadingInterval = setInterval(() => {
-  barInnerWidth += 0.01;
+  barInnerWidth -= 0.3;
   barInner.style.width = `${barInnerWidth}%`;
-  if (barInnerWidth >= 90) clearInterval(loadingInterval);
+  if (barInnerWidth <= 10) clearInterval(loadingInterval);
 }, 10);
 
 /* --------------------------------------------- */
@@ -121,42 +123,33 @@ const loadingManager = new THREE.LoadingManager(
     let isRunIntro = false;
     sceneReady = true;
     const keyHole = loadingScreen.querySelector(".key-hole");
-    initButterfly();
+    const flashLight = document.querySelector(".flash-light");
     //create text enter
     if (loadingInterval) {
       clearInterval(loadingInterval);
       barInner.style.cssText = `
         transition: width 2s linear;
-        width: 100%;
+        width: 0%;
       `;
 
       setTimeout(() => {
         setTimeout(() => {
           keyHole.addEventListener("click", () => {
             if (isRunIntro) return;
-            document.querySelector(".bar").style.opacity = 0;
             isRunIntro = true;
-            keyHole.style.cssText = `
-            transition: opacity 2.5s linear, filter 2s linear, transform 2s linear;
-            filter: blur(8px);
-            `;
-            loadingScreen.style.cssText = `
-              transform: translate(-50%,-50%) scale(65);
-              transition: opacity 2.5s cubic-bezier(1, 0.01, 1, 0.15), transform 2s linear;
-              opacity: 0
-            `;
             setTimeout(() => {
-              setTimeout(() => {
-                loadingScreen.style.display = "none";
-              }, 1500);
-
-              setTimeout(() => {
-                intro();
-              }, 800);
-            }, 1000);
+              loadingScreen.style.display = "none";
+            }, 300);
+            flashLight.classList.add("boom");
+            setTimeout(() => {
+              intro();
+              initButterfly();
+            }, 1400);
           });
         });
         keyHole.classList.add("done");
+
+        document.querySelector(".bar").style.opacity = 0;
       }, 2000);
     }
   }
@@ -196,7 +189,7 @@ const renderer = new THREE.WebGLRenderer({
   antialias: true,
   alpha: true,
 });
-renderer.setClearColor(0x000000, 0.4);
+renderer.setClearColor(0x000000, 0);
 renderer.physicallyCorrectLights = true;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ReinhardToneMapping;
@@ -326,23 +319,27 @@ gltfLoader.load("/models/circle.gltf", (gltf) => {
 // vong tron
 for (let i = 0; i < 8; i++) {
   gltfLoader.load("/models/circle.gltf", (gltf) => {
-    scene.add(gltf.scene);
     gltf.scene.children[0].position.set(0, 0, -20);
     gltf.scene.children[0].material.transparent = true;
     gltf.scene.children[0].scale.set(0, 0, 0);
     models.circle.push(gltf.scene.children[0]);
+    scene.add(gltf.scene);
+
     updateAllMaterials();
   });
 }
 
 //logo
 gltfLoader.load("/models/logo.gltf", (gltf) => {
-  scene.add(gltf.scene);
   models.logo = gltf.scene.children[0];
   models.logo.position.set(0.3, 0.6, 4);
   models.logo.scale.set(0, 0, 0);
   models.logo.rotation.set(0.21, 0.6, -0.05);
+  models.logo.material.emissive = redColor;
   models.logo.material.color = redColor;
+
+  console.log(models.logo.material);
+  scene.add(gltf.scene);
 
   /*   logoPos.add(models.logo.position, "x").min(-100).max(100).step(0.1);
   logoPos.add(models.logo.position, "y").min(-100).max(100).step(0.1);
@@ -397,7 +394,7 @@ for (let i = 0; i < 7; i++) {
       initCubesRotate[i].z
     );
     gltf.scene.children[0].scale.set(0, 0, 0);
-    gltf.scene.children[0].children[1].material.color = redColor;
+    gltf.scene.children[0].children[1].material.emissive = redColor;
     /* const cubeFolder = gui.addFolder(`Cube${i}`);
     const cubePos = cubeFolder.addFolder("Cube Pos");
     const cubeRotate = cubeFolder.addFolder("Cube Rotate");
@@ -478,7 +475,7 @@ const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
 hemisphereLight.position.set(0, 300, 0);
 scene.add(hemisphereLight);
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 1); // soft white light
+const ambientLight = new THREE.AmbientLight(0xffffff, 1); //
 scene.add(ambientLight);
 
 /* const dirLight = new THREE.DirectionalLight(0xffffff, 1);
@@ -625,6 +622,11 @@ const controls = new ScrollControls(rig, {
     ...circleFuncs,
     {
       start: "0%",
+      end: "100%",
+      callback: handleKyros,
+    },
+    {
+      start: "0%",
       end: "10%",
       callback: rotateGlobeAni,
     },
@@ -660,6 +662,14 @@ const controls = new ScrollControls(rig, {
     },
   ],
 });
+
+function handleKyros(progress) {
+  if (progress >= 0.3 || progress <= 0.169) {
+    kyrosElem.style.opacity = 0;
+  } else {
+    kyrosElem.style.opacity = 1;
+  }
+}
 
 /* intro function  */
 function intro() {
@@ -721,8 +731,8 @@ body.addEventListener(
 
     let delta = 0;
     if (e.wheelDelta)
-      delta = e.wheelDelta / 100; //controls the scroll wheel range/speed
-    else if (e.detail) delta = -e.detail / 100;
+      delta = e.wheelDelta / 120; //controls the scroll wheel range/speed
+    else if (e.detail) delta = -e.detail / 120;
 
     handle(delta);
     if (e.preventDefault) e.preventDefault();
@@ -773,13 +783,14 @@ window.addEventListener(
 function rotateGlobeAni(progress) {
   if (!models.globle || !models.redCircle) return;
   models.globle.scale.set(
-    1 + 1.2 * progress ** 2,
-    1 + 1.2 * progress ** 2,
-    1 + 1.2 * progress ** 2
+    1 + 1.04 * progress ** 2,
+    1 + 1.04 * progress ** 2,
+    1 + 1.04 * progress ** 2
   );
 
   //models.globle.children[0].material.opacity = 1 - 1.5 * progress;
   models.globle.children[2].material.opacity = 1 - 1.5 * progress;
+  models.globle.children[1].material.opacity = 1 - progress ** 4;
 
   models.redCircle.scale.set(1 + 2.5 * progress, 1 + 2.5 * progress, 1);
   models.redCircle.material.opacity = 1 - progress;
