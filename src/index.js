@@ -10,7 +10,7 @@ import {
 } from "three-story-controls";
 import * as dat from "dat.gui";
 import initButterfly from "./js/greensock";
-import { WebGLRenderer } from "three";
+import { TOUCH, WebGLRenderer } from "three";
 const body = document.querySelector("body");
 const kyrosElem = document.querySelector("#kyros");
 const incubateElem = document.querySelector("#incubate");
@@ -44,12 +44,14 @@ let loadingInterval;
 let barInnerWidth = 30;
 
 barInner.style.width = `30%`;
-
-loadingInterval = setInterval(() => {
-  barInnerWidth -= 0.3;
-  barInner.style.width = `${barInnerWidth}%`;
-  if (barInnerWidth <= 10) clearInterval(loadingInterval);
-}, 10);
+setTimeout(() => {
+  barInner.style.transition = "none";
+  loadingInterval = setInterval(() => {
+    barInnerWidth -= 0.01;
+    barInner.style.width = `${barInnerWidth}%`;
+    if (barInnerWidth <= 10) clearInterval(loadingInterval);
+  }, 10);
+}, 1400);
 
 /* --------------------------------------------- */
 // Debug
@@ -285,13 +287,13 @@ gltfLoader.load("/models/globle.gltf", (gltf) => {
 
   models.globle.position.set(0, 0.06, 5.9);
   models.globle.rotation.set(0.33, 0, 0.02);
-  models.globle.scale.set(1, 1, 1);
+  models.globle.scale.set(0, 0, 0);
 
   models.globle.children.forEach((item) => {
     item.material.transparent = true;
   });
 
-  models.globle.children[0].material.opacity = 0;
+  //models.globle.children[0].material.opacity = 0;
   models.globle.children[1].material.opacity = -3;
   scene.add(gltf.scene);
   updateAllMaterials();
@@ -299,7 +301,7 @@ gltfLoader.load("/models/globle.gltf", (gltf) => {
 // vong tron cham do
 gltfLoader.load("/models/circle.gltf", (gltf) => {
   models.redCircle = gltf.scene.children[0];
-  models.redCircle.scale.set(2, 2, 2);
+  models.redCircle.scale.set(0, 0, 0);
   models.redCircle.position.set(0, 0.11, 4.4);
   models.redCircle.rotation.set(0, 0.01, 0);
   models.redCircle.material.transparent = true;
@@ -677,6 +679,8 @@ function intro() {
   const a = (2 * PI) / 400;
   let b = 0;
   let c = 0;
+  models.globle.scale.set(1, 1, 1);
+  models.redCircle.scale.set(2, 2, 2);
   setInterval(() => {
     models.redCircle.rotation.z -= 0.001;
   }, 10);
@@ -731,8 +735,8 @@ body.addEventListener(
 
     let delta = 0;
     if (e.wheelDelta)
-      delta = e.wheelDelta / 120; //controls the scroll wheel range/speed
-    else if (e.detail) delta = -e.detail / 120;
+      delta = e.wheelDelta / 100; //controls the scroll wheel range/speed
+    else if (e.detail) delta = -e.detail / 100;
 
     handle(delta);
     if (e.preventDefault) e.preventDefault();
@@ -757,6 +761,9 @@ function handle(delta) {
     interval = setInterval(function () {
       let scrollTop = body.scrollTop;
       let step = Math.round((end - scrollTop) / scrollSpeed);
+      if (goUp) {
+        animate(-1);
+      } else animate();
       if (
         scrollTop <= 0 ||
         scrollTop >= body.scrollHeight - body.height ||
@@ -788,7 +795,7 @@ function rotateGlobeAni(progress) {
     1 + 1.04 * progress ** 2
   );
 
-  //models.globle.children[0].material.opacity = 1 - 1.5 * progress;
+  models.globle.children[0].material.opacity = 1 - 1.5 * progress;
   models.globle.children[2].material.opacity = 1 - 1.5 * progress;
   models.globle.children[1].material.opacity = 1 - progress ** 4;
 
@@ -935,6 +942,53 @@ function nextScene3(progress) {
 grid.position.set(0, -5, 0);
 scene.add(grid); */
 
+// background funtion
+let geometry, velocities, accelerations;
+let sprite = new THREE.TextureLoader().load("/img/star.png");
+let starMaterial = new THREE.PointsMaterial({
+  color: 0xaaaaaa,
+  size: 0.7,
+  map: sprite,
+});
+const verticles = [];
+velocities = [];
+accelerations = [];
+geometry = new THREE.BufferGeometry();
+for (let i = 0; i < 1500; i++) {
+  /*  let star = new THREE.Vector3(
+    Math.random() * 600 - 300,
+    Math.random() * 600 - 300,
+    Math.random() * 600 - 300
+  ); */
+  verticles.push(Math.random() * 500 - 250);
+  verticles.push(Math.random() * 500 - 250);
+  verticles.push(Math.random() * 500 - 250);
+  velocities.push(0);
+  accelerations.push(0.02);
+}
+
+geometry.setAttribute(
+  "position",
+  new THREE.Float32BufferAttribute(verticles, 3)
+);
+const stars = new THREE.Points(geometry, starMaterial);
+scene.add(stars);
+const positionAttribute = geometry.getAttribute("position");
+
+function animate(a = 1) {
+  if (!velocities || !accelerations) return;
+  for (let i = 0; i < 1500; i++) {
+    velocities[i] += a * accelerations[i];
+    positionAttribute.array[i * 3 + 2] += a * velocities[i];
+    if (positionAttribute.array[i * 3 + 2] > 200) {
+      positionAttribute.array[i * 3 + 2] = -200;
+      velocities[i] = 0;
+    }
+  }
+  positionAttribute.needsUpdate = true;
+  //stars.rotation.y += 0.002;
+}
+
 /**
  * Animate
  */
@@ -942,20 +996,14 @@ const tick = (t) => {
   // Update controls
   // cameraHelper.update(t)
   renderer.render(scene, camera);
+  animate();
   if (rig.hasAnimation) {
   }
 
   controls.update(t);
   controls3dof.update(t);
 
-  window.requestAnimationFrame(tick);
+  requestAnimationFrame(tick);
 };
 
 tick();
-
-// util funtion
-function createElem(text) {
-  const elem = document.createElement("span");
-  elem.innerHTML = text;
-  return elem;
-}

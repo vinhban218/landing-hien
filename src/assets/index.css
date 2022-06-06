@@ -320,13 +320,21 @@ canvas {
       height: 0;
     }
     
-    20% {
+    40% {
       width: 2000px;
       height: 2000px;
     }
+
+    60% {
+        width: 2000px;
+        height: 2000px;
+        opacity: 1;
+    }
+
     100% {
       width: 0;
       height: 0;
+      opacity: 0.5;
     }
    }
 

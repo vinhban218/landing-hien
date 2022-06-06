@@ -88,7 +88,7 @@ acAnimated.Plugins.SplitText = function (element, options) {
 /* SplitText Plugin - Ends */
 
 function init() {
-  const container = document.querySelector("#butterfly-container");
+  /*   const container = document.querySelector("#butterfly-container");
   const count = 50;
   let w, h;
   w = window.innerWidth;
@@ -131,7 +131,7 @@ function init() {
         createUnit();
       },
     });
-    /*   gsap.to(unit, {
+      gsap.to(unit, {
       opacity: 0.8,
       repeat: 5,
       yoyo: true,
@@ -142,12 +142,12 @@ function init() {
         unit.parentNode.removeChild(unit);
         createUnit();
       },
-    }); */
+    });
   }
 
   for (let index = 0; index < count; index++) {
     createUnit();
-  }
+  } */
 
   const kyrosLeft = gsap.timeline({
     scrollTrigger: {
