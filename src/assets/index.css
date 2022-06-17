@@ -49,7 +49,7 @@ canvas {
 .scroller {
     top: 0vh;
     width: 100vw;
-    height: 700vh;
+    height: 1200vh;
     z-index: 2;
 }
 
@@ -59,6 +59,7 @@ canvas {
     transform: translate(-50%, 0);
     bottom: 100px;
     width: 1px;
+    opacity: 0;
 }
 
 #nurture {
@@ -80,9 +81,25 @@ canvas {
     filter: blur(40px);
 }
 
-
- #nurture img, #incubate img {
+ #nurture img, #incubate img, #ambition img, #opportunity img {
     max-width: 100%;
+    width: 100%;
+}
+
+#ambition, #opportunity {
+    width: 50%;
+    filter: blur(40px);
+    opacity: 0;
+}
+
+#builder {
+    filter: blur(40px);
+    opacity: 0;
+}
+
+#last-section {
+    filter: blur(40px);
+    opacity: 0;
 }
 
 #auto-play-btn {
@@ -277,7 +294,7 @@ canvas {
     height: 10px;
     border-radius: 6px;
     overflow: hidden;
-    background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, white,red ,#f69d3c);
+    background: linear-gradient(0.25turn, #300303, #f02020);
     z-index: 20;
     transition: opacity 0.5s linear;
   }
@@ -307,7 +324,7 @@ canvas {
 .flash-light {
     z-index: 2001;
     background: whitesmoke;
-    box-shadow: inset 0 0 40px 0px orange, inset 0 0 40px 0 orange, inset 0 0 80px 0 orangered, inset 0 0 20px 20px orangered;
+    box-shadow: inset 0 0 40px 0px orange, inset 0 0 40px 0 rgb(233, 176, 71), inset 0 0 80px 0 rgb(247, 92, 36), inset 0 0 20px 20px rgb(238, 142, 107);
 }
 
 .flash-light.boom {
@@ -318,16 +335,18 @@ canvas {
     0% {
       width: 0;
       height: 0;
+      opacity: 0.5;
     }
     
     40% {
-      width: 2000px;
-      height: 2000px;
+      width: 2400px;
+      height: 2400px;
+      opacity: 1;
     }
 
     60% {
-        width: 2000px;
-        height: 2000px;
+        width: 2400px;
+        height: 2400px;
         opacity: 1;
     }
 
@@ -357,4 +376,19 @@ canvas {
 
 .text-stroke {
     -webkit-text-stroke: 0.5px white;
+}
+
+.logo-item {
+    width: 100%;
+    filter: grayscale(1) blur(0.5px);
+    transform: scale(1);
+    transition: all 0.5s linear;
+    opacity: 0.8;
+  }
+  
+.logo-item:hover {
+    filter: grayscale(0) blur(0px);
+    transform: scale(1.2);
+    opacity: 1;
+    cursor: pointer;
 }

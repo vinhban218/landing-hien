@@ -16,6 +16,7 @@ const kyrosElem = document.querySelector("#kyros");
 const incubateElem = document.querySelector("#incubate");
 const loadingScreen = document.querySelector("#loading");
 const redColor = new THREE.Color("rgb(255, 0, 0)");
+const circleColor = new THREE.Color(0x101010);
 loadingScreen.style.display = "flex";
 let isLoadedModel = false;
 window.scrollTo({ top: 0, behavior: "smooth" });
@@ -32,11 +33,13 @@ const models = {
   cubes: [],
   logo: null,
   circle: [],
+  threeKeys: [],
 };
 const vietNameRad = 3.1;
 let globleRotateStart = 0;
 let globleRoateEnd = 6.82;
 let sceneReady = false;
+let isWheeling = false;
 const PI = Math.PI;
 
 const barInner = document.querySelector(".bar-inner");
@@ -56,8 +59,8 @@ setTimeout(() => {
 /* --------------------------------------------- */
 // Debug
 //hinh cau
-/* const gui = new dat.GUI();
-const globeFolder = gui.addFolder("Globe");
+//const gui = new dat.GUI();
+/* const globeFolder = gui.addFolder("Globe");
 const globePos = globeFolder.addFolder("Globe POS");
 const globeRotate = globeFolder.addFolder("Globe Rotate");
 const globleScale = globeFolder.addFolder("Globe Scale");
@@ -106,22 +109,6 @@ const updateAllMaterials = () => {
 const loadingManager = new THREE.LoadingManager(
   // Loaded
   () => {
-    // Wait a little
-    // window.setTimeout(() => {
-    //     // Animate overlay
-    //     // gsap.to(overlayMaterial.uniforms.uAlpha, {
-    //     //     duration: 3,
-    //     //     value: 0,
-    //     //     delay: 1
-    //     // })
-
-    //     // Update loadingBarElement
-    //     loadingBarElement.classList.add('ended')
-    //     loadingBarElement.style.transform = ''
-    // }, 500)
-    /*    window.setTimeout(() => {
-     
-    }, 3000); */
     let isRunIntro = false;
     sceneReady = true;
     const keyHole = loadingScreen.querySelector(".key-hole");
@@ -155,35 +142,11 @@ const loadingManager = new THREE.LoadingManager(
       }, 2000);
     }
   }
-  // Progress
-  // (itemUrl, itemsLoaded, itemsTotal) => {
-  //     // Calculate the progress and update the loadingBarElement
-  //     const progressRatio = itemsLoaded / itemsTotal
-  //     loadingBarElement.style.transform = `scaleX(${progressRatio})`
-  // }
 );
 
 const gltfLoader = new GLTFLoader(loadingManager);
 const cubeTextureLoader = new THREE.CubeTextureLoader(loadingManager);
 
-/**
- * Environment map
- */
-/* const environmentMap = cubeTextureLoader.load([
-  "/img/loading-bg.png",
-  "/img/loading-bg.png",
-  "/img/loading-bg.png",
-  "/img/loading-bg.png",
-  "/img/loading-bg.png",
-  "/img/loading-bg.png",
-]);
-
-environmentMap.encoding = THREE.sRGBEncoding;
-
-scene.background = environmentMap;
-scene.environment = environmentMap;
-debugObject.envMapIntensity = 2.5;
- */
 const canvasParent = document.querySelector(".canvas-parent");
 const scrollElement = document.querySelector(".scroller");
 
@@ -305,7 +268,9 @@ gltfLoader.load("/models/circle.gltf", (gltf) => {
   models.redCircle.position.set(0, 0.11, 4.4);
   models.redCircle.rotation.set(0, 0.01, 0);
   models.redCircle.material.transparent = true;
-  models.redCircle.material.opacity = 0.4;
+  models.redCircle.material.color = circleColor;
+  models.redCircle.material.emissive = circleColor;
+
   scene.add(gltf.scene);
   /*   redCirclePos.add(models.redCircle.position, "x").min(-10).max(10).step(0.01);
   redCirclePos.add(models.redCircle.position, "y").min(-10).max(10).step(0.01);
@@ -323,6 +288,8 @@ for (let i = 0; i < 8; i++) {
   gltfLoader.load("/models/circle.gltf", (gltf) => {
     gltf.scene.children[0].position.set(0, 0, -20);
     gltf.scene.children[0].material.transparent = true;
+    gltf.scene.children[0].material.color = circleColor;
+    gltf.scene.children[0].material.emissive = circleColor;
     gltf.scene.children[0].scale.set(0, 0, 0);
     models.circle.push(gltf.scene.children[0]);
     scene.add(gltf.scene);
@@ -339,8 +306,6 @@ gltfLoader.load("/models/logo.gltf", (gltf) => {
   models.logo.rotation.set(0.21, 0.6, -0.05);
   models.logo.material.emissive = redColor;
   models.logo.material.color = redColor;
-
-  console.log(models.logo.material);
   scene.add(gltf.scene);
 
   /*   logoPos.add(models.logo.position, "x").min(-100).max(100).step(0.1);
@@ -396,7 +361,10 @@ for (let i = 0; i < 7; i++) {
       initCubesRotate[i].z
     );
     gltf.scene.children[0].scale.set(0, 0, 0);
-    gltf.scene.children[0].children[1].material.emissive = redColor;
+
+    gltf.scene.children[0].children[1].material.emissive = circleColor;
+    gltf.scene.children[0].children[1].material.color = circleColor;
+
     /* const cubeFolder = gui.addFolder(`Cube${i}`);
     const cubePos = cubeFolder.addFolder("Cube Pos");
     const cubeRotate = cubeFolder.addFolder("Cube Rotate");
@@ -460,16 +428,105 @@ gltfLoader.load("/models/key.gltf", (gltf) => {
 
   updateAllMaterials();
 });
+
+let initThreeKeysPos = [
+  { x: -5.8, y: 1.7, z: 1 },
+  { x: 0.1, y: -3.6, z: 1 },
+  { x: 5, y: 3.5, z: 1 },
+];
+
+initThreeKeysPos = initThreeKeysPos.map((item) => {
+  return {
+    x: item.x,
+    y: item.y,
+    z: item.z - 5,
+  };
+});
+
+const initThreeKeysRotation = [
+  { x: 0.87, y: 0.85, z: 1 },
+  { x: 0.47, y: 0.68, z: 1 },
+  { x: 0.97, y: 0.19, z: 1 },
+];
+/* const threeKeysFolder = gui.addFolder("ThreeKeys");
+const threeKeysPos = threeKeysFolder.addFolder("POS");
+const threeKeysScale = threeKeysFolder.addFolder("scale");
+const threeKeysRotation = threeKeysFolder.addFolder("Rot"); */
+
+for (let i = 0; i < 3; i++) {
+  gltfLoader.load("/models/key.gltf", (g) => {
+    g.scene.children[0].scale.set(0, 0, 0);
+    g.scene.children[0].position.set(
+      initThreeKeysPos[i].x,
+      initThreeKeysPos[i].y,
+      initThreeKeysPos[i].z
+    );
+    g.scene.children[0].rotation.set(
+      initThreeKeysRotation[i].x,
+      initThreeKeysRotation[i].y,
+      initThreeKeysRotation[i].z
+    );
+    g.scene.children[0].material.transparent = true;
+    models.threeKeys.push(g.scene.children[0]);
+    /*   threeKeysPos
+      .add(g.scene.children[0].position, "x")
+      .min(-100)
+      .max(100)
+      .step(0.1);
+    threeKeysPos
+      .add(g.scene.children[0].position, "y")
+      .min(-100)
+      .max(100)
+      .step(0.1);
+    threeKeysPos
+      .add(g.scene.children[0].position, "z")
+      .min(-100)
+      .max(100)
+      .step(0.1);
+    threeKeysScale
+      .add(g.scene.children[0].scale, "x")
+      .min(0)
+      .max(2)
+      .step(0.001);
+    threeKeysScale
+      .add(g.scene.children[0].scale, "y")
+      .min(0)
+      .max(2)
+      .step(0.001);
+    threeKeysScale
+      .add(g.scene.children[0].scale, "z")
+      .min(0)
+      .max(2)
+      .step(0.001);
+    threeKeysRotation
+      .add(g.scene.children[0].rotation, "x")
+      .min(-10)
+      .max(10)
+      .step(0.01);
+    threeKeysRotation
+      .add(g.scene.children[0].rotation, "y")
+      .min(-10)
+      .max(10)
+      .step(0.01);
+    threeKeysRotation
+      .add(g.scene.children[0].rotation, "z")
+      .min(-10)
+      .max(10)
+      .step(0.01); */
+    scene.add(g.scene);
+    updateAllMaterials();
+  });
+}
 /**
  * Lights
  */
-// const directionalLight = new THREE.DirectionalLight('#ffffff', 3)
-// directionalLight.castShadow = true
-// // directionalLight.shadow.camera.far = 15
-// directionalLight.shadow.mapSize.set(1024, 1024)
-// directionalLight.shadow.normalBias = 0.05
-// directionalLight.position.set(0.25, 3, -2.25)
-// scene.add(directionalLight)
+/* const directionalLight = new THREE.DirectionalLight("#ffffff", 3);
+directionalLight.castShadow = true;
+directionalLight.shadow.camera.far = 15;
+directionalLight.shadow.mapSize.set(1024, 1024);
+directionalLight.shadow.normalBias = 0.05;
+directionalLight.position.set(0.25, 3, -2.25);
+scene.add(directionalLight); */
 
 WebGLRenderer.physicallyCorrectLights = true;
 
@@ -479,11 +536,9 @@ scene.add(hemisphereLight);
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 1); //
 scene.add(ambientLight);
-
-/* const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-dirLight.position.set(0, 0, 20);
-scene.add(dirLight);
- */
+let isSetRedLight = false;
+const dirLight = new THREE.DirectionalLight(0xff0000, 1);
+dirLight.position.set(0, 0, 8);
 /**
  * Sizes
  */
@@ -547,28 +602,28 @@ function circleAnimation(progress, models, index) {
 }
 
 function circleAnimation1(progress) {
-  circleAnimation(progress, models.circle[0], 1);
+  circleAnimation(progress, models.circle[0], 0);
 }
 function circleAnimation2(progress) {
-  circleAnimation(progress, models.circle[1], 2);
+  circleAnimation(progress, models.circle[1], 1);
 }
 function circleAnimation3(progress) {
-  circleAnimation(progress, models.circle[2], 3);
+  circleAnimation(progress, models.circle[2], 2);
 }
 function circleAnimation4(progress) {
-  circleAnimation(progress, models.circle[3], 4);
+  circleAnimation(progress, models.circle[3], 3);
 }
 function circleAnimation5(progress) {
-  circleAnimation(progress, models.circle[4], 5);
+  circleAnimation(progress, models.circle[4], 4);
 }
 function circleAnimation6(progress) {
-  circleAnimation(progress, models.circle[5], 6);
+  circleAnimation(progress, models.circle[5], 5);
 }
 function circleAnimation7(progress) {
-  circleAnimation(progress, models.circle[6], 7);
+  circleAnimation(progress, models.circle[6], 6);
 }
 function circleAnimation8(progress) {
-  circleAnimation(progress, models.circle[7], 8);
+  circleAnimation(progress, models.circle[7], 7);
 }
 
 const circleFuncs = [
@@ -609,7 +664,7 @@ const circleFuncs = [
   },
   {
     start: "82%",
-    end: "97%",
+    end: "100%",
     callback: circleAnimation8,
   },
 ];
@@ -629,44 +684,64 @@ const controls = new ScrollControls(rig, {
     },
     {
       start: "0%",
-      end: "10%",
+      end: "8%",
       callback: rotateGlobeAni,
     },
     {
-      start: "10%",
-      end: "20%",
+      start: "8%",
+      end: "16%",
       callback: logoAnimation,
     },
     {
-      start: "27%",
-      end: "30%",
+      start: "17%",
+      end: "20%",
       callback: nextScene1,
     },
     {
-      start: "30%",
-      end: "45%",
+      start: "20%",
+      end: "35%",
       callback: cubesAnimation,
     },
     {
-      start: "50%",
-      end: "55%",
+      start: "36%",
+      end: "40%",
       callback: nextScene2,
+    },
+    {
+      start: "40%",
+      end: "50%",
+      callback: keyAnimation,
+    },
+    {
+      start: "51%",
+      end: "55%",
+      callback: nextScene3,
     },
     {
       start: "55%",
       end: "70%",
-      callback: keyAnimation,
+      callback: threeKeysAnimation,
+    },
+    {
+      start: "70%",
+      end: "75%",
+      callback: nextScene4,
     },
     {
       start: "75%",
-      end: "80%",
-      callback: nextScene3,
+      end: "85%",
+      callback: builderAnimation,
+    },
+    {
+      start: "85%",
+      end: "90%",
+      callback: nextScene5,
     },
   ],
 });
 
 function handleKyros(progress) {
-  if (progress >= 0.3 || progress <= 0.169) {
+  if (progress >= 0.25 || progress <= 0.12) {
     kyrosElem.style.opacity = 0;
   } else {
     kyrosElem.style.opacity = 1;
@@ -761,6 +836,7 @@ function handle(delta) {
     interval = setInterval(function () {
       let scrollTop = body.scrollTop;
       let step = Math.round((end - scrollTop) / scrollSpeed);
+      isWheeling = true;
       if (goUp) {
         animate(-1);
       } else animate();
@@ -771,6 +847,7 @@ function handle(delta) {
         (!goUp && step < 1)
       ) {
         clearInterval(interval);
+        isWheeling = false;
         interval = null;
         end = null;
       }
@@ -804,7 +881,17 @@ function rotateGlobeAni(progress) {
   if (progress >= 1) {
     models.globle.scale.set(0, 0, 0);
     models.redCircle.scale.set(0, 0, 0);
+    if (!isSetRedLight) {
+      scene.add(dirLight);
+      isSetRedLight = true;
+    }
+  } else {
+    if (isSetRedLight) {
+      scene.remove(dirLight);
+      isSetRedLight = false;
+    }
   }
+  //redlight
 }
 
 let logoInterval;
@@ -933,7 +1020,75 @@ function keyAnimation(progress) {
   }
 }
 function nextScene3(progress) {
-  if (models.key.material) models.key.material.opacity = 1 - progress;
+  if (!models.key) return;
+  models.key.material.opacity = 1 - progress;
+}
+let isThreeKeysAnimationDone = false;
+let radius = 3;
+let angle = 60;
+
+function threeKeysAnimation(progress) {
+  angle = 60 - 240 * progress;
+
+  models.threeKeys.forEach((key, index) => {
+    key.position.x = radius * Math.sin(((angle + index * 120) * PI) / 180);
+    key.position.y = radius * Math.cos(((angle + index * 120) * PI) / 180);
+    key.rotation.x = initThreeKeysRotation[index].x + 3 * progress;
+    key.rotation.y = initThreeKeysRotation[index].y + 3 * progress;
+  });
+
+  if (progress <= 0.5) {
+    radius = 3 + 5.5 * progress;
+    models.threeKeys.forEach((key) => {
+      key.scale.set(2 * progress, 2 * progress, 2 * progress);
+      key.position.z = -4 + 5 * (2 * progress) ** 2;
+    });
+  }
+
+  isThreeKeysAnimationDone = progress >= 1;
+}
+
+let isNextScene4Done = false;
+function nextScene4(progress) {
+  if (isThreeKeysAnimationDone) {
+    radius = 5.75 + 6 * progress ** 2;
+    angle = -180 - 120 * progress;
+    models.threeKeys.forEach((key) => {
+      key.material.opacity = 1 - progress;
+    });
+    models.threeKeys.forEach((key, index) => {
+      key.position.x = radius * Math.sin(((angle + index * 120) * PI) / 180);
+      key.position.y = radius * Math.cos(((angle + index * 120) * PI) / 180);
+    });
+  }
+  isNextScene4Done = progress >= 1;
+}
+let isBuilderAnimationDone = false;
+function builderAnimation(progress) {
+  if (isNextScene4Done) {
+    radius = 11.75 - 6 * progress ** 2;
+    angle = -300 - 180 * progress;
+    models.threeKeys.forEach((key, index) => {
+      key.position.x = radius * Math.sin(((angle + index * 120) * PI) / 180);
+      key.position.y = radius * Math.cos(((angle + index * 120) * PI) / 180);
+      key.rotation.x = initThreeKeysRotation[index].x + 3 * progress;
+      key.rotation.y = initThreeKeysRotation[index].y + 3 * progress;
+      key.material.opacity = progress;
+    });
+
+    isBuilderAnimationDone = progress >= 1;
+  }
+}
+function nextScene5(progress) {
+  if (isBuilderAnimationDone) {
+    models.threeKeys.forEach((key, index) => {
+      radius = 5.75 + 3 * progress ** 2;
+      angle = -480 - 120 * progress;
+      key.position.x = radius * Math.sin(((angle + index * 120) * PI) / 180);
+      key.position.y = radius * Math.cos(((angle + index * 120) * PI) / 180);
+      key.material.opacity = 1 - progress ** 3;
+    });
+  }
 }
 
 // const cameraHelper = new CameraHelper(rig, controls, renderer.domElement)
@@ -946,25 +1101,20 @@ scene.add(grid); */
 let geometry, velocities, accelerations;
 let sprite = new THREE.TextureLoader().load("/img/star.png");
 let starMaterial = new THREE.PointsMaterial({
-  color: 0xaaaaaa,
-  size: 0.7,
+  color: 0x101010,
+  size: 0.6,
   map: sprite,
 });
 const verticles = [];
 velocities = [];
 accelerations = [];
 geometry = new THREE.BufferGeometry();
-for (let i = 0; i < 1500; i++) {
-  /*  let star = new THREE.Vector3(
-    Math.random() * 600 - 300,
-    Math.random() * 600 - 300,
-    Math.random() * 600 - 300
-  ); */
-  verticles.push(Math.random() * 500 - 250);
-  verticles.push(Math.random() * 500 - 250);
-  verticles.push(Math.random() * 500 - 250);
+for (let i = 0; i < 500; i++) {
+  verticles.push(Math.random() * 400 - 200);
+  verticles.push(Math.random() * 400 - 200);
+  verticles.push(Math.random() * 200 - 100);
   velocities.push(0);
-  accelerations.push(0.02);
+  accelerations.push(0.007);
 }
 
 geometry.setAttribute(
@@ -977,16 +1127,15 @@ const positionAttribute = geometry.getAttribute("position");
 
 function animate(a = 1) {
   if (!velocities || !accelerations) return;
-  for (let i = 0; i < 1500; i++) {
+  for (let i = 0; i < 500; i++) {
     velocities[i] += a * accelerations[i];
     positionAttribute.array[i * 3 + 2] += a * velocities[i];
-    if (positionAttribute.array[i * 3 + 2] > 200) {
-      positionAttribute.array[i * 3 + 2] = -200;
+    if (positionAttribute.array[i * 3 + 2] > 100) {
+      positionAttribute.array[i * 3 + 2] = -100;
       velocities[i] = 0;
     }
   }
   positionAttribute.needsUpdate = true;
-  //stars.rotation.y += 0.002;
 }
 
 /**
@@ -996,7 +1145,9 @@ const tick = (t) => {
   // Update controls
   // cameraHelper.update(t)
   renderer.render(scene, camera);
-  animate();
+  if (!isWheeling) {
+    animate();
+  }
   if (rig.hasAnimation) {
   }
 

@@ -91,8 +91,8 @@ function init() {
   /*   const container = document.querySelector("#butterfly-container");
   const count = 50;
   let w, h;
-  w = window.innerWidth;
-  h = window.innerHeight;
+  w = ".scene".innerWidth;
+  h = ".scene".innerHeight;
   const minWidthInit = w / 2 - 250;
   const maxWidthInit = w / 2 + 250;
   const minHeightInit = h / 2 - 200;
@@ -152,8 +152,8 @@ function init() {
   const kyrosLeft = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "15%",
-      end: "18%",
+      start: "12%",
+      end: "14%",
       scrub: 1,
     },
   });
@@ -161,8 +161,8 @@ function init() {
   const kyrosRight = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "15%",
-      end: "18%",
+      start: "12%",
+      end: "14%",
       scrub: 1,
     },
   });
@@ -198,8 +198,8 @@ function init() {
   const nextScene1Left = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "23%",
-      end: "27%",
+      start: "17%",
+      end: "20%",
       scrub: 1,
     },
   });
@@ -207,8 +207,8 @@ function init() {
   const nextScene1Right = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "23%",
-      end: "27%",
+      start: "17%",
+      end: "20%",
       scrub: 1,
     },
   });
@@ -243,8 +243,8 @@ function init() {
   const nurture = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "30%",
-      end: "40%",
+      start: "23%",
+      end: "28%",
       scrub: 1,
     },
   });
@@ -262,8 +262,8 @@ function init() {
   const nextScene2 = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "45%",
-      end: "50%",
+      start: "34%",
+      end: "38%",
       scrub: 1,
     },
   });
@@ -276,8 +276,8 @@ function init() {
   const incubate = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "55%",
-      end: "65%",
+      start: "39%",
+      end: "47%",
       scrub: 1,
     },
   });
@@ -289,13 +289,143 @@ function init() {
   const nextScene3 = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "70%",
-      end: "75%",
+      start: "49%",
+      end: "53%",
       scrub: 1,
     },
   });
 
   nextScene3.to("#incubate", { opacity: 0, filter: "blur(40px)" });
+
+  const ambition = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scene",
+      start: "55%",
+      end: "61%",
+      scrub: 1,
+    },
+  });
+
+  ambition
+    .from("#ambition", { opacity: 0, filter: "blur(40px)" })
+    .to("#ambition", { opacity: 1, filter: "blur(0px)" })
+    .to("#ambition", { opacity: 1, filter: "blur(0px)" })
+    .to("#ambition", { opacity: 0, filter: "blur(40px)" });
+
+  const opportunity = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scene",
+      start: "62%",
+      end: "70%",
+      scrub: 1,
+    },
+  });
+
+  opportunity
+    .from("#opportunity", { opacity: 0, filter: "blur(40px)" })
+    .to("#opportunity", { opacity: 1, filter: "blur(0px)" })
+    .to("#opportunity", { opacity: 1, filter: "blur(0px)" })
+    .to("#opportunity", { opacity: 0, filter: "blur(40px)" });
+
+  const builder = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scene",
+      start: "72%",
+      end: "74%",
+      scrub: 1,
+    },
+  });
+
+  builder.to("#builder", { opacity: 1, filter: "blur(0px)" });
+
+  const howard = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scene",
+      start: "72%",
+      end: "79%",
+      scrub: 1,
+    },
+  });
+
+  const howardText = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scene",
+      start: "72%",
+      end: "79%",
+      scrub: 1,
+    },
+  });
+
+  howard
+    .to("#howard", { opacity: 1, filter: "blur(0px)" })
+    .to("#howard", { opacity: 1, filter: "blur(0px)" })
+    .to("#howard", { opacity: 0, filter: "blur(40px)" });
+
+  howardText
+    .to("#howard-text", { left: "70%", opacity: 1 })
+    .to("#howard-text", { left: "70%", opacity: 1 })
+    .to("#howard-text", { left: "120%", opacity: 0 });
+
+  const howard2 = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scene",
+      start: "80%",
+      end: "87%",
+      scrub: 1,
+    },
+  });
+
+  const howardText2 = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scene",
+      start: "80%",
+      end: "87%",
+      scrub: 1,
+    },
+  });
+
+  howard2
+    .to("#howard", { opacity: 1, filter: "blur(0px)" })
+    .to("#howard", { opacity: 1, filter: "blur(0px)" })
+    .to("#howard", { opacity: 0, filter: "blur(40px)" });
+
+  howardText2
+    .to("#howard-text", { left: "70%", opacity: 1 })
+    .to("#howard-text", { left: "70%", opacity: 1 })
+    .to("#howard-text", { left: "120%", opacity: 0 });
+
+  const nextScene5 = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scene",
+      start: "85%",
+      end: "87%",
+      scrub: 1,
+    },
+  });
+
+  nextScene5.to("#builder", { opacity: 0, filter: "blur(40px)" });
+
+  const portText = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scene",
+      start: "86%",
+      end: "89%",
+      scrub: 1,
+    },
+  });
+
+  portText.to("#last-section", { opacity: 1, filter: "blur(0px)" });
+
+  const logo = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scene",
+      start: "89%",
+      end: "100%",
+      scrub: 1,
+    },
+  });
+
+  logo.to("#logos", { left: "calc(-40% - 240px)" });
 }
 
 export default init;
