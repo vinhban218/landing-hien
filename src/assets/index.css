@@ -49,7 +49,7 @@ canvas {
 .scroller {
     top: 0vh;
     width: 100vw;
-    height: 1200vh;
+    height: 1700vh;
     z-index: 2;
 }
 
@@ -97,11 +97,6 @@ canvas {
     opacity: 0;
 }
 
-#last-section {
-    filter: blur(40px);
-    opacity: 0;
-}
-
 #auto-play-btn {
     position: fixed;
     left: 50%;
@@ -115,6 +110,7 @@ canvas {
 
     transition: all 0.3s linear;
     cursor: pointer;
+    z-index: 200;
 }
 
 #auto-play-btn img {
@@ -126,41 +122,6 @@ canvas {
 #auto-play-btn.inactive  {
     opacity: 0;
     pointer-events: none;
-}
-
-/* css */
-
-.nav-btn {
-    background-color: white;
-    width: 14px;
-    height: 3px;
-
-    border-radius: 2px; 
-    cursor: pointer;
-
-    position: fixed;
-    right: 40px;
-    top: 40px;  
-}
-
-.nav-btn::after, .nav-btn::before {
-    content: "";
-    position: absolute;
-    right: 0;
-
-    width: 29px;
-    height: 3.5px;
-    border-radius: 2px;
-    
-    background-color: white;
-}
-
-.nav-btn::after {
-    top: -10px;
-}
-
-.nav-btn::before {
-    bottom: -10px;
 }
 
 /* logo */
@@ -183,74 +144,6 @@ canvas {
 .logo img {
     height: 60px;
     margin-right: 14px;
-}
-
-#welcome-text {
-    color: white;
-
-    position: fixed;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-
-    display: flex;
-   
-}
-
-.section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    transform: rotate(-90deg);
-}
-
-.section span {
-    font-size: 20px;
-    position: relative;
-}
-
-.line {
-    width: 60px;
-    height: 1px;
-    margin: 0 20px;
-    background: gray;
-    border-radius: 1px;
-}
-
-.line-progress {
-    z-index: 10;
-    position: absolute !important;
-    height: 4px;
-    border-radius: 1px;
-     
-    right: 30px;
-    top:50%;
-    transform: translateY(-50%);
-    
-    background: white;
-}
-
-/* welcome */
-.welcome {
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 400;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-left: -20px;
-    position: relative;
-}
-
-.welcome::after {
-    content:"";
-    position: absolute;
-    left: 0;
-    top: -6px;
-
-    width: 15px;
-    height: 2px;
-    background-color: rgb(162, 23, 23);
 }
 
 #loading {
@@ -291,7 +184,7 @@ canvas {
     left: 50%;
     transform: translate(-50%, 100px);
     width: 400px;
-    height: 10px;
+    height: 12px;
     border-radius: 6px;
     overflow: hidden;
     background: linear-gradient(0.25turn, #300303, #f02020);
@@ -308,7 +201,6 @@ canvas {
     transition: width 1.3s linear;
     
     background: #2e2e2e;
-    overflow: hidden;
     z-index: 8;
   }
   
@@ -378,17 +270,3 @@ canvas {
     -webkit-text-stroke: 0.5px white;
 }
 
-.logo-item {
-    width: 100%;
-    filter: grayscale(1) blur(0.5px);
-    transform: scale(1);
-    transition: all 0.5s linear;
-    opacity: 0.8;
-  }
-  
-.logo-item:hover {
-    filter: grayscale(0) blur(0px);
-    transform: scale(1.2);
-    opacity: 1;
-    cursor: pointer;
-}

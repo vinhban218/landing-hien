@@ -1,6 +1,6 @@
 module.exports = {
   mode: "jit",
-  content: ["./src/**/*.html", "./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.html", "./src/**/*.{vue,js,jsx,ts,tsx}"],
   darkMode: "media",
   theme: {
     extend: {
@@ -9,11 +9,12 @@ module.exports = {
         current: "currentColor",
         "light-grey": "#E5EEE5",
         purple: "#7652C6",
+        gray3: "#858585",
       },
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 };

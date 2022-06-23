@@ -1,12 +1,13 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
-
+const { VueLoaderPlugin } = require("vue-loader");
 module.exports = {
   entry: "./src/index.js",
   mode: "development",
   devServer: {
     watchFiles: ["src/**/*"],
   },
+  watch: true,
   module: {
     rules: [
       {
@@ -19,10 +20,26 @@ module.exports = {
         include: path.resolve(__dirname, "src"),
         use: ["style-loader", "css-loader", "postcss-loader"],
       },
+      {
+        test: /\.vue$/,
+        loader: "vue-loader",
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: "url-loader",
+        options: {
+          limit: 10000,
+          name: "[name].[ext]?[hash]",
+        },
+      },
+      {
+        test: /\.scss$/,
+        use: ["vue-style-loader", "css-loader", "sass-loader"],
+      },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".tsx", ".ts", ".js", ".png"],
   },
   plugins: [
     new CopyPlugin({
@@ -31,6 +48,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [{ from: "src/index.html", to: "index.html" }],
     }),
+    new VueLoaderPlugin(),
   ],
   output: {
     filename: "bundle.js",

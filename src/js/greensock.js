@@ -88,72 +88,11 @@ acAnimated.Plugins.SplitText = function (element, options) {
 /* SplitText Plugin - Ends */
 
 function init() {
-  /*   const container = document.querySelector("#butterfly-container");
-  const count = 50;
-  let w, h;
-  w = ".scene".innerWidth;
-  h = ".scene".innerHeight;
-  const minWidthInit = w / 2 - 250;
-  const maxWidthInit = w / 2 + 250;
-  const minHeightInit = h / 2 - 200;
-  const maxHeightInit = h / 2 + 200;
-
-  function random(min, max) {
-    return gsap.utils.random(min, max);
-  }
-
-  function createUnit() {
-    var unit = document.createElement("div");
-    unit.classList.add("unit");
-    container.appendChild(unit);
-    const xLocale = random(minWidthInit, maxWidthInit);
-    const yLocale = random(minHeightInit, maxHeightInit);
-    const scale = random(4, 8);
-    const size = random(5, 16);
-    gsap.set(unit, {
-      x: xLocale,
-      y: yLocale,
-      width: size,
-      height: size,
-      opacity: random(0.7, 1),
-    });
-    gsap.to(unit, {
-      x: "+=" + (xLocale - w / 2) * scale,
-      y: "+=" + (yLocale - h / 2) * scale,
-      scale: 0.3,
-      translateX: random(-10, 10),
-      translateY: random(-10, 10),
-      opacity: random(0.3, 0, 5),
-      duration: random(9, 15),
-      ease: Linear.easeOut,
-      onComplete: function () {
-        unit.parentNode.removeChild(unit);
-        createUnit();
-      },
-    });
-      gsap.to(unit, {
-      opacity: 0.8,
-      repeat: 5,
-      yoyo: true,
-      duration: random(2, 3),
-      delay: random(0, 2),
-      ease: Power2.easeInOut,
-      onComplete: function () {
-        unit.parentNode.removeChild(unit);
-        createUnit();
-      },
-    });
-  }
-
-  for (let index = 0; index < count; index++) {
-    createUnit();
-  } */
-
   const kyrosLeft = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "12%",
-      end: "14%",
+      start: "7%",
+      end: "10%",
       scrub: 1,
     },
   });
@@ -161,8 +100,8 @@ function init() {
   const kyrosRight = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "12%",
-      end: "14%",
+      start: "7%",
+      end: "10%",
       scrub: 1,
     },
   });
@@ -198,8 +137,8 @@ function init() {
   const nextScene1Left = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "17%",
-      end: "20%",
+      start: "13%",
+      end: "14%",
       scrub: 1,
     },
   });
@@ -207,8 +146,8 @@ function init() {
   const nextScene1Right = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "17%",
-      end: "20%",
+      start: "13%",
+      end: "14%",
       scrub: 1,
     },
   });
@@ -243,8 +182,8 @@ function init() {
   const nurture = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "23%",
-      end: "28%",
+      start: "18%",
+      end: "23%",
       scrub: 1,
     },
   });
@@ -262,8 +201,8 @@ function init() {
   const nextScene2 = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "34%",
-      end: "38%",
+      start: "26%",
+      end: "28%",
       scrub: 1,
     },
   });
@@ -276,8 +215,8 @@ function init() {
   const incubate = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "39%",
-      end: "47%",
+      start: "32%",
+      end: "35%",
       scrub: 1,
     },
   });
@@ -289,8 +228,8 @@ function init() {
   const nextScene3 = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "49%",
-      end: "53%",
+      start: "37%",
+      end: "40%",
       scrub: 1,
     },
   });
@@ -300,8 +239,8 @@ function init() {
   const ambition = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "55%",
-      end: "61%",
+      start: "42%",
+      end: "49%",
       scrub: 1,
     },
   });
@@ -310,13 +249,14 @@ function init() {
     .from("#ambition", { opacity: 0, filter: "blur(40px)" })
     .to("#ambition", { opacity: 1, filter: "blur(0px)" })
     .to("#ambition", { opacity: 1, filter: "blur(0px)" })
+    .to("#ambition", { opacity: 1, filter: "blur(0px)" })
     .to("#ambition", { opacity: 0, filter: "blur(40px)" });
 
   const opportunity = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "62%",
-      end: "70%",
+      start: "50%",
+      end: "57%",
       scrub: 1,
     },
   });
@@ -325,13 +265,14 @@ function init() {
     .from("#opportunity", { opacity: 0, filter: "blur(40px)" })
     .to("#opportunity", { opacity: 1, filter: "blur(0px)" })
     .to("#opportunity", { opacity: 1, filter: "blur(0px)" })
+    .to("#opportunity", { opacity: 1, filter: "blur(0px)" })
     .to("#opportunity", { opacity: 0, filter: "blur(40px)" });
 
   const builder = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "72%",
-      end: "74%",
+      start: "58%",
+      end: "59%",
       scrub: 1,
     },
   });
@@ -341,8 +282,8 @@ function init() {
   const howard = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "72%",
-      end: "79%",
+      start: "58%",
+      end: "62%",
       scrub: 1,
     },
   });
@@ -350,8 +291,8 @@ function init() {
   const howardText = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "72%",
-      end: "79%",
+      start: "58%",
+      end: "62%",
       scrub: 1,
     },
   });
@@ -359,9 +300,12 @@ function init() {
   howard
     .to("#howard", { opacity: 1, filter: "blur(0px)" })
     .to("#howard", { opacity: 1, filter: "blur(0px)" })
+    .to("#howard", { opacity: 1, filter: "blur(0px)" })
+
     .to("#howard", { opacity: 0, filter: "blur(40px)" });
 
   howardText
+    .to("#howard-text", { left: "70%", opacity: 1 })
     .to("#howard-text", { left: "70%", opacity: 1 })
     .to("#howard-text", { left: "70%", opacity: 1 })
     .to("#howard-text", { left: "120%", opacity: 0 });
@@ -369,8 +313,8 @@ function init() {
   const howard2 = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "80%",
-      end: "87%",
+      start: "63%",
+      end: "67%",
       scrub: 1,
     },
   });
@@ -378,13 +322,14 @@ function init() {
   const howardText2 = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "80%",
-      end: "87%",
+      start: "63%",
+      end: "67%",
       scrub: 1,
     },
   });
 
   howard2
+    .to("#howard", { opacity: 1, filter: "blur(0px)" })
     .to("#howard", { opacity: 1, filter: "blur(0px)" })
     .to("#howard", { opacity: 1, filter: "blur(0px)" })
     .to("#howard", { opacity: 0, filter: "blur(40px)" });
@@ -397,8 +342,8 @@ function init() {
   const nextScene5 = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "85%",
-      end: "87%",
+      start: "67%",
+      end: "69%",
       scrub: 1,
     },
   });
@@ -408,8 +353,8 @@ function init() {
   const portText = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "86%",
-      end: "89%",
+      start: "69%",
+      end: "70%",
       scrub: 1,
     },
   });
@@ -419,13 +364,35 @@ function init() {
   const logo = gsap.timeline({
     scrollTrigger: {
       trigger: ".scene",
-      start: "89%",
-      end: "100%",
+      start: "70%",
+      end: "73%",
       scrub: 1,
     },
   });
 
-  logo.to("#logos", { left: "calc(-40% - 240px)" });
+  logo.to(".row-logos", { translateX: -560 });
+
+  const nextScene6 = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scene",
+      start: "73%",
+      end: "75%",
+      scrub: 1,
+    },
+  });
+
+  nextScene6.to("#last-section", { opacity: 0 });
+
+  const threeLastSection = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scene",
+      start: "74%",
+      end: "100%",
+      scrub: "1",
+    },
+  });
+
+  threeLastSection.to("#three-last-sections", { top: -2600 });
 }
 
 export default init;
