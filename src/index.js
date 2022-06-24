@@ -592,6 +592,46 @@ const circleFuncs = [
   },
 ];
 
+// cube sences
+const cubeSences = [];
+const cubeIntervals = {};
+// let isSetCubeInterval = false;
+
+for (let index = 0; index < 7; index++) {
+  const startSencePer = 15;
+  const endSencePer = 25;
+  cubeIntervals[index] = false;
+
+  const start =
+    15 + initCubesTimeStart[index] * (endSencePer - startSencePer) + "%";
+  const end =
+    15 + initCubesTimeEnd[index] * (endSencePer - startSencePer) + "%";
+
+  cubeSences.push({
+    start: start,
+    end: end,
+    callback: (progress) => {
+      if (!models.cubes.length && !models.cubes[index]) return;
+      if (!cubeIntervals[index]) {
+        const a = (Math.random() * (0.0008 - 0.0005) + 0.0005).toFixed(5);
+        setInterval(() => {
+          models.cubes[index].rotation.x += parseFloat(a);
+          models.cubes[index].rotation.y += parseFloat(a);
+          models.cubes[index].rotation.z += parseFloat(a);
+        }, 10);
+        cubeIntervals[index] = true;
+      }
+
+      const cube = models.cubes[index];
+
+      const pc = 1 / progress;
+      const prog = progress;
+      cube.scale.set(progress, progress, progress);
+      cube.position.z = initCubesPos[index].z + 6.4 * progress;
+    },
+  });
+}
+
 const controls = new ScrollControls(rig, {
   buffer: 10,
   scrollElement,
@@ -620,11 +660,12 @@ const controls = new ScrollControls(rig, {
       end: "15%",
       callback: nextScene1,
     },
-    {
-      start: "15%",
-      end: "25%",
-      callback: cubesAnimation,
-    },
+    // {
+    //   start: "15%",
+    //   end: "25%",
+    //   callback: cubesAnimation,
+    // },
+    ...cubeSences,
     {
       start: "26%",
       end: "28%",
@@ -876,8 +917,38 @@ function nextScene1(progress) {
   models.logo.position.z = 4 + 4.4 * progress * progress;
 }
 // animation section 2
-let isSetCubeInterval = false;
+// let isSetCubeInterval = false;
 
+// cube Sence 15% - 25%
+// const cubeSennces = [];
+
+// for (let index = 0; i < 7; i++) {
+//   const startSencePer = 15;
+//   const endSencePer = 25;
+
+//   const start =
+//     15 + initCubesTimeStart[index] * (endSencePer - startSencePer) + "%";
+//   const end =
+//     15 + initCubesTimeEnd[index] * (endSencePer - startSencePer) + "%";
+
+//   cubeSennces.push({
+//     start: start,
+//     end: end,
+//     callback: (progress) => {
+//       const a = (Math.random() * (0.0008 - 0.0005) + 0.0005).toFixed(5);
+//       setInterval(() => {
+//         models.cubes[i].rotation.x += parseFloat(a);
+//         models.cubes[i].rotation.y += parseFloat(a);
+//         models.cubes[i].rotation.z += parseFloat(a);
+//       }, 10);
+
+//       const pc = 1 / progress;
+//       const prog = progress;
+//       cube.scale.set(pc * prog, pc * prog, pc * prog);
+//       cube.position.z = initCubesPos[index].z + 6.4 * pc * prog;
+//     },
+//   });
+// }
 function cubesAnimation(progress) {
   if (!models.cubes.length) return;
   if (!isSetCubeInterval) {
