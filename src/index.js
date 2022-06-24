@@ -10,7 +10,7 @@ import {
 } from "three-story-controls";
 import * as dat from "dat.gui";
 import "./js/vue-init";
-import initButterfly from "./js/greensock";
+import greensockInit from "./js/greensock";
 import { TOUCH, WebGLRenderer } from "three";
 const body = document.querySelector("body");
 const kyrosElem = document.querySelector("#kyros");
@@ -131,7 +131,7 @@ const loadingManager = new THREE.LoadingManager(
             flashLight.classList.add("boom");
             setTimeout(() => {
               intro();
-              initButterfly();
+              greensockInit();
             }, 1400);
           });
         });
@@ -580,7 +580,7 @@ const circleFuncs = [
     end: "77%",
     callback: circleAnimation6,
   },
-  {
+  /*  {
     start: "72%",
     end: "87%",
     callback: circleAnimation7,
@@ -589,11 +589,11 @@ const circleFuncs = [
     start: "82%",
     end: "100%",
     callback: circleAnimation8,
-  },
+  }, */
 ];
 
 const controls = new ScrollControls(rig, {
-  buffer: 10,
+  buffer: 20,
   scrollElement,
   dampingFactor: 0.1,
   startOffset: "0",
@@ -664,7 +664,7 @@ const controls = new ScrollControls(rig, {
 });
 
 function handleKyros(progress) {
-  if (progress >= 0.15 || progress <= 0.05) {
+  if (progress >= 0.14 || progress <= 0.07) {
     kyrosElem.style.opacity = 0;
   } else {
     kyrosElem.style.opacity = 1;

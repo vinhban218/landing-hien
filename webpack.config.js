@@ -25,7 +25,7 @@ module.exports = {
         loader: "vue-loader",
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|gif|svg|webm)$/,
         loader: "url-loader",
         options: {
           limit: 10000,
@@ -39,7 +39,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".png"],
+    extensions: [".tsx", ".ts", ".js", ".png", ".webm"],
   },
   plugins: [
     new CopyPlugin({

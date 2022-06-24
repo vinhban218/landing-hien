@@ -177,7 +177,7 @@ function init() {
     },
   });
 
-  line.to(".line-progress", { width: 60 });
+  line.to(".line-progress", { height: 80 });
 
   const nurture = gsap.timeline({
     scrollTrigger: {

@@ -17,11 +17,11 @@
       <div
         v-for="(row, index) in rows"
         :key="index"
-        class="h-1/4 transition-[height] duration-300"
+        class="transition-[height] duration-300"
         :class="{
           'h-0': row.isDetail,
-          '!h-1/2': currentLogo && row.isDetail,
-          'row-logos': !row.isDetail,
+          '!h-1/2 cursor-pointer': currentLogo && row.isDetail,
+          'row-logos h-1/4': !row.isDetail,
           '!h-0 overflow-hidden': (index === 0 || index === 4) && currentLogo,
         }"
       >
@@ -99,8 +99,10 @@ export default {
       const numOfRow = Math.ceil(length / 4);
       const listDataMod = [];
 
+      const listDataClone = JSON.parse(JSON.stringify(this.listData));
+
       for (let i = 0; i < 4; i++) {
-        const data = this.listData.splice(0, numOfRow);
+        const data = listDataClone.splice(0, numOfRow);
         listDataMod.push(data);
       }
 

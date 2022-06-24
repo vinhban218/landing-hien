@@ -21,6 +21,25 @@
           :class="{ active: index === currentIndex }"
         >
           <img :src="item.imgLink" alt="member" />
+
+          <!-- description -->
+          <div
+            v-if="index === currentIndex"
+            class="absolute top-0 left-[calc(100%+40px)] h-full w-60 flex flex-col justify-center uppercase text-[#dddddd]"
+          >
+            <div class="text-xl tracking-[3px]">{{ item.position }}</div>
+            <div
+              class="my-2 text-[32px] tracking-[4px] leading-[38px] font-extrabold"
+              v-html="item.name"
+            ></div>
+            <div
+              class="team-description relative text-gray3 text-sm normal-case"
+            >
+              {{ item.text }}
+            </div>
+          </div>
+
+          <!-- btn -->
           <div
             v-if="index === currentIndex"
             class="absolute -bottom-15 left-1/2 -translate-x-1/2 flex items-center justify-center mt-5"
@@ -29,11 +48,13 @@
               src="../../static/img/circle-arrow-right.png"
               class="w-8 rotate-180 mr-7 cursor-pointer"
               alt="left"
+              @click="currentIndex--"
             />
             <img
               src="../../static/img/circle-arrow-right.png"
               class="w-8 cursor-pointer"
               alt="right"
+              @click="currentIndex++"
             />
           </div>
         </div>
@@ -57,13 +78,13 @@ export default {
         {
           position: "CEO",
           name: "Thuat Nguyen",
-          text: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
+          text: `is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
           imgLink: "./img/thuat-nguyen-2.png",
         },
         {
           position: "CEO",
           name: "Thuat Nguyen",
-          text: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
+          text: `e printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
           imgLink: "./img/thuat-nguyen-3.png",
         },
       ],
@@ -99,6 +120,19 @@ export default {
     filter: none;
     transform: scale(1.15);
     opacity: 1;
+  }
+}
+
+.team-description {
+  &::after {
+    content: "";
+    width: 16px;
+    height: 1px;
+    background: red;
+
+    position: absolute;
+    left: 0;
+    bottom: -12px;
   }
 }
 </style>
