@@ -12,6 +12,9 @@ module.exports = {
         gray3: "#858585",
       },
     },
+    screens: {
+      laptop: "1441px",
+    },
   },
   variants: {
     extend: {},

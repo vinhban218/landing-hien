@@ -1,15 +1,18 @@
 <template>
   <div
-    class="z-[4000] fixed right-10 top-10 w-[30] h-[30px] cursor-pointer"
+    class="z-[4000] fixed right-10 top-10 w-[30px] h-[30px] scale-[0.7] cursor-pointer"
     @click="openNavDialog"
   >
-    <div class="nav-btn" :class="{ active: isOpenNav }"></div>
+    <div
+      class="nav-btn opacity-0 pointer-events-none"
+      :class="{ active: isOpenNav }"
+    ></div>
   </div>
   <Logos />
   <WelcomeText />
   <ThreeLastSection />
 
-  <!-- bg cua app -->
+  <!-- bg noise cua app -->
   <div class="fixed top-0 left-0 z-[-2] w-[100vw] h-[100vh]">
     <div class="inline-block absolute top-0 left-0 w-full h-full">
       <video
@@ -25,19 +28,20 @@
     </div>
   </div>
 
+  <!-- bg nav -->
   <div
-    class="nav-modal-bg overflow-hidden w-[100vw] h-0 flex items-center"
+    class="nav-modal-bg relative overflow-hidden w-[100vw] h-0 flex items-center"
     :class="{ open: isOpenNav }"
   >
     <div class="flex flex-col ml-20 justify-center">
       <div
         v-for="(item, index) in listSection"
         :key="item"
-        class="nav-section-item cursor-pointer text-gray3"
+        class="nav-section-item leading-[72px] laptop:leading-[80px] cursor-pointer text-gray3"
         @click="gotoSection(index)"
       >
         <div
-          class="flex items-center justify-between text-[72px] font-extrabold w-[420px]"
+          class="flex items-center text-[60px] laptop:text-[72px] font-bold w-[600px]"
         >
           <div class="mr-4">{{ item }}</div>
           <img
@@ -47,6 +51,32 @@
           />
         </div>
       </div>
+
+      <div class="flex mt-10 items-center ml-4 tracking-[2px] text-xl">
+        <div
+          class="language font-semibold text-gray3 cursor-pointer mr-4"
+          :class="{ active: isEng }"
+          @click="isEng = true"
+        >
+          ENG
+        </div>
+        <div
+          class="language font-semibold text-gray3 cursor-pointer"
+          :class="{ active: !isEng }"
+          @click="isEng = false"
+        >
+          VN
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute footer bottom-5 right-10 flex items-center">
+      <a href="" target="_blank" class="mr-4 bg-gray3">
+        <img src="../../static/img/twitter.png" alt="twitter" />
+      </a>
+      <a href="" target="_blank">
+        <img src="../../static/img/paper-plane.png" alt="telegram" />
+      </a>
     </div>
   </div>
 </template>
@@ -65,15 +95,16 @@ export default {
   data() {
     return {
       listSection: [
-        "About us",
-        "Partners",
-        "Portfolio",
-        "Blog",
-        "Podcasts",
-        "Carreers",
+        "Welcome",
+        "Mission",
+        "Our Builders",
+        "Our Partners",
+        "Research",
+        "Leadership",
         "Contact",
       ],
       isOpenNav: false,
+      isEng: true,
     };
   },
   methods: {
@@ -88,23 +119,23 @@ export default {
           break;
         }
         case section === 1: {
-          window.scrollTo({ top: 0.69 * bodyHeight, behavior: "smooth" });
+          window.scrollTo({ top: 0.242 * bodyHeight, behavior: "smooth" });
           break;
         }
         case section === 2: {
-          window.scrollTo({ top: 0.69 * bodyHeight, behavior: "smooth" });
+          window.scrollTo({ top: 0.6 * bodyHeight, behavior: "smooth" });
           break;
         }
         case section === 3: {
-          window.scrollTo({ top: 0.72 * bodyHeight, behavior: "smooth" });
+          window.scrollTo({ top: 0.7 * bodyHeight, behavior: "smooth" });
           break;
         }
         case section === 4: {
-          window.scrollTo({ top: 0.82 * bodyHeight, behavior: "smooth" });
+          window.scrollTo({ top: 0.775 * bodyHeight, behavior: "smooth" });
           break;
         }
         case section === 5: {
-          window.scrollTo({ top: 0.86 * bodyHeight, behavior: "smooth" });
+          window.scrollTo({ top: 0.855 * bodyHeight, behavior: "smooth" });
           break;
         }
         case section === 6: {
@@ -180,17 +211,82 @@ export default {
   transition: height 0.4s ease-out;
   background: black;
 
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    background: #858585;
+    width: 800px;
+    height: 200px;
+    left: 40%;
+  }
+
+  &::after {
+    transform: rotate(45deg);
+    bottom: -56px;
+  }
+
+  &::before {
+    transform: rotate(-45deg);
+    bottom: 368px;
+  }
+
   &.open {
     height: 100vh;
+  }
+
+  .language.active {
+    color: #a21717;
+  }
+
+  .footer {
+    a {
+      border-radius: 100%;
+      width: 32px;
+      height: 30px;
+      background: rgb(133, 133, 133);
+      transition: all 0.3s linear;
+      cursor: pointer;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 60%;
+        filter: brightness(0) invert(1);
+      }
+
+      &:hover {
+        background: #a21717;
+      }
+    }
   }
 }
 
 .nav-section-item {
-  line-height: 90px;
   &:hover {
     color: white;
     img {
       opacity: 1;
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .nav-modal-bg {
+    &::after,
+    &::before {
+      width: 600px;
+      height: 150px;
+      left: 40%;
+    }
+
+    &::after {
+      bottom: 22px;
+    }
+
+    &::before {
+      bottom: 340px;
     }
   }
 }

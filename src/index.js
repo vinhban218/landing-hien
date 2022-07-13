@@ -624,8 +624,6 @@ for (let index = 0; index < 7; index++) {
 
       const cube = models.cubes[index];
 
-      const pc = 1 / progress;
-      const prog = progress;
       cube.scale.set(progress, progress, progress);
       cube.position.z = initCubesPos[index].z + 6.4 * progress;
     },
@@ -733,6 +731,12 @@ function intro() {
     if (b >= 1) {
       clearInterval(introInterval);
       isLoadedModel = true;
+      document.querySelector(".nav-btn").style.opacity = 1;
+      setTimeout(() => {
+        document
+          .querySelector(".nav-btn")
+          .classList.remove("pointer-events-none");
+      }, 300);
     }
   }, 10);
 }
@@ -776,8 +780,8 @@ body.addEventListener(
 
     let delta = 0;
     if (e.wheelDelta)
-      delta = e.wheelDelta / 100; //controls the scroll wheel range/speed
-    else if (e.detail) delta = -e.detail / 100;
+      delta = e.wheelDelta / 70; //controls the scroll wheel range/speed
+    else if (e.detail) delta = -e.detail / 70;
 
     handle(delta);
     if (e.preventDefault) e.preventDefault();
@@ -797,7 +801,6 @@ function handle(delta) {
   }
   end -= 20 * delta;
   goUp = delta > 0;
-
   if (interval == null) {
     interval = setInterval(function () {
       let scrollTop = body.scrollTop;

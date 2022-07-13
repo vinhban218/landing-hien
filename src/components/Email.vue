@@ -2,21 +2,50 @@
   <div
     class="email-section w-[100vw] h-[100vh] flex flex-col justify-center items-center"
   >
-    <div class="h-full flex flex-col justify-center items-center">
-      <p class="uppercase text-white text-[24px]">
+    <div
+      v-if="!isSubmit"
+      class="h-full flex flex-col justify-center items-center"
+    >
+      <p class="uppercase text-white text-[22px] laptop:text-[24px]">
         let's seize this opportunitity together
       </p>
-      <p class="text-gray3 text-[110px] font-bold">you@email.com</p>
-      <div class="flex items-center justify-center">
-        <p class="uppercase tracking-[4px] font-bold mr-3 text-[24px]">
-          subcrise
+      <div class="relative w-full">
+        <p
+          class="text-gray3 text-[90px] laptop:text-[110px] font-bold opacity-0"
+        >
+          you@email.com
+        </p>
+        <input
+          v-model="email"
+          @focusin="focusIn"
+          @focusout="focusOut"
+          @input="resizeInput"
+          type="text"
+          class="absolute top-0 left-1/2 -translate-x-1/2 bg-transparent text-[90px] laptop:text-[110px] font-bold w-full h-full text-gray3 outline-none"
+        />
+      </div>
+      <div
+        class="flex items-center justify-center cursor-pointer"
+        @click="submit"
+      >
+        <p
+          class="uppercase tracking-[4px] font-bold mr-3 text-[22px] laptop:text-[24px]"
+        >
+          subscribe
         </p>
         <img
           src="../../static/img/circle-arrow-right.png"
-          class="w-6 cursor-pointer"
+          class="w-6"
           alt="next"
         />
       </div>
+    </div>
+
+    <div v-else class="h-full flex flex-col justify-center items-center">
+      <p class="text-white text-2xl">THANK YOU!</p>
+      <p class="uppercase mt-3 text-gray3 text-lg">
+        you have successfully joined our subscriber list
+      </p>
     </div>
 
     <div class="flex w-full items-center justify-between shrink-0 px-12">
@@ -38,6 +67,33 @@
 <script>
 export default {
   name: "Email",
+  data() {
+    return {
+      email: "you@gmail.com",
+      isSubmit: false,
+    };
+  },
+  methods: {
+    resizeInput(e) {
+      e.target.style.width = `calc(${e.target.value.length + "ch"})`;
+    },
+    submit() {
+      console.log(this.email);
+      this.isSubmit = true;
+    },
+    focusIn() {
+      if (this.email === "you@gmail.com") {
+        this.email = "";
+      }
+    },
+    focusOut(e) {
+      console.log(this.email);
+      if (!this.email) {
+        this.email = "you@gmail.com";
+        this.resizeInput(e);
+      }
+    },
+  },
 };
 </script>
 
@@ -61,7 +117,7 @@ export default {
       }
 
       &:hover {
-        background: #1da1f2;
+        background: #a21717;
       }
     }
   }

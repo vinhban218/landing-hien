@@ -5,24 +5,25 @@
       <div class="line-progress"></div>
     </div>
     <div class="welcome">
-      <div v-if="section === 1">
-        Welcome <br />
-        to kyros ventures
-      </div>
+      <div v-if="section === 1">WELCOME</div>
 
-      <div v-if="section === 2">Mission</div>
+      <div v-if="section === 2">WE ARE KYROS</div>
 
       <div v-if="section === 3">
-        Our <br />
-        Builders
+        OUR <br />
+        PILLARS
       </div>
 
       <div v-if="section === 4">
-        Our <br />
-        Partners
+        OUR <br />
+        TEAM
       </div>
 
-      <div v-if="section === 5">Research</div>
+      <div v-if="section === 5">
+        MEET <br />
+        OUR <br />
+        MEMBERS
+      </div>
 
       <div v-if="section === 6">Leardership</div>
 
@@ -127,7 +128,7 @@ export default {
     transform: translateX(-50%);
     width: 4px;
     border-radius: 1px;
-    background: white;
+    background: #a21717;
   }
 }
 

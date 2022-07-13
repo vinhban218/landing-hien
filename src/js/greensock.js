@@ -29,6 +29,7 @@ acAnimated.Plugins.SplitText = function (element, options) {
     node.appendChild(nodeText);
     node.style.display = "flex";
     node.style.position = "relative";
+    node.classList.add("hevetica");
     if (text.trim() == "") node.style.width = String(options.spacing) + "px";
     relatedNode.parentNode.insertBefore(node, relatedNode);
     return node;
@@ -90,6 +91,7 @@ acAnimated.Plugins.SplitText = function (element, options) {
 function init() {
   const kyrosLeft = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "7%",
       end: "10%",
@@ -99,6 +101,7 @@ function init() {
 
   const kyrosRight = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "7%",
       end: "10%",
@@ -136,6 +139,7 @@ function init() {
 
   const nextScene1Left = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "13%",
       end: "14%",
@@ -145,6 +149,7 @@ function init() {
 
   const nextScene1Right = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "13%",
       end: "14%",
@@ -170,6 +175,7 @@ function init() {
 
   const line = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "0%",
       end: "100%",
@@ -181,6 +187,7 @@ function init() {
 
   const nurture = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "18%",
       end: "23%",
@@ -200,6 +207,7 @@ function init() {
 
   const nextScene2 = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "26%",
       end: "28%",
@@ -214,6 +222,7 @@ function init() {
 
   const incubate = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "32%",
       end: "35%",
@@ -227,6 +236,7 @@ function init() {
 
   const nextScene3 = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "37%",
       end: "40%",
@@ -238,6 +248,7 @@ function init() {
 
   const ambition = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "42%",
       end: "49%",
@@ -254,6 +265,7 @@ function init() {
 
   const opportunity = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "50%",
       end: "57%",
@@ -270,6 +282,7 @@ function init() {
 
   const builder = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "58%",
       end: "59%",
@@ -281,6 +294,7 @@ function init() {
 
   const howard = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "58%",
       end: "62%",
@@ -288,8 +302,11 @@ function init() {
     },
   });
 
+  const windowWidth = window.innerWidth;
+
   const howardText = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "58%",
       end: "62%",
@@ -305,13 +322,23 @@ function init() {
     .to("#howard", { opacity: 0, filter: "blur(40px)" });
 
   howardText
-    .to("#howard-text", { left: "70%", opacity: 1 })
-    .to("#howard-text", { left: "70%", opacity: 1 })
-    .to("#howard-text", { left: "70%", opacity: 1 })
+    .to("#howard-text", {
+      left: windowWidth < 1441 ? "69%" : "70%",
+      opacity: 1,
+    })
+    .to("#howard-text", {
+      left: windowWidth < 1441 ? "69%" : "70%",
+      opacity: 1,
+    })
+    .to("#howard-text", {
+      left: windowWidth < 1441 ? "69%" : "70%",
+      opacity: 1,
+    })
     .to("#howard-text", { left: "120%", opacity: 0 });
 
   const howard2 = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "63%",
       end: "67%",
@@ -321,6 +348,7 @@ function init() {
 
   const howardText2 = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "63%",
       end: "67%",
@@ -341,6 +369,7 @@ function init() {
 
   const nextScene5 = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "67%",
       end: "69%",
@@ -348,43 +377,11 @@ function init() {
     },
   });
 
-  nextScene5.to("#builder", { opacity: 0, filter: "blur(40px)" });
-
-  const portText = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".scene",
-      start: "69%",
-      end: "70%",
-      scrub: 1,
-    },
-  });
-
-  portText.to("#last-section", { opacity: 1, filter: "blur(0px)" });
-
-  const logo = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".scene",
-      start: "70%",
-      end: "73%",
-      scrub: 1,
-    },
-  });
-
-  logo.to(".row-logos", { translateX: -560 });
-
-  const nextScene6 = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".scene",
-      start: "73%",
-      end: "75%",
-      scrub: 1,
-    },
-  });
-
-  nextScene6.to("#last-section", { opacity: 0 });
+  nextScene5.to("#builder > div", { opacity: 0, filter: "blur(40px)" });
 
   const threeLastSection = gsap.timeline({
     scrollTrigger: {
+      onToggle: finishOnFastLeave,
       trigger: ".scene",
       start: "74%",
       end: "100%",
@@ -392,7 +389,13 @@ function init() {
     },
   });
 
-  threeLastSection.to("#three-last-sections", { top: -2600 });
+  threeLastSection.to("#three-last-sections", { top: "unset", bottom: 180 });
+
+  function finishOnFastLeave(self) {
+    !self.isActive &&
+      Math.abs(self.getVelocity()) > 2500 &&
+      self.animation.progress(self.progress === 1 ? 1 : 0).pause();
+  }
 }
 
 export default init;

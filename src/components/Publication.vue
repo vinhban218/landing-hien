@@ -1,12 +1,14 @@
 <template>
-  <div class="mt-10 mx-auto w-[1200px]">
+  <div class="mt-10 mx-auto w-[1040px] laptop:w-[1200px]">
     <div class="publication-title flex items-center">
       <img
         src="../../static/img/arrow-left.png"
         alt="arrow-left"
         class="w-[50px]"
       />
-      <h3 class="text-[80px] ml-4 font-bold">PUBLICATION</h3>
+      <h3 class="text-[72px] laptop:text-[80px] ml-4 font-extrabold">
+        PUBLICATION
+      </h3>
     </div>
 
     <div class="my-10 text-[#858585]">
@@ -103,6 +105,9 @@ export default {
   -webkit-text-stroke: 2.5px red;
   color: transparent;
   letter-spacing: 6px;
+  h3 {
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
   position: relative;
   &::after {

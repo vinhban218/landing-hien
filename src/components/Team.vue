@@ -7,57 +7,69 @@
           alt="arrow-left"
           class="w-[50px]"
         />
-        <div class="team-title ml-4 text-[72px] font-extrabold">TEAM</div>
+        <div
+          class="team-title ml-4 text-[60px] laptop:text-[72px] font-extrabold"
+        >
+          TEAM
+        </div>
       </div>
-      <p class="mt-2 text-gray3 text-2xl -mr-[42px] text-right">
+      <p class="mt-2 text-gray3 text-xl laptop:text-2xl -mr-[42px] text-right">
         By builder for builder
       </p>
     </div>
 
-    <div class="w-[55%] flex gap-14">
-      <div v-for="(item, index) in listMembers" :key="index">
-        <div
-          class="relative shrink-0 w-80 opacity-20 grayscale"
-          :class="{ active: index === currentIndex }"
-        >
-          <img :src="item.imgLink" alt="member" />
-
-          <!-- description -->
+    <div class="relative w-[55%]">
+      <div
+        ref="slideContainer"
+        class="flex w-full gap-14 items-center h-[530px] transition-all duration-500"
+      >
+        <div v-for="(item, index) in listMembers" :key="index">
           <div
-            v-if="index === currentIndex"
-            class="absolute top-0 left-[calc(100%+40px)] h-full w-60 flex flex-col justify-center uppercase text-[#dddddd]"
+            class="relative shrink-0 w-80 opacity-10 blur-[1px] grayscale transition-all duration-500"
+            :class="{ active: index === currentIndex }"
           >
-            <div class="text-xl tracking-[3px]">{{ item.position }}</div>
+            <img :src="item.imgLink" alt="member" />
+
+            <!-- description -->
             <div
-              class="my-2 text-[32px] tracking-[4px] leading-[38px] font-extrabold"
-              v-html="item.name"
-            ></div>
-            <div
-              class="team-description relative text-gray3 text-sm normal-case"
+              v-if="index === currentIndex"
+              class="absolute fade-in-ani top-0 left-[calc(100%+80px)] h-full w-60 flex flex-col justify-center uppercase text-[#dddddd]"
             >
-              {{ item.text }}
+              <div class="text-2xl tracking-[3px]">{{ item.position }}</div>
+              <div
+                class="my-2 text-[36px] tracking-[5px] leading-[42px] font-extrabold"
+                v-html="item.name"
+              ></div>
+              <div class="team-description relative text-gray3 normal-case">
+                {{ item.text }}
+              </div>
             </div>
           </div>
-
-          <!-- btn -->
-          <div
-            v-if="index === currentIndex"
-            class="absolute -bottom-15 left-1/2 -translate-x-1/2 flex items-center justify-center mt-5"
-          >
-            <img
-              src="../../static/img/circle-arrow-right.png"
-              class="w-8 rotate-180 mr-7 cursor-pointer"
-              alt="left"
-              @click="currentIndex--"
-            />
-            <img
-              src="../../static/img/circle-arrow-right.png"
-              class="w-8 cursor-pointer"
-              alt="right"
-              @click="currentIndex++"
-            />
-          </div>
         </div>
+      </div>
+
+      <!-- btn -->
+      <div
+        class="absolute -bottom-[70px] left-[184px] -translate-x-1/2 flex items-center justify-center mt-5"
+      >
+        <img
+          src="../../static/img/circle-arrow-right.png"
+          class="w-8 rotate-180 mr-7 cursor-pointer"
+          :class="{
+            'pointer-events-none opacity-60 cursor-auto': currentIndex === 0,
+          }"
+          alt="left"
+          @click="prevItem"
+        />
+        <img
+          src="../../static/img/circle-arrow-right.png"
+          class="w-8 cursor-pointer"
+          alt="right"
+          :class="{
+            'pointer-events-none opacity-60 cursor-auto': currentIndex > 1,
+          }"
+          @click="nextItem"
+        />
       </div>
     </div>
   </div>
@@ -91,6 +103,19 @@ export default {
       currentIndex: 0,
     };
   },
+  methods: {
+    nextItem() {
+      this.currentIndex++;
+    },
+    prevItem() {
+      this.currentIndex--;
+    },
+  },
+  watch: {
+    currentIndex(val) {
+      this.$refs.slideContainer.style.transform = `translateX(-${val * 376}px)`;
+    },
+  },
 };
 </script>
 
@@ -99,6 +124,7 @@ export default {
   -webkit-text-stroke: 2.5px red;
   color: transparent;
   letter-spacing: 6px;
+  font-family: Arial, Helvetica, sans-serif;
 
   position: relative;
   &::after {
@@ -118,8 +144,12 @@ export default {
 .team {
   .active {
     filter: none;
-    transform: scale(1.15);
+    width: 368px;
     opacity: 1;
+  }
+
+  .fade-in-ani {
+    animation: fadeIn 0.5s linear;
   }
 }
 
@@ -133,6 +163,16 @@ export default {
     position: absolute;
     left: 0;
     bottom: -12px;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .team-title {
+    &::after {
+      width: 154px;
+      bottom: 10px;
+      right: -40px;
+    }
   }
 }
 </style>
