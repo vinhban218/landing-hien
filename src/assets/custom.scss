@@ -1,0 +1,5 @@
+span.text-stroke {
+    $color: red;
+    color: transparent;
+    -webkit-text-stroke: 0.5px $color;
+}
