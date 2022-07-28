@@ -1,8 +1,9 @@
 <template>
   <div id="welcome-text" class="z-[100]">
     <div class="section h-20">
-      <div class="line"></div>
-      <div class="line-progress"></div>
+      <div class="line">
+        <div class="line-progress"></div>
+      </div>
     </div>
     <div class="welcome">
       <div v-if="section === 1">WELCOME</div>
@@ -13,23 +14,14 @@
         OUR <br />
         PILLARS
       </div>
-
       <div v-if="section === 4">
         OUR <br />
         TEAM
       </div>
 
       <div v-if="section === 5">
-        MEET <br />
-        OUR <br />
-        MEMBERS
-      </div>
-
-      <div v-if="section === 6">Leardership</div>
-
-      <div v-if="section === 7">
-        Join <br />
-        our Crew
+        CONTACT<br />
+        US
       </div>
     </div>
   </div>
@@ -54,22 +46,16 @@ export default {
         case this.windowScrollY < 0.15:
           return 1;
 
-        case this.windowScrollY < 0.58:
+        case this.windowScrollY < 0.33:
           return 2;
 
-        case this.windowScrollY < 0.7:
+        case this.windowScrollY < 0.891:
           return 3;
 
-        case this.windowScrollY < 0.75:
+        case this.windowScrollY < 0.92:
           return 4;
-
-        case this.windowScrollY < 0.81:
-          return 5;
-
-        case this.windowScrollY < 0.86:
-          return 6;
         default:
-          return 7;
+          return 5;
       }
     },
   },
@@ -107,6 +93,7 @@ export default {
 }
 
 .section {
+  width: fit-content;
   .line {
     height: 80px;
     width: 1px;
@@ -118,17 +105,17 @@ export default {
     left: -40px;
     top: 50%;
     transform: translateY(-50%);
-  }
 
-  .line-progress {
-    z-index: 10;
-    position: absolute !important;
-    top: 0;
-    left: -20px;
-    transform: translateX(-50%);
-    width: 4px;
-    border-radius: 1px;
-    background: #a21717;
+    .line-progress {
+      z-index: 10;
+      position: absolute !important;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      border-radius: 1px;
+      background: #a21717;
+    }
   }
 }
 

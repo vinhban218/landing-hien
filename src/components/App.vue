@@ -8,6 +8,11 @@
       :class="{ active: isOpenNav }"
     ></div>
   </div>
+  <Nurture />
+  <WeAre />
+  <OurPillar />
+  <Network />
+  <Incubation />
   <Logos />
   <WelcomeText />
   <ThreeLastSection />
@@ -37,11 +42,11 @@
       <div
         v-for="(item, index) in listSection"
         :key="item"
-        class="nav-section-item leading-[72px] laptop:leading-[80px] cursor-pointer text-gray3"
+        class="nav-section-item leading-[72px] laptop:leading-[80px] mt-3 cursor-pointer text-gray3"
         @click="gotoSection(index)"
       >
         <div
-          class="flex items-center text-[60px] laptop:text-[72px] font-bold w-[600px]"
+          class="flex items-center text-[60px] hd:text-[66px] laptop:text-[72px] font-bold w-[800px]"
         >
           <div class="mr-4">{{ item }}</div>
           <img
@@ -85,23 +90,31 @@
 import WelcomeText from "./WelcomeText.vue";
 import Logos from "./Logos.vue";
 import ThreeLastSection from "./ThreeLastSection.vue";
+import Nurture from "./dumb/Nurture.vue";
+import WeAre from "./dumb/WeAre.vue";
+import OurPillar from "./dumb/OurPillar.vue";
+import Network from "./dumb/Network.vue";
+import Incubation from "./dumb/Incubation.vue";
 export default {
   name: "App",
   components: {
     Logos,
     WelcomeText,
     ThreeLastSection,
+    Nurture,
+    WeAre,
+    OurPillar,
+    Network,
+    Incubation,
   },
   data() {
     return {
       listSection: [
         "Welcome",
-        "Mission",
-        "Our Builders",
-        "Our Partners",
-        "Research",
-        "Leadership",
-        "Contact",
+        "We are Kyros",
+        "Our Pillars",
+        "Our Team",
+        "Contact us",
       ],
       isOpenNav: false,
       isEng: true,
@@ -123,22 +136,14 @@ export default {
           break;
         }
         case section === 2: {
-          window.scrollTo({ top: 0.6 * bodyHeight, behavior: "smooth" });
+          window.scrollTo({ top: 0.365 * bodyHeight, behavior: "smooth" });
           break;
         }
         case section === 3: {
-          window.scrollTo({ top: 0.7 * bodyHeight, behavior: "smooth" });
+          window.scrollTo({ top: 0.898 * bodyHeight, behavior: "smooth" });
           break;
         }
         case section === 4: {
-          window.scrollTo({ top: 0.775 * bodyHeight, behavior: "smooth" });
-          break;
-        }
-        case section === 5: {
-          window.scrollTo({ top: 0.855 * bodyHeight, behavior: "smooth" });
-          break;
-        }
-        case section === 6: {
           window.scrollTo({ top: 1 * bodyHeight, behavior: "smooth" });
           break;
         }
@@ -218,7 +223,7 @@ export default {
     background: #858585;
     width: 800px;
     height: 200px;
-    left: 40%;
+    left: 45%;
   }
 
   &::after {
@@ -268,6 +273,24 @@ export default {
     color: white;
     img {
       opacity: 1;
+    }
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .nav-modal-bg {
+    &::after,
+    &::before {
+      width: 700px;
+      height: 200px;
+    }
+
+    &::after {
+      bottom: 22px;
+    }
+
+    &::before {
+      bottom: 374px;
     }
   }
 }

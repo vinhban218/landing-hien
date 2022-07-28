@@ -1,4 +1,5 @@
 import "./assets/index.css";
+import "./assets/custom.scss";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import {
@@ -113,6 +114,8 @@ const loadingManager = new THREE.LoadingManager(
     const keyHole = loadingScreen.querySelector(".key-hole");
     const flashLight = document.querySelector(".flash-light");
     //create text enter
+    greensockInit();
+
     if (loadingInterval) {
       clearInterval(loadingInterval);
       barInner.style.cssText = `
@@ -131,7 +134,6 @@ const loadingManager = new THREE.LoadingManager(
             flashLight.classList.add("boom");
             setTimeout(() => {
               intro();
-              greensockInit();
             }, 1400);
           });
         });
@@ -572,24 +574,24 @@ const circleFuncs = [
   },
   {
     start: "52%",
-    end: "67%",
+    end: "65%",
     callback: circleAnimation5,
   },
   {
-    start: "62%",
-    end: "77%",
+    start: "65%",
+    end: "75%",
     callback: circleAnimation6,
   },
-  /*  {
-    start: "72%",
-    end: "87%",
+  {
+    start: "73%",
+    end: "83%",
     callback: circleAnimation7,
   },
   {
-    start: "82%",
-    end: "100%",
+    start: "80%",
+    end: "90%",
     callback: circleAnimation8,
-  }, */
+  },
 ];
 
 // cube sences
@@ -599,7 +601,7 @@ const cubeIntervals = {};
 
 for (let index = 0; index < 7; index++) {
   const startSencePer = 15;
-  const endSencePer = 25;
+  const endSencePer = 29;
   cubeIntervals[index] = false;
 
   const start =
@@ -658,46 +660,31 @@ const controls = new ScrollControls(rig, {
       end: "15%",
       callback: nextScene1,
     },
-    // {
-    //   start: "15%",
-    //   end: "25%",
-    //   callback: cubesAnimation,
-    // },
     ...cubeSences,
     {
-      start: "26%",
-      end: "28%",
+      start: "28%",
+      end: "30%",
       callback: nextScene2,
     },
     {
-      start: "28%",
-      end: "36%",
+      start: "30%",
+      end: "38%",
       callback: keyAnimation,
     },
     {
-      start: "37%",
-      end: "40%",
+      start: "39%",
+      end: "42%",
       callback: nextScene3,
     },
     {
-      start: "40%",
-      end: "55%",
+      start: "42%",
+      end: "60%",
       callback: threeKeysAnimation,
     },
     {
-      start: "55%",
-      end: "58%",
+      start: "60%",
+      end: "63%",
       callback: nextScene4,
-    },
-    {
-      start: "58%",
-      end: "68%",
-      callback: builderAnimation,
-    },
-    {
-      start: "68%",
-      end: "70%",
-      callback: nextScene5,
     },
   ],
 });
@@ -1074,39 +1061,6 @@ function nextScene4(progress) {
   }
   isNextScene4Done = progress >= 1;
 }
-let isBuilderAnimationDone = false;
-function builderAnimation(progress) {
-  if (isNextScene4Done) {
-    radius = 11.75 - 6 * progress ** 2;
-    angle = -300 - 180 * progress;
-    models.threeKeys.forEach((key, index) => {
-      key.position.x = radius * Math.sin(((angle + index * 120) * PI) / 180);
-      key.position.y = radius * Math.cos(((angle + index * 120) * PI) / 180);
-      key.rotation.x = initThreeKeysRotation[index].x + 3 * progress;
-      key.rotation.y = initThreeKeysRotation[index].y + 3 * progress;
-      key.material.opacity = progress;
-    });
-
-    isBuilderAnimationDone = progress >= 1;
-  }
-}
-function nextScene5(progress) {
-  if (isBuilderAnimationDone) {
-    models.threeKeys.forEach((key, index) => {
-      radius = 5.75 + 3 * progress ** 2;
-      angle = -480 - 120 * progress;
-      key.position.x = radius * Math.sin(((angle + index * 120) * PI) / 180);
-      key.position.y = radius * Math.cos(((angle + index * 120) * PI) / 180);
-      key.material.opacity = 1 - progress ** 3;
-    });
-  }
-}
-
-// const cameraHelper = new CameraHelper(rig, controls, renderer.domElement)
-
-/* const grid = new THREE.GridHelper(100, 50);
-grid.position.set(0, -5, 0);
-scene.add(grid); */
 
 // background funtion
 let geometry, velocities, accelerations;

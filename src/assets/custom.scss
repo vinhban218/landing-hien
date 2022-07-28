@@ -1,5 +1,41 @@
-span.text-stroke {
-    $color: red;
+.text-stroke-white {
+    -webkit-text-stroke: 0.5px white;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-text-fill-color: transparent;
+    // font-family:  Arial, Helvetica, sans-serif;
+    font-weight: 900;
+}
+
+
+.center-all {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 52;
+}
+
+.text-stroke {
+    $color: red !default;
+    $width: 2.5px !default;
+
     color: transparent;
-    -webkit-text-stroke: 0.5px $color;
+    // font-family: 'Montserrat', sans-serif;
+    font-family:  Arial, Helvetica, sans-serif;
+    -webkit-text-stroke-width: var(--width, $width);
+    -webkit-text-stroke-color:  $color;
+    -webkit-text-fill-color: transparent;
+    // -webkit-text-stroke: $width $color;
+}
+
+.highlight {
+    $color: white !default;
+    color:white;
+    font-weight: 600;
+}
+
+.highlight.underline {
+    color:red;
+    font-weight: 700;
+    text-transform: uppercase;
 }

@@ -11,9 +11,15 @@ module.exports = {
         purple: "#7652C6",
         gray3: "#858585",
       },
+      fontSize: {
+        large: "80px",
+        middle: "72px",
+        medium: "60px",
+      },
     },
     screens: {
-      laptop: "1441px",
+      hd: '1441px',
+      laptop: "1600px",
     },
   },
   variants: {

@@ -6,35 +6,65 @@
         alt="arrow-left"
         class="w-[50px]"
       />
-      <h3 class="text-[72px] laptop:text-[80px] ml-4 font-extrabold">
-        PUBLICATION
-      </h3>
+      <h3 class="text-[72px] laptop:text-[80px] ml-4 font-[900]">RESEARCH</h3>
     </div>
 
     <div class="my-10 text-[#858585]">
       <p>
-        Sharing our thoughts, analysis and report about the market insights and
-        in-demand topics.
-      </p>
-      <p>
-        Follow our Twitter and subscribe to weely newsletter for timely updates
+        We pride ourselves on our institutional grade research publications that
+        <br />
+        capture all emerging trends within crypto.
       </p>
     </div>
 
-    <div class="flex items-center mb-8">
+    <!-- market report -->
+    <div>
+      <div class="flex items-center mb-8">
+        <img
+          src="../../static/img/arrow-left.png"
+          alt="arrow-left"
+          class="w-[18px]"
+        />
+        <h5 class="font-bold text-[#ff0000] ml-[6px] text-2xl">
+          MARKET REPORT
+        </h5>
+      </div>
+
+      <div class="flex gap-8 mt-10">
+        <div
+          v-for="item in 3"
+          :key="item"
+          class="w-[calc(33.3333%-26.66666px)]"
+        >
+          <img
+            src="../../static/img/main-paper.png"
+            alt="1"
+            class="rounded-[10px] cursor-pointer grayscale transition-all duration-500 hover:grayscale-0"
+          />
+          <p class="font-bold mt-3 mb-5 text-white text-2xl tracking-[3px]">
+            VIETNAM MARKET REPORT
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ket thuc market report -->
+    <div class="flex items-center mb-8 mt-5">
       <img
         src="../../static/img/arrow-left.png"
         alt="arrow-left"
         class="w-[18px]"
       />
-      <h5 class="font-bold text-[#ff0000] ml-[6px] text-2xl">RESEARCH</h5>
+      <h5 class="font-bold text-[#ff0000] ml-[6px] text-2xl">
+        IN DEPTH RESEARCH
+      </h5>
     </div>
     <!-- bai bao nooi bat -->
     <div class="flex">
       <img
         src="../../static/img/main-paper.png"
         alt="main-paper"
-        class="rounded-[10px] w-1/2 cursor-pointer"
+        class="rounded-[10px] w-1/2 cursor-pointer grayscale transition-all duration-500 hover:grayscale-0"
       />
       <div class="ml-8 w-2/5 flex flex-col justify-center">
         <h5
@@ -52,8 +82,8 @@
       </div>
     </div>
     <!-- list bai bao -->
-    <div class="flex gap-5 mt-10">
-      <div v-for="item in 3" :key="item" class="w-[calc(33.3333%-13.3333px)]">
+    <div class="flex gap-8 mt-10">
+      <div v-for="item in 3" :key="item" class="w-[calc(33.3333%-26.6666px)]">
         <img
           src="../../static/img/main-paper.png"
           alt="1"

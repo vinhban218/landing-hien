@@ -1,15 +1,13 @@
 <template>
   <div class="team w-full h-[100vh] flex justify-center items-center">
-    <div class="w-[45%] pr-[144px]">
+    <div class="w-[40%] pr-[144px]">
       <div class="flex items-center justify-end">
         <img
           src="../../static/img/arrow-left.png"
           alt="arrow-left"
           class="w-[50px]"
         />
-        <div
-          class="team-title ml-4 text-[60px] laptop:text-[72px] font-extrabold"
-        >
+        <div class="team-title ml-4 text-[60px] laptop:text-[72px] font-[900]">
           TEAM
         </div>
       </div>
@@ -18,30 +16,45 @@
       </p>
     </div>
 
-    <div class="relative w-[55%]">
+    <div class="relative w-[60%]">
       <div
         ref="slideContainer"
-        class="flex w-full gap-14 items-center h-[530px] transition-all duration-500"
+        class="flex w-full gap-14 hd:gap-20 items-center h-[530px] transition-all duration-500"
       >
         <div v-for="(item, index) in listMembers" :key="index">
           <div
-            class="relative shrink-0 w-80 opacity-10 blur-[1px] grayscale transition-all duration-500"
-            :class="{ active: index === currentIndex }"
+            class="relative shrink-0 w-60 hd:w-72 laptop:w-80 opacity-10 blur-[1px] grayscale transition-all duration-500"
+            :class="{ 'active-img': index === currentIndex }"
           >
-            <img :src="item.imgLink" alt="member" />
+            <img
+              :src="item.imgLink"
+              alt="member"
+              class="rounded-3xl border border-[#5e5e5e]"
+            />
 
             <!-- description -->
             <div
               v-if="index === currentIndex"
-              class="absolute fade-in-ani top-0 left-[calc(100%+80px)] h-full w-60 flex flex-col justify-center uppercase text-[#dddddd]"
+              class="absolute fade-in-ani top-0 left-[calc(100%+64px)] h-full w-[500px] flex flex-col justify-center uppercase text-[#dddddd]"
             >
-              <div class="text-2xl tracking-[3px]">{{ item.position }}</div>
+              <div class="text-[26px] tracking-[3px]">{{ item.position }}</div>
               <div
-                class="my-2 text-[36px] tracking-[5px] leading-[42px] font-extrabold"
+                class="my-2 text-[40px] tracking-[5px] leading-[46px] font-[900]"
                 v-html="item.name"
               ></div>
               <div class="team-description relative text-gray3 normal-case">
-                {{ item.text }}
+                <div
+                  v-for="textItem in item.text"
+                  :key="textItem"
+                  class="flex items-center mt-1"
+                >
+                  <img
+                    src="../../static/img/arrow-left.png"
+                    alt="arrow-left"
+                    class="w-3 mr-[6px]"
+                  />
+                  <p class="text-gray3">{{ textItem }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -50,7 +63,7 @@
 
       <!-- btn -->
       <div
-        class="absolute -bottom-[70px] left-[184px] -translate-x-1/2 flex items-center justify-center mt-5"
+        class="absolute -bottom-[30px] hd:-bottom-[50px] laptop:-bottom-[70px] left-[138px] hd:left-[165.5px] laptop:left-[184px] -translate-x-1/2 flex items-center justify-center mt-5"
       >
         <img
           src="../../static/img/circle-arrow-right.png"
@@ -66,7 +79,7 @@
           class="w-8 cursor-pointer"
           alt="right"
           :class="{
-            'pointer-events-none opacity-60 cursor-auto': currentIndex > 1,
+            'pointer-events-none opacity-60 cursor-auto': currentIndex > 2,
           }"
           @click="nextItem"
         />
@@ -83,25 +96,41 @@ export default {
       listMembers: [
         {
           position: "CEO",
-          name: "Thuat Nguyen",
-          text: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
-          imgLink: "./img/thuat-nguyen-1.png",
+          name: "zane nguyen",
+          text: ["Serial entrepreneur", "Founder of Coin68 Media"],
+          imgLink: "./img/ZANE_Edit.jpg",
         },
         {
-          position: "CEO",
-          name: "Thuat Nguyen",
-          text: `is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
-          imgLink: "./img/thuat-nguyen-2.png",
+          position: "COO",
+          name: "Jenny nguyen",
+          text: ["COO of Coin68 Media", "Partnership Manager of BlockAce"],
+          imgLink: "./img/JENNY_Edit.jpg",
         },
         {
-          position: "CEO",
-          name: "Thuat Nguyen",
-          text: `e printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`,
-          imgLink: "./img/thuat-nguyen-3.png",
+          position: "CMO",
+          name: "SAM HOANG",
+          text: [
+            "Customer Relationships Manager at Coin68",
+            "Marketing Manager at Ancient8",
+          ],
+          imgLink: "./img/SAM_edit.jpg",
+        },
+        {
+          position: "HEAD OF RESEARCH",
+          name: "ANDY VU",
+          text: ["Former BDM at Metaverse DNA", "Vietnam Country Lead at BBOD"],
+          imgLink: "./img/Andy_edit.jpg",
         },
       ],
       currentIndex: 0,
+      activeImgWidth: 0,
+      gapWidth: 80,
     };
+  },
+  mounted() {
+    const activeImg = document.querySelector('.active-img')
+    this.activeImgWidth = activeImg.clientWidth;
+    if (window.screen.width < 1401) this.gapWidth = 56;
   },
   methods: {
     nextItem() {
@@ -113,7 +142,7 @@ export default {
   },
   watch: {
     currentIndex(val) {
-      this.$refs.slideContainer.style.transform = `translateX(-${val * 376}px)`;
+      this.$refs.slideContainer.style.transform = `translateX(-${val * (this.activeImgWidth / 1.15  + this.gapWidth)}px)`;
     },
   },
 };
@@ -142,27 +171,18 @@ export default {
 }
 
 .team {
-  .active {
+  .active-img {
     filter: none;
     width: 368px;
     opacity: 1;
   }
-
-  .fade-in-ani {
-    animation: fadeIn 0.5s linear;
-  }
 }
 
-.team-description {
-  &::after {
-    content: "";
-    width: 16px;
-    height: 1px;
-    background: red;
-
-    position: absolute;
-    left: 0;
-    bottom: -12px;
+@media screen and (max-width:1600px) {
+  .team {
+    .active-img {
+      width: 331px;
+    }
   }
 }
 
@@ -174,5 +194,12 @@ export default {
       right: -40px;
     }
   }
+
+  .team {
+    .active-img {
+      width: 276px;
+    }
+  }
 }
+
 </style>

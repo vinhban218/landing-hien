@@ -1,4 +1,4 @@
-import { gsap, Linear, Power2 } from "gsap";
+import { from, gsap, Linear, Power2 } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
@@ -189,8 +189,8 @@ function init() {
     scrollTrigger: {
       onToggle: finishOnFastLeave,
       trigger: ".scene",
-      start: "18%",
-      end: "23%",
+      start: "14%",
+      end: "21%",
       scrub: 1,
     },
   });
@@ -203,6 +203,50 @@ function init() {
     .to("#nurture", {
       opacity: 1,
       filter: "blur(0px)",
+    })
+    .to("#nurture", {
+      opacity: 1,
+      filter: "blur(0px)",
+    })
+    .to("#nurture", {
+      opacity: 1,
+      filter: "blur(0px)",
+    })
+    .to('#nurture', {
+      opacity: 0,
+      filter: "blur(40px)"
+    })
+
+  const weAre = gsap.timeline({
+    scrollTrigger: {
+      onToggle: finishOnFastLeave,
+      trigger: ".scene",
+      start: "21%",
+      end: "28%",
+      scrub: 1,
+    },
+  });
+
+  weAre
+    .from("#we-are", {
+      opacity: 0,
+      filter: "blur(40px)",
+    })
+    .to("#we-are", {
+      opacity: 1,
+      filter: "blur(0px)",
+    })
+    .to("#we-are", {
+      opacity: 1,
+      filter: "blur(0px)",
+    })
+    .to("#we-are", {
+      opacity: 1,
+      filter: "blur(0px)",
+    })
+    .to("#we-are", {
+      opacity: 0,
+      filter: "blur(40px)",
     });
 
   const nextScene2 = gsap.timeline({
@@ -220,7 +264,7 @@ function init() {
     filter: "blur(40px)",
   });
 
-  const incubate = gsap.timeline({
+  const ourPillar = gsap.timeline({
     scrollTrigger: {
       onToggle: finishOnFastLeave,
       trigger: ".scene",
@@ -230,9 +274,9 @@ function init() {
     },
   });
 
-  incubate
-    .from("#incubate", { opacity: 0, filter: "blur(40px)" })
-    .to("#incubate", { opacity: 1, filter: "blur(0px)" });
+  ourPillar
+    .from("#our-pillar", { opacity: 0, filter: "blur(40px)" })
+    .to("#our-pillar", { opacity: 1, filter: "blur(0px)" });
 
   const nextScene3 = gsap.timeline({
     scrollTrigger: {
@@ -244,152 +288,149 @@ function init() {
     },
   });
 
-  nextScene3.to("#incubate", { opacity: 0, filter: "blur(40px)" });
+  nextScene3.to("#our-pillar", { opacity: 0, filter: "blur(40px)" });
 
-  const ambition = gsap.timeline({
+  const network = gsap.timeline({
     scrollTrigger: {
       onToggle: finishOnFastLeave,
       trigger: ".scene",
-      start: "42%",
-      end: "49%",
+      start: "43%",
+      end: "52%",
       scrub: 1,
     },
   });
 
-  ambition
-    .from("#ambition", { opacity: 0, filter: "blur(40px)" })
-    .to("#ambition", { opacity: 1, filter: "blur(0px)" })
-    .to("#ambition", { opacity: 1, filter: "blur(0px)" })
-    .to("#ambition", { opacity: 1, filter: "blur(0px)" })
-    .to("#ambition", { opacity: 0, filter: "blur(40px)" });
+  network
+    .from("#network", { opacity: 0, filter: "blur(40px)" })
+    .to("#network", { opacity: 1, filter: "blur(0px)" })
+    .to("#network", { opacity: 1, filter: "blur(0px)" })
+    .to("#network", { opacity: 1, filter: "blur(0px)" })
+    .to("#network", { opacity: 0, filter: "blur(40px)", display: "none"});
 
-  const opportunity = gsap.timeline({
+  const incubation = gsap.timeline({
     scrollTrigger: {
       onToggle: finishOnFastLeave,
       trigger: ".scene",
-      start: "50%",
-      end: "57%",
-      scrub: 1,
-    },
-  });
-
-  opportunity
-    .from("#opportunity", { opacity: 0, filter: "blur(40px)" })
-    .to("#opportunity", { opacity: 1, filter: "blur(0px)" })
-    .to("#opportunity", { opacity: 1, filter: "blur(0px)" })
-    .to("#opportunity", { opacity: 1, filter: "blur(0px)" })
-    .to("#opportunity", { opacity: 0, filter: "blur(40px)" });
-
-  const builder = gsap.timeline({
-    scrollTrigger: {
-      onToggle: finishOnFastLeave,
-      trigger: ".scene",
-      start: "58%",
-      end: "59%",
-      scrub: 1,
-    },
-  });
-
-  builder.to("#builder", { opacity: 1, filter: "blur(0px)" });
-
-  const howard = gsap.timeline({
-    scrollTrigger: {
-      onToggle: finishOnFastLeave,
-      trigger: ".scene",
-      start: "58%",
+      start: "53%",
       end: "62%",
       scrub: 1,
     },
   });
 
-  const windowWidth = window.innerWidth;
+  incubation
+    .from("#incubation", { opacity: 0, filter: "blur(40px)" })
+    .to("#incubation", { opacity: 1, filter: "blur(0px)" })
+    .to("#incubation", { opacity: 1, filter: "blur(0px)" })
+    .to("#incubation", { opacity: 1, filter: "blur(0px)" })
+    .to("#incubation", { opacity: 0, filter: "blur(40px)" });
 
-  const howardText = gsap.timeline({
+  const highlightPj = gsap.timeline({
     scrollTrigger: {
       onToggle: finishOnFastLeave,
       trigger: ".scene",
-      start: "58%",
-      end: "62%",
+      start: "70%",
+      end: "71%",
       scrub: 1,
     },
-  });
+  })
 
-  howard
-    .to("#howard", { opacity: 1, filter: "blur(0px)" })
-    .to("#howard", { opacity: 1, filter: "blur(0px)" })
-    .to("#howard", { opacity: 1, filter: "blur(0px)" })
+  highlightPj
+    .to("#highlight-pj", { opacity: 1, filter: "blur(0px)" })
 
-    .to("#howard", { opacity: 0, filter: "blur(40px)" });
-
-  howardText
-    .to("#howard-text", {
-      left: windowWidth < 1441 ? "69%" : "70%",
-      opacity: 1,
-    })
-    .to("#howard-text", {
-      left: windowWidth < 1441 ? "69%" : "70%",
-      opacity: 1,
-    })
-    .to("#howard-text", {
-      left: windowWidth < 1441 ? "69%" : "70%",
-      opacity: 1,
-    })
-    .to("#howard-text", { left: "120%", opacity: 0 });
-
-  const howard2 = gsap.timeline({
+  const cyball = gsap.timeline({
     scrollTrigger: {
       onToggle: finishOnFastLeave,
       trigger: ".scene",
-      start: "63%",
-      end: "67%",
+      start: "70%",
+      end: "74%",
       scrub: 1,
     },
-  });
+  })
 
-  const howardText2 = gsap.timeline({
+  cyball
+    .from("#cyball", { opacity: 0, filter: 'blur(40px)' })
+    .to("#cyball", { opacity: 1, filter: "blur(0px)" })
+    .to("#cyball", { opacity: 1, filter: "blur(0px)" })
+    .to("#cyball", { opacity: 1, filter: "blur(0px)" })
+    .to("#cyball", { opacity: 0, filter: "blur(40px)", display: 'none' })
+
+  const ancient8 = gsap.timeline({
     scrollTrigger: {
       onToggle: finishOnFastLeave,
       trigger: ".scene",
-      start: "63%",
-      end: "67%",
+      start: "74%",
+      end: "78%",
       scrub: 1,
     },
-  });
+  })
 
-  howard2
-    .to("#howard", { opacity: 1, filter: "blur(0px)" })
-    .to("#howard", { opacity: 1, filter: "blur(0px)" })
-    .to("#howard", { opacity: 1, filter: "blur(0px)" })
-    .to("#howard", { opacity: 0, filter: "blur(40px)" });
+  ancient8
+    .from("#ancient8", { opacity: 0, filter: 'blur(40px)' })
+    .to("#ancient8", { opacity: 1, filter: "blur(0px)" })
+    .to("#ancient8", { opacity: 1, filter: "blur(0px)" })
+    .to("#ancient8", { opacity: 1, filter: "blur(0px)" })
+    .to("#ancient8", { opacity: 0, filter: "blur(40px)", display: 'none' })
 
-  howardText2
-    .to("#howard-text", { left: "70%", opacity: 1 })
-    .to("#howard-text", { left: "70%", opacity: 1 })
-    .to("#howard-text", { left: "120%", opacity: 0 });
-
-  const nextScene5 = gsap.timeline({
+  const highlightPjFadeOut = gsap.timeline({
     scrollTrigger: {
       onToggle: finishOnFastLeave,
       trigger: ".scene",
-      start: "67%",
-      end: "69%",
+      start: "77%",
+      end: "78%",
       scrub: 1,
     },
-  });
+  })
 
-  nextScene5.to("#builder > div", { opacity: 0, filter: "blur(40px)" });
+  highlightPjFadeOut
+    // .from('#highlight-pj', { opacity: 1, filter: 'blur(0)' })
+    .to("#highlight-pj", { opacity: 0, filter: "blur(40px)" })
+
+  const mediaTitle = gsap.timeline({
+    scrollTrigger: {
+      onToggle: finishOnFastLeave,
+      trigger: ".scene",
+      start: "78%",
+      end: "81.5%",
+      scrub: 1,
+    },
+  })
+
+  mediaTitle
+    .from(".media-title", { opacity: 0, filter: 'blur(40px)' })
+    .to(".media-title", { opacity: 1, filter: "blur(0px)" })
+    .to(".media-title", { opacity: 1, filter: "blur(0px)" })
+    .to(".media-title", { opacity: 1, filter: "blur(0px)" })
+    .to(".media-title", { opacity: 0, filter: "blur(40px)", display: 'none' })
+
+  const media = gsap.timeline({
+    scrollTrigger: {
+      onToggle: finishOnFastLeave,
+      trigger: ".scene",
+      start: "78%",
+      end: "81.5%",
+      scrub: 1,
+    },
+  })
+
+  media
+    .from("#media", { opacity: 0, filter: 'blur(40px)' })
+    .to("#media", { opacity: 1, filter: "blur(0px)" })
+    .to("#media", { opacity: 1, filter: "blur(0px)" })
+    .to("#media", { opacity: 1, filter: "blur(0px)" })
+    .to("#media", { opacity: 0, filter: "blur(40px)", display: 'none' })
+
 
   const threeLastSection = gsap.timeline({
     scrollTrigger: {
       onToggle: finishOnFastLeave,
       trigger: ".scene",
-      start: "74%",
+      start: "75%",
       end: "100%",
       scrub: "1",
     },
   });
 
-  threeLastSection.to("#three-last-sections", { top: "unset", bottom: 180 });
+  threeLastSection.to("#three-last-sections", { top: "unset", bottom: 200 });
 
   function finishOnFastLeave(self) {
     !self.isActive &&
