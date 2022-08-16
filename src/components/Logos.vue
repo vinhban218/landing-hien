@@ -37,7 +37,7 @@
             <div
               v-for="(logo, i) in row"
               :key="i"
-              class="w-[calc(12.5%-17.5px)] p-5 gap-4 shrink-0"
+              class="w-[calc(16.66667%-13.3333px)] p-5 gap-4 shrink-0"
             >
               <img
                 :src="logo.imgLink"
@@ -420,16 +420,16 @@ export default {
       return item;
     });
     const length = this.listData.length;
-    const numOfRow = Math.ceil(length / 4);
+    const numOfRow = Math.ceil(length / 6);
     const listDataMod = [];
 
     const listDataClone = JSON.parse(JSON.stringify(this.listData));
 
-    for (let i = 0; i < 4; i++) {
-      const data = listDataClone.splice(0, numOfRow);
+    for (let i = 0; i < numOfRow; i++) {
+      const data = listDataClone.splice(0, 6);
       listDataMod.push(data);
     }
-
+    console.log(listDataMod)
     listDataMod.splice(2, 0, {
       isDetail: true,
     });
@@ -492,9 +492,6 @@ export default {
     },
   },
   methods: {
-    finImage(url) {
-      return url;
-    },
     showLogoDetail(logo) {
       if (!this.currentLogo.id) {
         let temp;
