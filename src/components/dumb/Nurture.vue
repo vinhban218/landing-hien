@@ -1,9 +1,8 @@
 <template>
-  <div class="uppercase text-[60px] laptop:text-[70px] text-center text-white font-[900] leading-[76px] laptop:leading-[82px]">
+  <div class="uppercase text-[54px] laptop:text-[64px] text-center text-white font-[900] leading-[66px] laptop:leading-[76px]">
     <div id="nurture" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit mx-auto">
       we nurture <span class="text-stroke" style="--width: 2px">early-stage talent</span><br />
-      to bring in <br>
-      <span class="text-stroke" style="--width: 2px">the next wave</span> <br>
+      to bring in <span class="text-stroke" style="--width: 2px">the next wave</span> <br>
       of blockchain innovation.
     </div>
   </div>
@@ -32,7 +31,7 @@ export default {
   }
 
   &::before {
-    top: 80px;
+    top: 70px;
     left: -40px;
     transform: translateX(-40%);
   }

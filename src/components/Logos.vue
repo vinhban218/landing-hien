@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="relative h-[calc(100%-2*141px)] mx-32 flex flex-col items-center overflow-hidden">
+    <div class="relative h-[calc(100%-282px)] laptop:h-[calc(100%-245px)] mx-32 flex flex-col items-center overflow-hidden">
       <div class="logos-container h-full absolute top-0 translate-x-0">
         <div
           v-for="(row, index) in rows"
@@ -37,7 +37,7 @@
             <div
               v-for="(logo, i) in row"
               :key="i"
-              class="w-[calc(12.5%-17.5px)] p-5 gap-4 shrink-0"
+              class="w-[calc(16.66667%-13.3333px)] p-5 gap-4 shrink-0"
             >
               <img
                 :src="logo.imgLink"

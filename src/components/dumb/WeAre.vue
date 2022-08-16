@@ -1,7 +1,7 @@
 <template>
   <div
     id="we-are"
-    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit mx-auto uppercase text-[60px] laptop:text-[70px] text-center text-white font-[900] leading-[76px] laptop:leading-[82px]"
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit mx-auto uppercase text-[54px] laptop:text-[64px] text-center text-white font-[900] leading-[66px] laptop:leading-[76px]"
   >
     we are the gateway of<br />
     accessibility to
@@ -35,7 +35,7 @@ export default {
   }
 
   &::before {
-    top: 80px;
+    top: 70px;
     left: 60px;
     transform: translateX(-40%);
   }
