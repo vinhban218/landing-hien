@@ -95,7 +95,7 @@ function init() {
       trigger: ".scene",
       start: "7%",
       end: "10%",
-      scrub: 1,
+      scrub: 0.2,
     },
   });
 
@@ -105,7 +105,7 @@ function init() {
       trigger: ".scene",
       start: "7%",
       end: "10%",
-      scrub: 1,
+      scrub: 0.2,
     },
   });
 
@@ -143,7 +143,7 @@ function init() {
       trigger: ".scene",
       start: "13%",
       end: "14%",
-      scrub: 1,
+      scrub: 0.2,
     },
   });
 
@@ -153,7 +153,7 @@ function init() {
       trigger: ".scene",
       start: "13%",
       end: "14%",
-      scrub: 1,
+      scrub: 0.2,
     },
   });
 
@@ -179,7 +179,7 @@ function init() {
       trigger: ".scene",
       start: "0%",
       end: "100%",
-      scrub: 1,
+      scrub: 0.2,
     },
   });
 
@@ -191,7 +191,7 @@ function init() {
       trigger: ".scene",
       start: "14%",
       end: "21%",
-      scrub: 1,
+      scrub: 0.2,
     },
   });
 
@@ -212,10 +212,10 @@ function init() {
       opacity: 1,
       filter: "blur(0px)",
     })
-    .to('#nurture', {
+    .to("#nurture", {
       opacity: 0,
-      filter: "blur(40px)"
-    })
+      filter: "blur(40px)",
+    });
 
   const weAre = gsap.timeline({
     scrollTrigger: {
@@ -223,7 +223,7 @@ function init() {
       trigger: ".scene",
       start: "21%",
       end: "28%",
-      scrub: 1,
+      scrub: 0.2,
     },
   });
 
@@ -255,7 +255,7 @@ function init() {
       trigger: ".scene",
       start: "26%",
       end: "28%",
-      scrub: 1,
+      scrub: 0.2,
     },
   });
 
@@ -270,7 +270,7 @@ function init() {
       trigger: ".scene",
       start: "32%",
       end: "35%",
-      scrub: 1,
+      scrub: 0.2,
     },
   });
 
@@ -284,7 +284,7 @@ function init() {
       trigger: ".scene",
       start: "37%",
       end: "40%",
-      scrub: 1,
+      scrub: 0.2,
     },
   });
 
@@ -296,16 +296,16 @@ function init() {
       trigger: ".scene",
       start: "43%",
       end: "52%",
-      scrub: 1,
+      scrub: 0.2,
     },
   });
 
   network
-    .from("#network", { opacity: 0, filter: "blur(40px)" })
-    .to("#network", { opacity: 1, filter: "blur(0px)" })
-    .to("#network", { opacity: 1, filter: "blur(0px)" })
-    .to("#network", { opacity: 1, filter: "blur(0px)" })
-    .to("#network", { opacity: 0, filter: "blur(40px)", display: "none"});
+    .from("#network", { opacity: 0, filter: "blur(40px)", display: "none" })
+    .to("#network", { opacity: 1, filter: "blur(0px)", display: "block" })
+    .to("#network", { opacity: 1, filter: "blur(0px)", display: "block" })
+    .to("#network", { opacity: 1, filter: "blur(0px)", display: "block" })
+    .to("#network", { opacity: 0, filter: "blur(40px)", display: "none" });
 
   const incubation = gsap.timeline({
     scrollTrigger: {
@@ -313,7 +313,7 @@ function init() {
       trigger: ".scene",
       start: "53%",
       end: "62%",
-      scrub: 1,
+      scrub: 0.2,
     },
   });
 
@@ -330,12 +330,11 @@ function init() {
       trigger: ".scene",
       start: "70%",
       end: "71%",
-      scrub: 1,
+      scrub: 0.2,
     },
-  })
+  });
 
-  highlightPj
-    .to("#highlight-pj", { opacity: 1, filter: "blur(0px)" })
+  highlightPj.to("#highlight-pj", { opacity: 1, filter: "blur(0px)" });
 
   const cyball = gsap.timeline({
     scrollTrigger: {
@@ -343,16 +342,16 @@ function init() {
       trigger: ".scene",
       start: "70%",
       end: "74%",
-      scrub: 1,
+      scrub: 0.2,
     },
-  })
+  });
 
   cyball
-    .from("#cyball", { opacity: 0, filter: 'blur(40px)' })
-    .to("#cyball", { opacity: 1, filter: "blur(0px)" })
-    .to("#cyball", { opacity: 1, filter: "blur(0px)" })
-    .to("#cyball", { opacity: 1, filter: "blur(0px)" })
-    .to("#cyball", { opacity: 0, filter: "blur(40px)", display: 'none' })
+    .from("#cyball", { opacity: 0, filter: "blur(40px)", display: "none" })
+    .to("#cyball", { opacity: 1, filter: "blur(0px)", display: "block" })
+    .to("#cyball", { opacity: 1, filter: "blur(0px)", display: "block" })
+    .to("#cyball", { opacity: 1, filter: "blur(0px)", display: "block" })
+    .to("#cyball", { opacity: 0, filter: "blur(40px)", display: "none" });
 
   const ancient8 = gsap.timeline({
     scrollTrigger: {
@@ -360,16 +359,16 @@ function init() {
       trigger: ".scene",
       start: "74%",
       end: "78%",
-      scrub: 1,
+      scrub: 0.2,
     },
-  })
+  });
 
   ancient8
-    .from("#ancient8", { opacity: 0, filter: 'blur(40px)' })
-    .to("#ancient8", { opacity: 1, filter: "blur(0px)" })
-    .to("#ancient8", { opacity: 1, filter: "blur(0px)" })
-    .to("#ancient8", { opacity: 1, filter: "blur(0px)" })
-    .to("#ancient8", { opacity: 0, filter: "blur(40px)", display: 'none' })
+    .from("#ancient8", { opacity: 0, filter: "blur(40px)", display: "none" })
+    .to("#ancient8", { opacity: 1, filter: "blur(0px)", display: "block" })
+    .to("#ancient8", { opacity: 1, filter: "blur(0px)", display: "block" })
+    .to("#ancient8", { opacity: 1, filter: "blur(0px)", display: "block" })
+    .to("#ancient8", { opacity: 0, filter: "blur(40px)", display: "none" });
 
   const highlightPjFadeOut = gsap.timeline({
     scrollTrigger: {
@@ -377,13 +376,13 @@ function init() {
       trigger: ".scene",
       start: "77%",
       end: "78%",
-      scrub: 1,
+      scrub: 0.2,
     },
-  })
+  });
 
   highlightPjFadeOut
     // .from('#highlight-pj', { opacity: 1, filter: 'blur(0)' })
-    .to("#highlight-pj", { opacity: 0, filter: "blur(40px)" })
+    .to("#highlight-pj", { opacity: 0, filter: "blur(40px)" });
 
   const mediaTitle = gsap.timeline({
     scrollTrigger: {
@@ -391,16 +390,16 @@ function init() {
       trigger: ".scene",
       start: "78%",
       end: "81.5%",
-      scrub: 1,
+      scrub: 0.2,
     },
-  })
+  });
 
   mediaTitle
-    .from(".media-title", { opacity: 0, filter: 'blur(40px)' })
+    .from(".media-title", { opacity: 0, filter: "blur(40px)", display: "none" })
     .to(".media-title", { opacity: 1, filter: "blur(0px)" })
     .to(".media-title", { opacity: 1, filter: "blur(0px)" })
     .to(".media-title", { opacity: 1, filter: "blur(0px)" })
-    .to(".media-title", { opacity: 0, filter: "blur(40px)", display: 'none' })
+    .to(".media-title", { opacity: 0, filter: "blur(40px)", display: "none" });
 
   const media = gsap.timeline({
     scrollTrigger: {
@@ -408,17 +407,16 @@ function init() {
       trigger: ".scene",
       start: "78%",
       end: "81.5%",
-      scrub: 1,
+      scrub: 0.2,
     },
-  })
+  });
 
   media
-    .from("#media", { opacity: 0, filter: 'blur(40px)' })
-    .to("#media", { opacity: 1, filter: "blur(0px)" })
-    .to("#media", { opacity: 1, filter: "blur(0px)" })
-    .to("#media", { opacity: 1, filter: "blur(0px)" })
-    .to("#media", { opacity: 0, filter: "blur(40px)", display: 'none' })
-
+    .from("#media", { opacity: 0, filter: "blur(40px)", display: "none" })
+    .to("#media", { opacity: 1, filter: "blur(0px)", display: "flex" })
+    .to("#media", { opacity: 1, filter: "blur(0px)", display: "flex" })
+    .to("#media", { opacity: 1, filter: "blur(0px)", display: "flex" })
+    .to("#media", { opacity: 0, filter: "blur(40px)", display: "none" });
 
   const threeLastSection = gsap.timeline({
     scrollTrigger: {

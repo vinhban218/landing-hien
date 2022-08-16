@@ -1,12 +1,8 @@
 <template>
-  <div
-    class="z-[4000] fixed right-10 top-10 w-[30px] h-[30px] scale-[0.7] cursor-pointer"
-    @click="openNavDialog"
-  >
-    <div
-      class="nav-btn opacity-0 pointer-events-none"
-      :class="{ active: isOpenNav }"
-    ></div>
+  <Loading />
+
+  <div class="z-[4000] fixed right-10 top-10 w-[30px] h-[30px] scale-[0.7] cursor-pointer" @click="openNavDialog">
+    <div class="nav-btn opacity-0 pointer-events-none" :class="{ active: isOpenNav }"></div>
   </div>
   <Nurture />
   <WeAre />
@@ -20,66 +16,45 @@
   <!-- bg noise cua app -->
   <div class="fixed top-0 left-0 z-[-2] w-[100vw] h-[100vh]">
     <div class="inline-block absolute top-0 left-0 w-full h-full">
-      <video
-        class="inline-block min-w-full min-h-full"
-        aria-hidden="true"
-        playsinline=""
-        autoplay=""
-        muted=""
-        loop=""
-      >
+      <video class="inline-block min-w-full min-h-full" aria-hidden="true" playsinline="" autoplay="" muted="" loop="">
         <source src="../../static/img/noise.webm" type="video/webm" />
       </video>
     </div>
   </div>
 
   <!-- bg nav -->
-  <div
-    class="nav-modal-bg relative overflow-hidden w-[100vw] h-0 flex items-center"
-    :class="{ open: isOpenNav }"
-  >
+  <div class="nav-modal-bg relative overflow-hidden w-[100vw] h-0 flex items-center" :class="{ open: isOpenNav }">
     <div class="flex flex-col ml-20 justify-center">
-      <div
-        v-for="(item, index) in listSection"
-        :key="item"
+      <div v-for="(item, index) in listSection" :key="item"
         class="nav-section-item leading-[72px] laptop:leading-[80px] mt-3 cursor-pointer text-gray3"
-        @click="gotoSection(index)"
-      >
-        <div
-          class="flex items-center text-[60px] hd:text-[66px] laptop:text-[72px] font-bold w-[800px]"
-        >
+        @click="gotoSection(index)">
+        <div class="flex items-center text-[60px] hd:text-[66px] laptop:text-[72px] font-bold w-[800px]">
           <div class="mr-4">{{ item }}</div>
-          <img
-            src="../../static/img/arrow-left.png"
-            alt="arrow-left"
-            class="w-[44px] opacity-0 transition-opacity duration-200 pt-2"
-          />
+          <img src="../../static/img/arrow-left.png" alt="arrow-left"
+            class="w-[44px] opacity-0 transition-opacity duration-200 pt-2" />
         </div>
       </div>
 
       <div class="flex mt-10 items-center ml-4 tracking-[2px] text-xl">
-        <div
-          class="language font-semibold text-gray3 cursor-pointer mr-4"
-          :class="{ active: isEng }"
-          @click="isEng = true"
-        >
+        <div class="language font-semibold text-gray3 cursor-pointer mr-4" :class="{ active: isEng }"
+          @click="isEng = true">
           ENG
         </div>
-        <div
-          class="language font-semibold text-gray3 cursor-pointer"
-          :class="{ active: !isEng }"
-          @click="isEng = false"
-        >
+        <div class="language font-semibold text-gray3 cursor-pointer" :class="{ active: !isEng }"
+          @click="isEng = false">
           VN
         </div>
       </div>
     </div>
 
     <div class="absolute footer bottom-5 right-10 flex items-center">
-      <a href="" target="_blank" class="mr-4 bg-gray3">
-        <img src="../../static/img/twitter.png" alt="twitter" />
+      <a href="https://www.facebook.com/kyrosventures" target="_blank" class="mr-4 bg-gray3">
+        <img src="../../static/img/facebook-logo.png" alt="facebook" />
       </a>
-      <a href="" target="_blank">
+      <a href="https://twitter.com/KyrosVentures" target="_blank" class="mr-4 bg-gray-3">
+        <img src="../../static/img/twitter.png" alt="telegram" />
+      </a>
+      <a href="https://t.me/KyrosInsights" target="_blank">
         <img src="../../static/img/paper-plane.png" alt="telegram" />
       </a>
     </div>
@@ -95,6 +70,7 @@ import WeAre from "./dumb/WeAre.vue";
 import OurPillar from "./dumb/OurPillar.vue";
 import Network from "./dumb/Network.vue";
 import Incubation from "./dumb/Incubation.vue";
+import Loading from "./Loading.vue";
 export default {
   name: "App",
   components: {
@@ -106,7 +82,8 @@ export default {
     OurPillar,
     Network,
     Incubation,
-  },
+    Loading
+},
   data() {
     return {
       listSection: [
@@ -132,7 +109,7 @@ export default {
           break;
         }
         case section === 1: {
-          window.scrollTo({ top: 0.242 * bodyHeight, behavior: "smooth" });
+          window.scrollTo({ top: 0.168 * bodyHeight, behavior: "smooth" });
           break;
         }
         case section === 2: {
@@ -256,6 +233,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+
       img {
         width: 60%;
         filter: brightness(0) invert(1);
@@ -271,6 +249,7 @@ export default {
 .nav-section-item {
   &:hover {
     color: white;
+
     img {
       opacity: 1;
     }
@@ -278,7 +257,20 @@ export default {
 }
 
 @media screen and (max-width: 1600px) {
+   .key-hole {
+        zoom: 0.8;
+    }
+
+    .logo img {
+        height: 38px;
+    }   
+
+    .section .line {
+        height: 64px;
+    }
+
   .nav-modal-bg {
+
     &::after,
     &::before {
       width: 700px;
@@ -296,6 +288,10 @@ export default {
 }
 
 @media screen and (max-width: 1440px) {
+  .key-hole {
+    zoom: 0.7;
+  }
+
   .nav-modal-bg {
     &::after,
     &::before {

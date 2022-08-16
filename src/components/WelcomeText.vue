@@ -6,28 +6,16 @@
       </div>
     </div>
     <div class="welcome">
-      <div v-if="section === 1">WELCOME</div>
-
-      <div v-if="section === 2">WE ARE KYROS</div>
-
-      <div v-if="section === 3">
-        OUR <br />
-        PILLARS
-      </div>
-      <div v-if="section === 4">
-        OUR <br />
-        TEAM
-      </div>
-
-      <div v-if="section === 5">
-        CONTACT<br />
-        US
-      </div>
+      <div v-html="text"></div>
     </div>
   </div>
 
   <div id="auto-play-btn" :class="{ inactive: isDisableAutoBtn }">
     <img src="../../static/img/mouse.png" alt="mouse" />
+    <div class="tooltip">
+      Auto <br>
+      Scroll
+    </div>
   </div>
 </template>
 
@@ -41,21 +29,26 @@ export default {
     };
   },
   computed: {
-    section() {
+    text() {
       switch (true) {
         case this.windowScrollY < 0.15:
-          return 1;
-
+          return 'WELCOME';
         case this.windowScrollY < 0.33:
-          return 2;
-
-        case this.windowScrollY < 0.891:
-          return 3;
-
+          return 'WE ARE KYROS';
+        case this.windowScrollY < 0.455:
+          return 'OUR <br> PILLARS'
+        case this.windowScrollY < 0.636:
+          return "VIETNAM <br> AND <br> BEYOND"
+        case this.windowScrollY < 0.788:
+          return 'PORTFOLIO <br> COMPANIES';
+        case this.windowScrollY < 0.812:
+          return "OUR <br> ECOSYSTEM"
+        case this.windowScrollY < 0.873:
+          return "PUBLICATION"
         case this.windowScrollY < 0.92:
-          return 4;
+          return 'OUR <br> TEAM';
         default:
-          return 5;
+          return 'CONTACT <br> US';
       }
     },
   },
@@ -85,7 +78,7 @@ export default {
   color: white;
 
   position: fixed;
-  left: 60px;
+  left: 32px;
   top: 50%;
   transform: translateY(-50%);
 
@@ -94,15 +87,15 @@ export default {
 
 .section {
   width: fit-content;
+
   .line {
     height: 80px;
     width: 1px;
-    margin: 0 20px;
     background: gray;
     border-radius: 1px;
 
     position: absolute;
-    left: -40px;
+    left: -16px;
     top: 50%;
     transform: translateY(-50%);
 
@@ -119,15 +112,70 @@ export default {
   }
 }
 
+#auto-play-btn {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translate(-50%, 0);
+
+  font-weight: 600;
+  font-size: 18px;
+
+  width: 28px;
+  transition: all 0.3s linear;
+  cursor: pointer;
+  z-index: 200;
+
+  img {
+    max-width: 100%;
+    &:hover {
+      & + .tooltip {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.inactive {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .tooltip {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 10px);
+    transform: translateY(-50%);
+    margin-top: 13px;
+
+    opacity: 0;
+    transition: opacity 0.3s linear;
+    pointer-events: none;
+    font-size: 8px;
+    font-weight: 400;
+    color: #E5EEE5;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 0;
+
+      width: 10px;
+      height: 1px;
+      background: red;
+    }
+  }
+}
+
 /* welcome */
 .welcome {
-  font-size: 14px;
+  font-size: 12px;
   line-height: 20px;
   font-weight: 400;
   letter-spacing: 1px;
   text-transform: uppercase;
 
-  > div {
+  >div {
     position: relative;
     animation: fadeIn 0.4s linear;
 
@@ -142,6 +190,7 @@ export default {
       background-color: rgb(162, 23, 23);
     }
   }
+
   display: flex;
   align-items: center;
 }
@@ -151,6 +200,7 @@ export default {
     opacity: 0;
     filter: blur(2px);
   }
+
   100% {
     opacity: 1;
     filter: blur(0);

@@ -23,11 +23,6 @@ loadingScreen.style.display = "flex";
 let isLoadedModel = false;
 window.scrollTo({ top: 0, behavior: "smooth" });
 const models = {
-  /*  globle: {
-    dot: null,
-    VN: null,
-    world: null,
-  }, */
   globle: null,
   redCircle: null,
   hand: null,
@@ -111,8 +106,10 @@ const loadingManager = new THREE.LoadingManager(
   () => {
     let isRunIntro = false;
     sceneReady = true;
-    const keyHole = loadingScreen.querySelector(".key-hole");
+    const keyHole = loadingScreen.querySelector(".key-hole")
+    const key = loadingScreen.querySelector(".key");
     const flashLight = document.querySelector(".flash-light");
+    const loadingText = document.querySelector(".loading-text")
     //create text enter
     greensockInit();
 
@@ -124,8 +121,15 @@ const loadingManager = new THREE.LoadingManager(
       `;
 
       setTimeout(() => {
+        loadingText.innerHTML = 'CLICK TO ENTER'
+        loadingText.classList.remove('loading')
+        loadingText.classList.add('loaded')
+        key.style.cursor = 'pointer'
+      }, 2000) 
+
+      setTimeout(() => {
         setTimeout(() => {
-          keyHole.addEventListener("click", () => {
+          key.addEventListener("click", (e) => {
             if (isRunIntro) return;
             isRunIntro = true;
             setTimeout(() => {
@@ -139,7 +143,7 @@ const loadingManager = new THREE.LoadingManager(
         });
         keyHole.classList.add("done");
 
-        document.querySelector(".bar").style.opacity = 0;
+        // document.querySelector(".bar").style.opacity = 0;
       }, 2000);
     }
   }
@@ -169,7 +173,7 @@ canvasParent.appendChild(renderer.domElement);
 
 updateAllMaterials();
 
-gltfLoader.load("/models/traidatfix.gltf", (gltf) => {
+gltfLoader.load("/models/globle.gltf", (gltf) => {
   models.globle = gltf.scene.children[0];
 
   models.globle.position.set(0, 0.047, 5.9);

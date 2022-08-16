@@ -15,12 +15,13 @@
     </div>
 
     <div
-      class="incubation-content text-center w-[fit-content] m-auto mt-6 hd:mt-8 text-lg hd:text-xl laptop:text-2xl text-gray3"
+      class="incubation-content text-center w-[fit-content] m-auto mt-6 hd:mt-8 text-xl hd:text-2xl text-gray3"
     >
       <div>
-        We incubation talented <span class="highlight">teams</span> and great
-        minds, and equip them with the <br />
-        tools and resources they need to seize oppotunity, and create change.
+        We incubate <span class="highlight">talented teams</span> with <br>
+        exceptional individuals, and provide <br>
+        them with the tools and resources <br>
+        needed to <span class="highlight">create a lasting impact.</span>
       </div>
     </div>
   </div>

@@ -11,7 +11,7 @@
         class="w-[42px] laptop:w-[50px] mr-1"
       />
       <div>
-        hightlighted <span class="text-stroke font-[900]">project</span>
+        highlighted <span class="text-stroke font-[900]">project</span>
       </div>
     </div>
     <!-- media -->
@@ -67,6 +67,7 @@ export default {
 #highlight-pj {
   opacity: 0;
   filter: blur(40px);
+  white-space: nowrap;
   &.title {
     width: fit-content;
     left: 50%;
@@ -105,6 +106,7 @@ export default {
 .media-title {
   position: fixed;
   left: 50%;
+  white-space: nowrap;
   width: fit-content;
   transform: translateX(-50%);
 

@@ -39,3 +39,36 @@
     font-weight: 700;
     text-transform: uppercase;
 }
+
+.social-link {
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+    background: rgb(133, 133, 133);
+    transition: all 0.3s linear;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 60%;
+      filter: brightness(0) invert(1);
+    }
+
+    &:hover {
+      background: #a21717;
+    }
+}
+
+.social-link + .social-link {
+    margin-left: 16px;
+}
+
+.big {
+    zoom: 1.2;
+}
+
+.social-logo {
+    filter: brightness(0) invert(1);
+  }

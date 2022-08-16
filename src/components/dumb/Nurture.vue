@@ -1,16 +1,11 @@
 <template>
-  <div
-    id="nurture"
-    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit mx-auto uppercase text-[60px] laptop:text-[70px] text-center text-white font-[900] leading-[76px] laptop:leading-[82px]"
-  >
-    we nurture
-    <span class="text-stroke" style="--width: 2px">early stage</span>
-    <br />
-    <span class="text-stroke" style="--width: 2px">talent</span> in order to
-    bring <br />
-    <span class="text-stroke" style="--width: 2px"> the nextwave of </span>
-    <br />
-    blockchain innovation.
+  <div class="uppercase text-[60px] laptop:text-[70px] text-center text-white font-[900] leading-[76px] laptop:leading-[82px]">
+    <div id="nurture" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit mx-auto">
+      we nurture <span class="text-stroke" style="--width: 2px">early-stage talent</span><br />
+      to bring in <br>
+      <span class="text-stroke" style="--width: 2px">the next wave</span> <br>
+      of blockchain innovation.
+    </div>
   </div>
 </template>
 
@@ -24,6 +19,7 @@ export default {
 #nurture {
   position: fixed;
   padding-bottom: 26px;
+  white-space: nowrap;
 
   &::after,
   &::before {
@@ -42,7 +38,7 @@ export default {
   }
 
   &::after {
-    bottom: 0px;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
   }

@@ -6,7 +6,7 @@
     we are the gateway of<br />
     accessibility to
     <span class="text-stroke" style="--width: 2px">vietnam</span>,<br />
-    <span class="text-stroke" style="--width: 2px"> the fastest growing </span>
+    <span class="text-stroke" style="--width: 2px"> the-fastest growing </span>
     <br />
     crypto market in the world.
   </div>
@@ -22,6 +22,7 @@ export default {
 #we-are {
   position: fixed;
   padding-bottom: 26px;
+  white-space: nowrap;
 
   &::after,
   &::before {

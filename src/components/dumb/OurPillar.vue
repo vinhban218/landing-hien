@@ -26,7 +26,7 @@
         <img
           src="../../../static/img/arrow-left.png"
           alt="arrow-left"
-          class=" w-10 laptop:w-12"
+          class=" w-10 laptop:w-12 mr-2.5"
         />
         <div>media</div>
       </div>
