@@ -578,14 +578,14 @@ const circleFuncs = [
   },
   {
     start: "52%",
-    end: "65%",
+    end: "64%",
     callback: circleAnimation5,
   },
-  {
-    start: "65%",
-    end: "75%",
-    callback: circleAnimation6,
-  },
+  // {
+  //   start: "65%",
+  //   end: "75%",
+  //   callback: circleAnimation6,
+  // },
   {
     start: "73%",
     end: "83%",

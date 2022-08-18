@@ -3,7 +3,7 @@
     id="media"
     class="fixed hidden top-0 left-0 z-[104] w-[100vw] h-[100vh] flex-col justify-end items-center pb-6 laptop:pb-10"
   >
-    <div class="center-all w-[320px] hd:w-[360px] laptop:w-[400px] pb-10 laptop:pb-8">
+    <div class="center-all w-[320px] hd:w-[360px] laptop:w-[400px] pb-10 laptop:pb-8" style="zoom: 0.85">
       <img src="../../../static/img/68coin.png" alt="coin" class="w-full" />
     </div>
 
@@ -20,7 +20,7 @@
               class="text-white font-bold  hd:leading-[26px] laptop:leading-[32px]"
               v-html="item.title"
             ></div>
-            <div class="text-gray3  text-base laptop:text-lg mt-[2px]">{{ item.des }}</div>
+            <div v-html="item.des" class="text-gray3  text-base laptop:text-lg mt-[2px]"></div>
           </div>
         </div>
       </div>
@@ -48,24 +48,6 @@ export default {
   name: "Media",
   data() {
     return {
-      list: [
-        {
-          title: "5M",
-          des: "Monthly traffic",
-        },
-        {
-          title: "1.7M",
-          des: "Monthly Users",
-        },
-        {
-          title: "Top 1 <br/> Blockchain <br/> Media",
-          des: "in Vietnam",
-        },
-        {
-          title: "Top 8 <br> Finance Media <br> in Vietnam",
-          des: "in Vietnam",
-        },
-      ],
       listLogo: [
         {
           logo: "./img/facebook-logo.png",
@@ -82,5 +64,10 @@ export default {
       ],
     };
   },
+  computed: {
+    list() {
+      return this.isVi ? this.viContent.media : this.enContent.media
+    }
+  }
 };
 </script>

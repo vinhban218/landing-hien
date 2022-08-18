@@ -45,17 +45,12 @@ export default {
   name: "Loading",
   data() {
     return {
-      listFacts: [
-       "Vietnam is leading in global crypto adoption, according to Chainalysis.",
-       "Vietnam ranks first in crypto adoption, according to Finder's survey.",
-       "Chainalysis reports that Vietnam ranks second, just behind the US, in DeFi adoption.",
-       "Vietnam has the third largest number of monthly Metamask users globally.",
-       "Founded in 2017, Coin68 is currently the largest crypto media organization in Vietnam.",
-       "Coin68.com has over 15,000 articles and news covering blockchain.",
-       "Kyros Ventures provides quarterly market reports and weekly research articles.",
-       "Coin68 and Kyros Ventures conducts the largest official cryptocurrency survey in Vietnam."
-      ],
       curentFact: 0,
+    }
+  },
+  computed: {
+    listFacts() {
+      return this.isVi ? this.viContent.listFacts : this.enContent.listFacts
     }
   },
   methods: {
@@ -145,7 +140,7 @@ export default {
 
     &.done {
       .circle,
-      .triangle {
+      .triangle, .loading-text {
         filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff);
       }
     }
@@ -249,7 +244,7 @@ export default {
     .slide-controller {
       display: flex;
       justify-content: center;
-      margin-top: 30px;
+      margin-top: 14px;
 
       img {
         width: 26px;

@@ -10,19 +10,14 @@
         class="w-14 mr-4 laptop:w-16 laptop:mr-5"
       />
       <h3 class="text-stroke text-[80px] laptop:text-[90px] font-[900] tracking-[8px]">
-        incubation
+        {{isVi ?  'Đầu tư' : 'incubation'}}
       </h3>
     </div>
 
     <div
+      v-html="incubationContent"
       class="incubation-content text-center w-[fit-content] m-auto mt-6 hd:mt-8 text-xl hd:text-2xl text-gray3"
     >
-      <div>
-        We incubate <span class="highlight">talented teams</span> with <br>
-        exceptional individuals, and provide <br>
-        them with the tools and resources <br>
-        needed to <span class="highlight">create a lasting impact.</span>
-      </div>
     </div>
   </div>
 </template>
@@ -30,11 +25,17 @@
 <script>
 export default {
   name: "Incubation",
+  computed: {
+    incubationContent() {
+      return this.isVi ? this.viContent.incubationContent : this.enContent.incubationContent
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 #incubation {
+    width: 55%;
   > div {
     &:first-child {
       position: relative;

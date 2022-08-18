@@ -249,21 +249,6 @@ function init() {
       filter: "blur(40px)",
     });
 
-  const nextScene2 = gsap.timeline({
-    scrollTrigger: {
-      onToggle: finishOnFastLeave,
-      trigger: ".scene",
-      start: "26%",
-      end: "28%",
-      scrub: 0.2,
-    },
-  });
-
-  nextScene2.to("#nurture", {
-    opacity: 0,
-    filter: "blur(40px)",
-  });
-
   const ourPillar = gsap.timeline({
     scrollTrigger: {
       onToggle: finishOnFastLeave,

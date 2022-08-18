@@ -32,23 +32,23 @@ export default {
     text() {
       switch (true) {
         case this.windowScrollY < 0.15:
-          return 'WELCOME';
+          return  this.isVi ? 'Xin chào' : 'WELCOME';
         case this.windowScrollY < 0.33:
-          return 'WE ARE KYROS';
+          return this.isVi ? 'Đây là Kyros' : 'WE ARE KYROS';
         case this.windowScrollY < 0.455:
-          return 'OUR <br> PILLARS'
+          return this.isVi ? 'Các <br> trụ cột' : 'OUR <br> PILLARS'
         case this.windowScrollY < 0.636:
-          return "VIETNAM <br> AND <br> BEYOND"
+          return this.isVi ? 'Việt Nam <br> Vươn xa' : "VIETNAM <br> AND <br> BEYOND"
         case this.windowScrollY < 0.788:
-          return 'PORTFOLIO <br> COMPANIES';
+          return this.isVi ? 'Danh mục <br> Đầu tư' : 'PORTFOLIO <br> COMPANIES';
         case this.windowScrollY < 0.812:
-          return "OUR <br> ECOSYSTEM"
+          return this.isVi ? 'Hệ <br> sinh thái' : "OUR <br> ECOSYSTEM"
         case this.windowScrollY < 0.873:
-          return "PUBLICATION"
+          return this.isVi ? 'Ấn phẩm' : "PUBLICATION"
         case this.windowScrollY < 0.92:
-          return 'OUR <br> TEAM';
+          return this.isVi ? 'Đội ngũ' : 'OUR <br> TEAM';
         default:
-          return 'CONTACT <br> US';
+          return this.isVi ? 'Liên hệ' : 'CONTACT <br> US';
       }
     },
   },
@@ -128,11 +128,6 @@ export default {
 
   img {
     max-width: 100%;
-    &:hover {
-      & + .tooltip {
-        opacity: 1;
-      }
-    }
   }
 
   &.inactive {
@@ -147,7 +142,7 @@ export default {
     transform: translateY(-50%);
     margin-top: 13px;
 
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.3s linear;
     pointer-events: none;
     font-size: 8px;

@@ -82,13 +82,6 @@ canvas {
     filter: blur(40px);
 }
 
-#network {
-    width: 50%;
-    filter: blur(40px);
-    opacity: 0;
-    z-index: 102;
-}
-
 #nurture1, #nurture2, #we-are {
     opacity: 0;
     filter: blur(40px);
@@ -118,7 +111,7 @@ canvas {
 }
 
 .logo img {
-    height: 46px;
+    height: 42px;
     margin-right: 14px;
 }
 

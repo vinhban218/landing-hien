@@ -4,16 +4,16 @@
       <img src="../../../static/img/cyball.png" alt="logo" class="w-[440px] hd:w-[540px] laptop:w-[600px] mt-20" />
       <div class="absolute w-96 left-[calc(100%+80px)] laptop:left-[calc(100%+120px)] top-1/2 -translate-y-1/2">
         <div class="pj-name w-fit pb-[2px] uppercase font-bold text-lg laptop:text-xl text-[red] tracking-[1px]">
-          project
+          {{isVi ? 'dự án': 'project'}}
         </div>
 
         <div
           class="text-[50px] laptop:text-6xl mt-2 mb-4 laptop:mt-3 laptop:mb-5 uppercase font-[900] tracking-[4px] text-white">
-          {{ pjName }}
+          Cyball
         </div>
 
         <div class="-ml-5 c">
-          <div v-for="item in pjDes" :key="item" class="flex mt-[6px] laptop:mt-2">
+          <div v-for="item in cyballPJ" :key="item" class="flex mt-[6px] laptop:mt-2">
             <img src="../../../static/img/arrow-left.png" alt="arrow-left" class="w-4 h-4 mr-2 mt-2 laptop:mt-1" />
             <div v-html="item" class="text-base laptop:text-lg text-gray3"></div>
           </div>
@@ -32,7 +32,7 @@
 
           <a class="flex items-center ml-5 mt-2" target="_blank" href="https://cyball.com/">
             <div class="uppercase text-base laptop:text-lg text-gray3 font-[900] tracking-wide mr-2">
-              Head to site
+              {{isVi ? 'ĐẾN TRANG CHỦ' : 'HEAD TO SITE'}}
             </div>
             <img src="../../../static/img/circle-arrow-right.png" alt="arrow-left" class="w-4 mr-1" />
           </a>
@@ -45,20 +45,10 @@
 <script>
 export default {
   name: "Cyball",
-  props: {
-    img: {
-      default:
-        "https://pbs.twimg.com/profile_images/1508713706028478468/e8aC9VqW_400x400.jpg",
-    },
-    pjName: {
-      default: "Cyball",
-    },
-    pjDes: {
-      default: [
-        "CyBall is a cyberpunk, football-themed web3 game with innovative blockchain technology and competitive gameplay where players can earn rewards.",
-        "Backed by <span class='highlight'>BITKRAFT, Animoca Brands, Kingsway</span> among others.",
-      ],
-    },
-  },
+  computed: {
+    cyballPJ() {
+      return this.isVi ? this.viContent.cyballPJ : this.enContent.cyballPJ
+    }
+  }
 };
 </script>

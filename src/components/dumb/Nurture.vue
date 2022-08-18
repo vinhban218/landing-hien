@@ -1,9 +1,6 @@
 <template>
   <div class="uppercase text-[54px] laptop:text-[64px] text-center text-white font-[900] leading-[66px] laptop:leading-[76px]">
-    <div id="nurture" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit mx-auto">
-      we nurture <span class="text-stroke" style="--width: 2px">early-stage talent</span><br />
-      to bring in <span class="text-stroke" style="--width: 2px">the next wave</span> <br>
-      of blockchain innovation.
+    <div id="nurture" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit mx-auto" v-html="nurtureContent">
     </div>
   </div>
 </template>
@@ -11,6 +8,11 @@
 <script>
 export default {
   name: "Nurture",
+  computed: {
+    nurtureContent() {
+      return this.storeState.vi ? this.storeState.viContent.nurture : this.storeState.enContent.nurture
+    }
+  }
 };
 </script>
 

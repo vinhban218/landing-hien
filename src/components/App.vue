@@ -34,14 +34,13 @@
             class="w-[44px] opacity-0 transition-opacity duration-200 pt-2" />
         </div>
       </div>
-
       <div class="flex mt-10 items-center ml-4 tracking-[2px] text-xl">
-        <div class="language font-semibold text-gray3 cursor-pointer mr-4" :class="{ active: isEng }"
-          @click="isEng = true">
+        <div class="language font-semibold text-gray3 cursor-pointer mr-4" :class="{ active: !isVi}"
+          @click="setLanguage(false)">
           ENG
         </div>
-        <div class="language font-semibold text-gray3 cursor-pointer" :class="{ active: !isEng }"
-          @click="isEng = false">
+        <div class="language font-semibold text-gray3 cursor-pointer" :class="{ active: isVi }"
+          @click="setLanguage(true)">
           VN
         </div>
       </div>
@@ -86,16 +85,23 @@ export default {
 },
   data() {
     return {
-      listSection: [
-        "Welcome",
-        "We are Kyros",
-        "Our Pillars",
-        "Our Team",
-        "Contact us",
-      ],
       isOpenNav: false,
-      isEng: true,
     };
+  },
+  created() {
+    const isVi = JSON.parse(localStorage.getItem('isVi'))
+    if (isVi) {
+      this.$store.state.vi = isVi
+    }
+  },
+  computed: {
+    listSection() {
+      if (this.storeState.vi) {
+        return this.storeState.viContent.listSection
+      } else {
+        return this.storeState.enContent.listSection
+      }
+    }
   },
   methods: {
     openNavDialog() {
@@ -128,6 +134,10 @@ export default {
 
       this.isOpenNav = !this.openNavDialog;
     },
+    setLanguage(vi) {
+      this.$store.state.vi = vi;
+      localStorage.setItem('isVi', JSON.stringify(vi))
+    }
   },
 };
 </script>

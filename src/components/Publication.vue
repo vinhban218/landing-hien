@@ -7,7 +7,7 @@
 
     <div class="my-10 text-[#858585]">
       <p>
-        We provide institutional-grade research publications to report on all emerging trends within crypto.
+        {{publication.subTitle}}
       </p>
     </div>
 
@@ -16,7 +16,7 @@
       <div class="flex items-center mb-8">
         <img src="../../static/img/arrow-left.png" alt="arrow-left" class="w-[18px]" />
         <h5 class="font-bold text-[#ff0000] ml-[6px] text-2xl">
-          MARKET REPORT
+          {{publication.marketReport}}
         </h5>
       </div>
 
@@ -35,7 +35,7 @@
     <div class="flex items-center mb-8 mt-5">
       <img src="../../static/img/arrow-left.png" alt="arrow-left" class="w-[18px]" />
       <h5 class="font-bold text-[#ff0000] ml-[6px] text-2xl">
-        IN-DEPTH RESEARCH
+        {{publication.indepthResearch}}
       </h5>
     </div>
     <!-- bai bao nooi bat -->
@@ -115,6 +115,11 @@ export default {
           title: 'Episode 1: Explore the KryptoVerse with Zane and Jenny',
         },
       ]
+    }
+  },
+  computed: {
+    publication() {
+      return this.isVi ? this.viContent.publication : this.enContent.publication
     }
   }
 };

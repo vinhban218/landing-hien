@@ -46,6 +46,7 @@
     "simplex-noise": "^3.0.1",
     "three": "^0.139.2",
     "three-story-controls": "^1.0.5",
-    "vue": "^3.2.37"
+    "vue": "^3.2.37",
+    "vuex": "^4.0.2"
   }
 }

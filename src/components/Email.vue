@@ -1,22 +1,13 @@
 <template>
     <div class="email-section w-[100vw] h-[100vh] flex flex-col items-center">
-        <div class="email-content h-4/5 pb-[140px] hd:pb-[200px] flex flex-col justify-center items-center  zoom ">
+        <div class="email-content h-4/5 min-w-[70%] pb-[140px] hd:pb-[200px] flex flex-col justify-center items-center  zoom ">
             <p
+                v-html="emailTitle"
                 class="uppercase text-white text-center tracking-[3px] text-[74px] leading-[76px] laptop:text-[80px] hd:leading-[84px] font-bold">
-                let's seize <span class="text-stroke" style="--width: 2px"> this</span><br />
-                <span class="text-stroke" style="--width: 2px">opportunity</span> together.
             </p>
-            <!-- <a href="Mailto:contact@kyros.ventures" target="_blank"
-                class="flex justify-center items-center mt-3 laptop:mt-5">
-                <p class="uppercase font-thin text-gray3 mr-4 text-base hd:text-lg laptop:text-xl">email us</p>
-                <div>
-                    <img src="../../static/img/circle-arrow-right.png" class="w-6 hd:w-7 latop:w-8" alt="next" />
-                </div>
-            </a> -->
-
             <div class="flex justify-between mt-20 w-full">
                 <div>
-                    <p class="title">contact us</p>
+                    <p class="title">{{isVi ? 'Liên hệ' :'contact us'}}</p>
                     <a href="Mailto:contact@kyros.ventures" target="_blank" class="link-btn">
                         EMAIL
                     </a>
@@ -25,25 +16,25 @@
                 <div>
                     <p
                         class="title">
-                        subscribe to our newsletter
+                        {{isVi ? 'Theo dõi bản tin của chúng tôi' : 'subscribe to our newsletter'}}
                     </p>
                     <div class="flex mt-1">
                         <input type="email" v-model="email" :placeholder="placeHolder" autocomplete="off"
                             @input="isInvalid = false" @focusin="focusIn" @keyup.enter="validateEmail"
-                            class="w-full pl-2 py-1  rounded-l font-thin bg-transparent border-gray3 border border-r-0 text-gray3 placeholder:text-center placeholder:text-base focus:outline-none"
+                            class="w-full px-2 py-1 min-w-[340px]  rounded-l font-thin bg-transparent border-gray3 border border-r-0 text-gray3 placeholder:text-center placeholder:text-base focus:outline-none"
                             :class="{ invalid: isInvalid }" />
                         <button
-                            class="text-white px-1 bg-[red] rounded-r uppercase tracking-[2px] h-[42px] text-xl font-bold shrink-0"
+                            class="text-white min-w-[160px] px-3 bg-[red] rounded-r uppercase tracking-[2px] h-[42px] text-xl font-bold shrink-0"
                             :class="{ '!bg-green-500': isSubmit }" @click="validateEmail">
-                            {{ isSubmit ? "THANK YOU" : "subscribe" }}
+                            {{ buttonTitle }}
                         </button>
                     </div>
                 </div>
 
                 <div>
-                    <p class="title">JOIN OUR TEAM</p>
+                    <p class="title">{{isVi ? 'Tham gia Kyros' : 'JOIN OUR TEAM'}}</p>
                     <a href="https://careers.kyros.ventures/" target="_blank" class="link-btn">
-                        CARRERS
+                        {{isVi ? 'TUYỂN DỤNG' : 'CAREERS'}}
                     </a>
                 </div>
             </div>
@@ -81,9 +72,17 @@ export default {
     computed: {
         placeHolder() {
             return this.isSubmit
-                ? "YOU HAS SUCCESFULLY SUBCRIBED"
-                : "YOUR EMAIL HERE";
+                ? this.isVi ? 'Bạn đã đăng ký thành công' : "YOU HAS SUCCESSFULLY SUBSCRIBED"
+                : this.isVi ? 'Nhập email ở đây' : 'YOUR EMAIL HERE';
         },
+        emailTitle() {
+            return this.isVi ? this.viContent.emailTitle : this.enContent.emailTitle
+        },
+        buttonTitle() {
+            return this.isSubmit
+                ? this.isVi ?  "Cảm ơn" : 'THANK YOU'
+                : this.isVi ? 'Đăng ký' : 'subscribe';
+        }
     },
     methods: {
         submit() {
@@ -147,7 +146,6 @@ export default {
         height: 42px;
         padding: 0 20px;
         line-height: 42px;
-        display: block;
     }
 }
 

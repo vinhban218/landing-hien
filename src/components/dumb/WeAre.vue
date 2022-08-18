@@ -1,20 +1,18 @@
 <template>
-  <div
-    id="we-are"
-    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit mx-auto uppercase text-[54px] laptop:text-[64px] text-center text-white font-[900] leading-[66px] laptop:leading-[76px]"
-  >
-    we are the gateway of<br />
-    accessibility to
-    <span class="text-stroke" style="--width: 2px">vietnam</span>,<br />
-    <span class="text-stroke" style="--width: 2px"> the-fastest growing </span>
-    <br />
-    crypto market in the world.
+  <div id="we-are"
+    v-html="weAreContent"
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit mx-auto uppercase text-[54px] laptop:text-[64px] text-center text-white font-[900] leading-[66px] laptop:leading-[76px]">
   </div>
 </template>
 
 <script>
 export default {
   name: "WeAre",
+  computed: {
+    weAreContent() {
+      return this.storeState.vi ? this.storeState.viContent.weAre : this.storeState.enContent.weAre
+    }
+  }
 };
 </script>
 

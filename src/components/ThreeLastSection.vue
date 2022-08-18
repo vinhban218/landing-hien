@@ -1,30 +1,19 @@
 <template>
   <div id="three-last-sections" class="fixed w-full top-[100%] left-0 z-[100]">
     <!-- hightlight pj -->
-    <div
-      id="highlight-pj"
-      class="w-full title fixed top-6 flex justify-center items-center font-bold text-white text-medium laptop:text-large uppercase tracking-[4px]"
-    >
-      <img
-        src="../../static/img/arrow-left.png"
-        alt="arrow-left"
-        class="w-[42px] laptop:w-[50px] mr-1"
-      />
-      <div>
-        highlighted <span class="text-stroke font-[900]">project</span>
+    <div id="highlight-pj"
+      class="w-full title fixed top-6 flex justify-center items-center font-bold text-white text-medium laptop:text-large uppercase tracking-[4px]">
+      <img src="../../static/img/arrow-left.png" alt="arrow-left" class="w-[42px] laptop:w-[50px] mr-1" />
+      <div v-html="highlightedProject">
+
       </div>
     </div>
     <!-- media -->
     <div
-      class="media-title top-6 flex justify-center items-center text-medium laptop:text-large tracking-[6px] text-[red]"
-    >
-      <img
-        src="../../static/img/arrow-left.png"
-        alt="arrow-left"
-        class="w-[50px] laptop:w-[64px] mr-1"
-      />
+      class="media-title uppercase top-6 flex justify-center items-center text-medium laptop:text-large tracking-[6px] text-[red]">
+      <img src="../../static/img/arrow-left.png" alt="arrow-left" class="w-[50px] laptop:w-[64px] mr-1" />
       <div class="uppercase text-stroke font-[900]" style="--width: 2.5px">
-        Media
+        {{isVi ? 'Truyền thông' :'media'}}
       </div>
     </div>
 
@@ -60,6 +49,11 @@ export default {
     Ancient8PJ,
   },
   name: "ThreeLastSection",
+  computed: {
+    highlightedProject() {
+      return this.isVi ? this.viContent.highlightedProject : this.viContent.highlightedProject
+    }
+  }
 };
 </script>
 
@@ -68,6 +62,7 @@ export default {
   opacity: 0;
   filter: blur(40px);
   white-space: nowrap;
+
   &.title {
     width: fit-content;
     left: 50%;
