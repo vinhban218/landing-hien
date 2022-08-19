@@ -1,13 +1,12 @@
 export const vi = {
     listFacts: [
-        "Việt Nam là quốc gia dẫn đầu về chỉ số tiếp nhận tiền mã hóa toàn cầu, theo Chainalysis.",
-        "Việt Nam xếp hạng 1 về mức độ tiếp nhận tiền mã hóa, theo khảo sát của Finder.",
-        "Chanalysis báo cáo về mức độ tiếp nhận DeFi chỉ ra rằng Việt Nam đứng thứ 2, chỉ sau Hoa Kỳ.",
-        "Việt Nam là quốc gia có số lượng người dùng ví Metamask hàng tháng lớn thứ 3 toàn cầu",
+        "Việt Nam đứng đầu thế giới về mức độ tiếp nhận tiền mã hóa trong năm 2021, theo nghiên cứu từ cả Chainalysis và Finder.",
+        "Về mức độ tiếp nhận DeFi, Việt Nam xếp hạng 2 toàn cầu, chỉ sau Hoa Kỳ.",
+        "Việt Nam là quốc gia có số lượng người dùng ví Metamask hoạt động hàng tháng cao thứ 3 thế giới.",
         "Thành lập vào năm 2016, Coin68 hiện là tổ chức truyền thông về tiền mã hóa lớn nhất Việt Nam.",
         "Coin68.com đã có hơn 15.000 bài viết và đưa tin đế hàng triệu độc giả.",
         "Kyros Ventures cung cấp báo cáo thị trường định kỳ cùng các bài viết nghiên cứu chuyên sâu hàng tuần.",
-        "Coin68 và Kyros Ventures thực hiện khảo sát thị trường tiền mã hóa lớn nhất Việt Nam.",
+        "Mỗi 6 tháng, Coin68 và Kyros Ventures thực hiện cuộc khảo sát quy mô nhất Việt Nam về thị trường tiền mã hóa.",
     ],
     listSection: [
         "Xin chào",
@@ -16,26 +15,26 @@ export const vi = {
         'Đội ngũ',
         'Liên hệ',
     ],
-    nurture: `Chúng tôi ươm mầm<br> <span class="text-stroke" style="--width: 2px">các đội ngũ tài năng</span><br />
+    nurture: `Chúng tôi ươm mầm <br>
+            các <span class="text-stroke" style="--width: 2px">đội ngũ tài năng</span><br />
             để thúc đẩy<span class="text-stroke" style="--width: 2px"> làn sóng đổi mới</span> <br>
             blockchain tiếp theo.`,
     weAre: `chúng tôi là cánh cửa<br />
-            khả năng tiếp cận <span class="text-stroke" style="--width: 2px">Việt Nam</span>,<br />
+            để tiếp cận <span class="text-stroke" style="--width: 2px">VIỆT NAM</span>,<br />
             thị trường tiền điện tử<br />
-            nhanh nhất thế giới`,
-    ourPillarTitle: 'CÁC <span class="text-stroke font-[900]" style="--width: 2px">TRỤ CỘT</span>',
+            <span class="text-stroke" style="--width: 2px">phát triển nhanh nhất</span> thế giới`,
+    ourPillarTitle: 'CÁC <span class="text-stroke font-extrabold" style="--width: 2px">TRỤ CỘT</span>',
     network: `<div class="mb-5">
-                Chúng tôi tận dụng mạng lưới tiền mã hoá lớn nhất tại <span class="underline highlight"><a href="https://vcmr.kyros.ventures/h1-2022-en/" target="_blank">VIỆT NAM</a></span>
-                của mình, để giúp các dự án tiếp cận một trong những thị trường năng động nhất trên thế giới.
+                Với mạng lưới đối tác tiền mã hóa phủ sóng rộng nhất <span class="underline highlight"><a href="https://vcmr.kyros.ventures/h1-2022-en/" target="_blank">VIỆT NAM</a></span>,
+                chúng tôi có thể dễ dàng giúp dự án tiếp cận đến một trong những thị trường năng động nhất trên thế giới.
                 <br> 
               </div>
             <div class="mt-5">
-                Thị trường Việt Nam đi đầu trong đổi mới blockchain, tiên phong cho kỷ nguyên công nghệ mới.
+              Việt Nam được đánh giá là quốc gia đi đầu về tiến bộ blockchain, tiên phong trong trào lưu công nghệ mới.
             </div>`,
     incubationContent: `<div>
-                            Chúng tôi ươm mầm <span class="highlight">các đội ngũ tài năng</span> với những cá nhân xuất chúng,
-                            đồng thời cung cấp cho họ những công cụ và nguồn lực cần thiết
-                            <span class="highlight">để tạo ra tác động lâu dài.</span>
+                            Chúng tôi ươm mầm những <span class="highlight">đội ngũ tài năng</span> với nhiều cá nhân xuất chúng, đồng thời cung cấp cho họ các công cụ và nguồn lực cần thiết để 
+                            <span class="highlight">kiến tạo giải pháp bền vững</span> cho xã hội.
                         </div>`,
                         
     cyballPJ: [
@@ -72,7 +71,7 @@ export const vi = {
     },
     emailTitle: `Hãy cùng nhau<br />
                 <span class="text-stroke" style="--width: 2px">nắm lấy cơ hội này.</span>`,
-    highlightedProject: `DỰ ÁN <span class="text-stroke font-[900]">NỔI BẬT</span>`,
+    highlightedProject: `DỰ ÁN <span class="text-stroke font-extrabold">NỔI BẬT</span>`,
     portfolioPartners: `<span class="text-white none-stroke">DANH MỤC</span> & ĐỐI TÁC`,
     listLogos: [
         {

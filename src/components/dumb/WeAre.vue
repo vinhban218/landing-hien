@@ -1,7 +1,7 @@
 <template>
   <div id="we-are"
     v-html="weAreContent"
-    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit mx-auto uppercase text-[54px] laptop:text-[64px] text-center text-white font-[900] leading-[66px] laptop:leading-[76px]">
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-fit mx-auto uppercase text-[54px] laptop:text-[64px] text-center text-white font-extrabold leading-[66px] laptop:leading-[76px]">
   </div>
 </template>
 

@@ -12,7 +12,7 @@
     <div
       class="media-title uppercase top-6 flex justify-center items-center text-medium laptop:text-large tracking-[6px] text-[red]">
       <img src="../../static/img/arrow-left.png" alt="arrow-left" class="w-[50px] laptop:w-[64px] mr-1" />
-      <div class="uppercase text-stroke font-[900]" style="--width: 2.5px">
+      <div class="uppercase text-stroke font-extrabold" style="--width: 2.5px">
         {{isVi ? 'Truyền thông' :'media'}}
       </div>
     </div>
@@ -51,7 +51,7 @@ export default {
   name: "ThreeLastSection",
   computed: {
     highlightedProject() {
-      return this.isVi ? this.viContent.highlightedProject : this.viContent.highlightedProject
+      return this.isVi ? this.viContent.highlightedProject : this.enContent.highlightedProject
     }
   }
 };

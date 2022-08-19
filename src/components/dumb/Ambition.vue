@@ -9,7 +9,7 @@
         alt="arrow-left"
         class="w-[54px] mr-5"
       />
-      <div class="text-stroke text-[72px] font-[900] tracking-[8px]">
+      <div class="text-stroke text-[72px] font-extrabold tracking-[8px]">
         Ambition
       </div>
     </div>

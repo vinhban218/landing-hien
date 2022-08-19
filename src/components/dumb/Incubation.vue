@@ -9,7 +9,7 @@
         alt="arrow-left"
         class="w-14 mr-4 laptop:w-16 laptop:mr-5"
       />
-      <h3 class="text-stroke text-[80px] laptop:text-[90px] font-[900] tracking-[8px]">
+      <h3 class="text-stroke text-[80px] laptop:text-[90px] font-extrabold tracking-[8px]">
         {{isVi ?  'Đầu tư' : 'incubation'}}
       </h3>
     </div>

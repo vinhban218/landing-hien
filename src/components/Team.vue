@@ -3,7 +3,7 @@
         <div class="w-[40%] pr-[144px]">
             <div class="flex items-center justify-end">
                 <img src="../../static/img/arrow-left.png" alt="arrow-left" class="w-[50px]" />
-                <div class="team-title ml-4 text-[60px] laptop:text-[72px] font-[900]">
+                <div class="team-title ml-4 text-[60px] laptop:text-[72px] font-extrabold">
                     TEAM
                 </div>
             </div>
@@ -21,7 +21,7 @@
                         <div v-if="index === currentIndex"
                             class="absolute fade-in-ani top-0 left-[calc(100%+64px)] h-full w-[500px] flex flex-col justify-center uppercase text-[#dddddd] z-[100]">
                             <div class="text-[26px] tracking-[3px]">{{ item.position }}</div>
-                            <div class="my-2 text-[40px] tracking-[5px] leading-[46px] font-[900]" v-html="item.name">
+                            <div class="my-2 text-[40px] tracking-[5px] leading-[46px] font-extrabold" v-html="item.name">
                             </div>
                             <div class="team-description relative text-gray3 normal-case">
                                 <!-- link -->
@@ -127,7 +127,8 @@ export default {
     -webkit-text-stroke: 2.5px red;
     color: transparent;
     letter-spacing: 6px;
-    font-family: Arial, Helvetica, sans-serif;
+    // font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Helvetica, sans-serif;
+    font-family: system-ui, sans-serif;;
 
     position: relative;
 

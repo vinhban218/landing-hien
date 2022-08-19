@@ -3,7 +3,7 @@
     <div id="portfolio" class="text-center mt-8 mx-auto">
       <div class="flex items-center justify-center">
         <img src="../../static/img/arrow-left.png" alt="arrow-left" class="w-[50px]" />
-        <div v-html="portfolioPartners" class="team-title ml-4 text-[60px] laptop:text-[72px] font-[900]">
+        <div v-html="portfolioPartners" class="team-title ml-4 text-[60px] laptop:text-[72px] font-extrabold">
         </div>
       </div>
     </div>

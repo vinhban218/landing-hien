@@ -2,7 +2,7 @@
   <div class="mt-10 mx-auto w-[1040px] laptop:w-[1200px]">
     <div class="publication-title flex items-center">
       <img src="../../static/img/arrow-left.png" alt="arrow-left" class="w-[50px]" />
-      <h3 class="text-[72px] laptop:text-[80px] ml-4 font-[900]">RESEARCH</h3>
+      <h3 class="text-[72px] laptop:text-[80px] ml-4 font-extrabold">RESEARCH</h3>
     </div>
 
     <div class="my-10 text-[#858585]">
@@ -132,7 +132,9 @@ export default {
   letter-spacing: 6px;
 
   h3 {
-    font-family: Arial, Helvetica, sans-serif;
+    // font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Helvetica, sans-serif;
+    font-family: system-ui, sans-serif;;
+    font-weight: 800;
   }
   position: relative;
 

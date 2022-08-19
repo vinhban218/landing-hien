@@ -8,7 +8,7 @@
         </div>
 
         <div
-          class="text-[50px] laptop:text-6xl mt-2 mb-4 laptop:mt-3 laptop:mb-5 uppercase font-[900] tracking-[4px] text-white">
+          class="text-[50px] laptop:text-6xl mt-2 mb-4 laptop:mt-3 laptop:mb-5 uppercase font-extrabold tracking-[4px] text-white">
           Cyball
         </div>
 
@@ -31,7 +31,7 @@
           </div>
 
           <a class="flex items-center ml-5 mt-2" target="_blank" href="https://cyball.com/">
-            <div class="uppercase text-base laptop:text-lg text-gray3 font-[900] tracking-wide mr-2">
+            <div class="uppercase text-base laptop:text-lg text-gray3 font-extrabold tracking-wide mr-2">
               {{isVi ? 'ĐẾN TRANG CHỦ' : 'HEAD TO SITE'}}
             </div>
             <img src="../../../static/img/circle-arrow-right.png" alt="arrow-left" class="w-4 mr-1" />

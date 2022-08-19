@@ -25,7 +25,7 @@ export const en = {
     <span class="text-stroke" style="--width: 2px"> the-fastest growing </span>
     <br />
     crypto market in the world.`,
-    ourPillarTitle: 'our <span class="text-stroke font-[900]" style="--width: 2px">pillars</span>',
+    ourPillarTitle: 'our <span class="text-stroke font-extrabold" style="--width: 2px">pillars</span>',
     network: `<div class="mb-5">
                 We leverage the largest crypto network in <span class="underline highlight"><a href="https://vcmr.kyros.ventures/h1-2022-en/" target="_blank">VIETNAM</a></span>, to help projects access one of the most dynamic markets in the world.
             </div>
@@ -68,7 +68,7 @@ export const en = {
     },
     emailTitle: `let's seize <span class="text-stroke" style="--width: 2px"> this</span><br />
                 <span class="text-stroke" style="--width: 2px">opportunity</span> together.`,
-    highlightedProject: `highlighted <span class="text-stroke font-[900]">project</span>`,
+    highlightedProject: `highlighted <span class="text-stroke font-extrabold">project</span>`,
     portfolioPartners: `<span class="text-white none-stroke">PORTFOLIO</span> & PARTNER`,
     listLogos: [
         {

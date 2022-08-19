@@ -3,7 +3,7 @@
         <div class="email-content h-4/5 min-w-[70%] pb-[140px] hd:pb-[200px] flex flex-col justify-center items-center  zoom ">
             <p
                 v-html="emailTitle"
-                class="uppercase text-white text-center tracking-[3px] text-[74px] leading-[76px] laptop:text-[80px] hd:leading-[84px] font-bold">
+                class="uppercase text-white text-center tracking-[3px] text-[74px] leading-[80px] laptop:text-[80px] hd:leading-[86px] font-extrabold">
             </p>
             <div class="flex justify-between mt-20 w-full">
                 <div>
@@ -72,7 +72,7 @@ export default {
     computed: {
         placeHolder() {
             return this.isSubmit
-                ? this.isVi ? 'Bạn đã đăng ký thành công' : "YOU HAS SUCCESSFULLY SUBSCRIBED"
+                ? this.isVi ? 'Bạn đã đăng ký thành công' : "YOU HAVE SUCCESSFULLY SUBSCRIBED"  
                 : this.isVi ? 'Nhập email ở đây' : 'YOUR EMAIL HERE';
         },
         emailTitle() {
